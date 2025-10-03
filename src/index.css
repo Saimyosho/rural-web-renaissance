@@ -160,3 +160,8 @@ All colors MUST be HSL.
     transform: perspective(1000px) rotateX(2deg) rotateY(5deg) scale(1.02);
   }
 }
+
+@layer utilities {
+  .shadow-elegant { box-shadow: var(--shadow-elegant); }
+  .shadow-glow { box-shadow: var(--shadow-glow); }
+}
