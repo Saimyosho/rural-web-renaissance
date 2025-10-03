@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Mail, MapPin, Send } from "lucide-react";
+import { Mail, MapPin, Send, Phone } from "lucide-react";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
@@ -81,7 +81,7 @@ const Contact = () => {
                   </div>
                   <div>
                     <div className="font-semibold mb-1">Email</div>
-                    <div className="text-sm text-muted-foreground">sheldon@example.com</div>
+                    <div className="text-sm text-muted-foreground">SheldonGunby@icloud.com</div>
                   </div>
                 </div>
 
@@ -191,3 +191,4 @@ const Contact = () => {
 };
 
 export default Contact;
+
