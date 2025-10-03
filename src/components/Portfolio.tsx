@@ -4,44 +4,34 @@ import { Button } from "./ui/button";
 const Portfolio = () => {
   const projects = [
     {
-      title: "The House of Smoke",
-      category: "On-Site Catering",
-      description: "Immersive website for premium BBQ catering service with sophisticated design and visual storytelling.",
+      title: "Horn Barbecue",
+      category: "Restaurant & Catering",
+      description: "Award-winning BBQ restaurant website featuring online ordering, catering services, and brand storytelling.",
       image: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=800&auto=format&fit=crop&q=80",
-      tags: ["React", "Animations", "Visual Design"],
+      tags: ["E-commerce", "Branding", "Ordering System"],
       size: "large",
+      link: "https://www.hornbarbecue.com/",
+      favicon: "/favicons/horn-favicon.ico",
     },
     {
-      title: "Local Contractor Pro",
-      category: "Home Services",
-      description: "Modern showcase for construction and renovation services with project gallery.",
-      image: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&auto=format&fit=crop&q=80",
-      tags: ["Next.js", "Portfolio", "SEO"],
+      title: "Base44",
+      category: "Technology & Digital",
+      description: "Modern digital agency website showcasing services, team, and innovative solutions with clean design.",
+      image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&auto=format&fit=crop&q=80",
+      tags: ["React", "Corporate", "Responsive"],
       size: "medium",
+      link: "https://base44.com/about-us",
+      favicon: "/favicons/base44-favicon.ico",
     },
     {
-      title: "Rural Healthcare",
-      category: "Medical Practice",
-      description: "Accessible, HIPAA-compliant website for local medical practice with appointment booking.",
-      image: "https://images.unsplash.com/photo-1538108149393-fbbd81895907?w=800&auto=format&fit=crop&q=80",
-      tags: ["Vue", "Security", "Forms"],
+      title: "Axiom.ai",
+      category: "AI & Automation",
+      description: "Cutting-edge AI automation platform with sophisticated interface and powerful browser automation tools.",
+      image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&auto=format&fit=crop&q=80",
+      tags: ["AI", "SaaS", "Automation"],
       size: "medium",
-    },
-    {
-      title: "Farm Fresh Market",
-      category: "Agriculture",
-      description: "E-commerce platform for local farm products with delivery scheduling.",
-      image: "https://images.unsplash.com/photo-1488459716781-31db52582fe9?w=800&auto=format&fit=crop&q=80",
-      tags: ["E-commerce", "Booking", "Responsive"],
-      size: "small",
-    },
-    {
-      title: "Mountain Adventure Tours",
-      category: "Tourism",
-      description: "Dynamic booking system for outdoor adventure experiences in Pennsylvania mountains.",
-      image: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800&auto=format&fit=crop&q=80",
-      tags: ["Booking", "Gallery", "Mobile"],
-      size: "small",
+      link: "https://axiom.ai/",
+      favicon: "/favicons/axiom-favicon.ico",
     },
   ];
 
@@ -77,6 +67,7 @@ const Portfolio = () => {
                     <Button
                       variant="outline"
                       className="glass-strong border-primary text-primary hover:bg-primary hover:text-primary-foreground"
+                      onClick={() => window.open(project.link, '_blank')}
                     >
                       View Project <ExternalLink className="w-4 h-4 ml-2" />
                     </Button>
@@ -84,7 +75,16 @@ const Portfolio = () => {
                 </div>
                 <div className="p-6">
                   <div className="text-sm text-primary font-semibold mb-2">{project.category}</div>
-                  <h3 className="text-2xl font-bold mb-3">{project.title}</h3>
+                  <div className="flex items-center gap-3 mb-3">
+                    {project.favicon && (
+                      <img 
+                        src={project.favicon} 
+                        alt={`${project.title} favicon`}
+                        className="w-6 h-6 object-contain"
+                      />
+                    )}
+                    <h3 className="text-2xl font-bold">{project.title}</h3>
+                  </div>
                   <p className="text-muted-foreground mb-4">{project.description}</p>
                   <div className="flex flex-wrap gap-2">
                     {project.tags.map((tag, tagIndex) => (
