@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Mail, MapPin, Send, Phone, Sparkles } from "lucide-react";
+import { Mail, MapPin, Send, Phone, Sparkles, Facebook, Instagram, Linkedin, Github } from "lucide-react";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
@@ -142,11 +142,52 @@ ${formData.message}`;
               </div>
 
               <div className="glass-strong rounded-2xl p-6">
-                <p className="text-sm text-muted-foreground leading-relaxed">
+                <p className="text-sm text-muted-foreground leading-relaxed mb-6">
                   <span className="text-foreground font-semibold">Free for portfolio building.</span> Tips appreciated
                   but never required. I keep showcase rights to display your project. Limited availability - taking 3-5
                   projects initially.
                 </p>
+                <div className="pt-6 border-t border-border/50">
+                  <h4 className="font-semibold mb-3 text-sm">Connect With Me</h4>
+                  <div className="flex gap-3">
+                    <a
+                      href="https://www.facebook.com/SheldonGunby/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="p-3 rounded-xl glass hover:bg-primary/10 transition-all hover:scale-110 hover:shadow-glow"
+                      aria-label="Facebook"
+                    >
+                      <Facebook className="w-5 h-5" />
+                    </a>
+                    <a
+                      href="https://www.instagram.com/dachiz/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="p-3 rounded-xl glass hover:bg-primary/10 transition-all hover:scale-110 hover:shadow-glow"
+                      aria-label="Instagram"
+                    >
+                      <Instagram className="w-5 h-5" />
+                    </a>
+                    <a
+                      href="https://www.linkedin.com/in/sheldongunby/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="p-3 rounded-xl glass hover:bg-primary/10 transition-all hover:scale-110 hover:shadow-glow"
+                      aria-label="LinkedIn"
+                    >
+                      <Linkedin className="w-5 h-5" />
+                    </a>
+                    <a
+                      href="https://github.com/Saimyosho"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="p-3 rounded-xl glass hover:bg-primary/10 transition-all hover:scale-110 hover:shadow-glow"
+                      aria-label="GitHub"
+                    >
+                      <Github className="w-5 h-5" />
+                    </a>
+                  </div>
+                </div>
               </div>
             </div>
 
