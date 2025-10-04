@@ -248,6 +248,187 @@ const HeroShowcase = () => {
         </div>
       ),
     },
+    {
+      id: "glassmorphic",
+      title: "Glassmorphic Hero",
+      description: "Modern frosted glass effect with depth (Apple-style)",
+      component: (
+        <div className="relative h-full rounded-xl overflow-hidden">
+          {/* Colorful background */}
+          <div className="absolute inset-0 bg-gradient-to-br from-cyan-500 via-blue-500 to-purple-600" />
+          
+          {/* Floating orbs */}
+          <motion.div
+            className="absolute top-10 right-10 w-32 h-32 rounded-full bg-pink-400/50 blur-2xl"
+            animate={{ y: [0, 20, 0], scale: [1, 1.1, 1] }}
+            transition={{ duration: 4, repeat: Infinity }}
+          />
+          <motion.div
+            className="absolute bottom-10 left-10 w-40 h-40 rounded-full bg-yellow-400/40 blur-2xl"
+            animate={{ y: [0, -15, 0], scale: [1, 1.15, 1] }}
+            transition={{ duration: 5, repeat: Infinity }}
+          />
+          
+          {/* Glass card */}
+          <div className="relative z-10 h-full flex items-center justify-center p-8">
+            <div className="glass-strong rounded-3xl p-8 max-w-md backdrop-blur-2xl bg-white/10 border border-white/20 shadow-2xl">
+              <h1 className="text-3xl font-bold text-white mb-3">
+                Glassmorphism
+              </h1>
+              <p className="text-white/90 text-sm mb-6">
+                Frosted glass effect popular in iOS and modern design systems
+              </p>
+              <button className="px-6 py-2 rounded-full bg-white/20 backdrop-blur-sm text-white font-semibold border border-white/30 hover:bg-white/30 transition-all">
+                Get Started
+              </button>
+            </div>
+          </div>
+        </div>
+      ),
+    },
+    {
+      id: "particle-system",
+      title: "Particle Animation",
+      description: "Dynamic particle effects and floating elements",
+      component: (
+        <div className="relative h-full rounded-xl overflow-hidden bg-gradient-to-br from-indigo-900 to-purple-900">
+          {/* Animated particles */}
+          {[...Array(8)].map((_, i) => (
+            <motion.div
+              key={i}
+              className="absolute w-2 h-2 rounded-full bg-white/60"
+              style={{
+                left: `${(i * 12) % 90}%`,
+                top: `${(i * 15) % 80}%`,
+              }}
+              animate={{
+                y: [0, -30, 0],
+                x: [0, Math.sin(i) * 20, 0],
+                opacity: [0.3, 1, 0.3],
+              }}
+              transition={{
+                duration: 3 + i * 0.5,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+            />
+          ))}
+          
+          {/* Content */}
+          <div className="relative z-10 h-full flex flex-col items-center justify-center text-center p-8 text-white">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1 }}
+            >
+              <Sparkles className="w-12 h-12 mx-auto mb-4 text-cyan-300" />
+              <h1 className="text-3xl font-bold mb-2">
+                Particle Magic
+              </h1>
+              <p className="text-sm text-white/80">
+                Floating particles create dynamic, engaging backgrounds
+              </p>
+            </motion.div>
+          </div>
+        </div>
+      ),
+    },
+    {
+      id: "3d-perspective",
+      title: "3D Perspective Hero",
+      description: "Depth and parallax with 3D transforms",
+      component: (
+        <div className="relative h-full rounded-xl overflow-hidden bg-gradient-to-br from-slate-900 to-slate-700">
+          <div className="relative h-full flex items-center justify-center p-8" style={{ perspective: "1000px" }}>
+            {/* Background layers */}
+            <motion.div
+              className="absolute inset-0 opacity-20"
+              animate={{ rotateY: [0, 10, 0], rotateX: [0, 5, 0] }}
+              transition={{ duration: 8, repeat: Infinity }}
+              style={{ transformStyle: "preserve-3d" }}
+            >
+              <div className="absolute top-1/4 left-1/4 w-32 h-32 rounded-2xl bg-gradient-to-br from-blue-500 to-cyan-500" style={{ transform: "translateZ(50px)" }} />
+              <div className="absolute bottom-1/4 right-1/4 w-24 h-24 rounded-2xl bg-gradient-to-br from-purple-500 to-pink-500" style={{ transform: "translateZ(30px)" }} />
+            </motion.div>
+            
+            {/* Content */}
+            <motion.div
+              className="relative z-10 text-center text-white"
+              animate={{ rotateY: [0, -5, 0] }}
+              transition={{ duration: 6, repeat: Infinity }}
+              style={{ transformStyle: "preserve-3d", transform: "translateZ(100px)" }}
+            >
+              <h1 className="text-4xl font-bold mb-3">
+                3D Depth
+              </h1>
+              <p className="text-sm text-white/90">
+                Layers with perspective create immersive experiences
+              </p>
+            </motion.div>
+          </div>
+        </div>
+      ),
+    },
+    {
+      id: "morphing-shapes",
+      title: "Morphing Shapes",
+      description: "Organic shapes that morph and transform",
+      component: (
+        <div className="relative h-full rounded-xl overflow-hidden bg-gradient-to-br from-rose-400 via-fuchsia-500 to-indigo-600">
+          {/* Morphing blob */}
+          <motion.div
+            className="absolute top-1/4 left-1/4 w-40 h-40 opacity-30"
+            style={{
+              background: "linear-gradient(45deg, #fff, #ffeb3b)",
+              filter: "blur(40px)",
+            }}
+            animate={{
+              borderRadius: [
+                "60% 40% 30% 70% / 60% 30% 70% 40%",
+                "30% 60% 70% 40% / 50% 60% 30% 60%",
+                "60% 40% 30% 70% / 60% 30% 70% 40%",
+              ],
+              rotate: [0, 120, 0],
+              scale: [1, 1.2, 1],
+            }}
+            transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+          />
+          
+          <motion.div
+            className="absolute bottom-1/4 right-1/4 w-48 h-48 opacity-30"
+            style={{
+              background: "linear-gradient(225deg, #4ade80, #06b6d4)",
+              filter: "blur(40px)",
+            }}
+            animate={{
+              borderRadius: [
+                "30% 70% 70% 30% / 30% 30% 70% 70%",
+                "70% 30% 30% 70% / 70% 70% 30% 30%",
+                "30% 70% 70% 30% / 30% 30% 70% 70%",
+              ],
+              rotate: [0, -120, 0],
+              scale: [1, 1.15, 1],
+            }}
+            transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+          />
+          
+          {/* Content */}
+          <div className="relative z-10 h-full flex items-center justify-center text-center p-8 text-white">
+            <div>
+              <h1 className="text-3xl font-bold mb-3">
+                Organic Motion
+              </h1>
+              <p className="text-sm text-white/90 mb-4">
+                Fluid, morphing shapes create visual interest
+              </p>
+              <button className="px-6 py-2 rounded-full bg-white/20 backdrop-blur-sm text-white font-semibold border border-white/30 hover:bg-white/30 transition-all">
+                Explore
+              </button>
+            </div>
+          </div>
+        </div>
+      ),
+    },
   ];
 
   return (
