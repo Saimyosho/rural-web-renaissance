@@ -1,4 +1,4 @@
-import { Heart, Facebook, Instagram, Linkedin, Github } from "lucide-react";
+import { Heart, Facebook, Instagram, Linkedin, Github, Coffee } from "lucide-react";
 import { useState } from "react";
 import TermsOfService from "./TermsOfService";
 
@@ -53,7 +53,7 @@ const Footer = () => {
             </div>
 
             <div>
-              <h4 className="font-semibold mb-4">Connect</h4>
+              <h4 className="font-semibold mb-4">Connect & Support</h4>
               <div className="flex gap-4 mb-4">
                 <a
                   href="https://www.facebook.com/SheldonGunby/"
@@ -103,6 +103,15 @@ const Footer = () => {
                   </svg>
                 </a>
               </div>
+              <a
+                href="https://buymeacoffee.com/saimyosho"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-gradient-to-r from-yellow-500 to-orange-500 text-white font-semibold hover:shadow-glow transition-all hover:scale-105 mb-4"
+              >
+                <Coffee className="w-4 h-4" />
+                <span className="text-sm">Buy Me a Coffee</span>
+              </a>
               <p className="text-sm text-muted-foreground">
                 Ferndale, PA • Serving Johnstown Area
               </p>

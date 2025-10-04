@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Mail, MapPin, Send, Phone, Sparkles, Facebook, Instagram, Linkedin, Github } from "lucide-react";
+import { Mail, MapPin, Send, Phone, Sparkles, Facebook, Instagram, Linkedin, Github, Coffee } from "lucide-react";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
@@ -147,6 +147,17 @@ ${formData.message}`;
                   but never required. I keep showcase rights to display your project. Limited availability - taking 3-5
                   projects initially.
                 </p>
+                
+                <a
+                  href="https://buymeacoffee.com/saimyosho"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-yellow-500 to-orange-500 text-white font-semibold hover:shadow-glow transition-all hover:scale-105 mb-6 w-full justify-center"
+                >
+                  <Coffee className="w-5 h-5" />
+                  <span>Buy Me a Coffee ☕</span>
+                </a>
+
                 <div className="pt-6 border-t border-border/50">
                   <h4 className="font-semibold mb-3 text-sm">Connect With Me</h4>
                   <div className="flex gap-3">
