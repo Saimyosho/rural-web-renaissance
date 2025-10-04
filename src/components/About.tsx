@@ -193,6 +193,9 @@ const About = () => {
                   Every website I build meets <span className="text-accent font-semibold">award competition standards</span> - Webby Awards, Awwwards, CSS Design Awards. You get something that looks like you paid $10k+, completely free as I build my portfolio.
                 </p>
                 <p className="text-muted-foreground leading-relaxed">
+                  <span className="text-foreground font-semibold">What I need from you:</span> Share 2+ websites you love for design inspiration. This helps me understand your vision and create something that matches your aesthetic perfectly.
+                </p>
+                <p className="text-muted-foreground leading-relaxed">
                   Tips appreciated but never required. Your success story becomes part of my showcase.
                 </p>
               </motion.div>

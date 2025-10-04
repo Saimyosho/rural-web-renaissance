@@ -11,6 +11,8 @@ const Contact = () => {
     name: "",
     email: "",
     business: "",
+    inspiration1: "",
+    inspiration2: "",
     message: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -23,6 +25,8 @@ const Contact = () => {
     const emailBody = `Name: ${formData.name}
 Email: ${formData.email}
 Business: ${formData.business || 'Not provided'}
+Inspiration Website 1: ${formData.inspiration1 || 'Not provided'}
+Inspiration Website 2: ${formData.inspiration2 || 'Not provided'}
 
 Message:
 ${formData.message}`;
@@ -41,7 +45,7 @@ ${formData.message}`;
       description: "Your message has been prepared. Please send the email to complete your request!",
     });
 
-    setFormData({ name: "", email: "", business: "", message: "" });
+    setFormData({ name: "", email: "", business: "", inspiration1: "", inspiration2: "", message: "" });
     setIsSubmitting(false);
   };
 
@@ -180,6 +184,40 @@ ${formData.message}`;
                     className="glass border-primary/30 focus:border-primary"
                     placeholder="Your Business LLC"
                   />
+                </div>
+
+                <div>
+                  <label htmlFor="inspiration1" className="block text-sm font-semibold mb-2">
+                    Inspiration Website #1 * <span className="text-xs text-muted-foreground font-normal">(Required)</span>
+                  </label>
+                  <Input
+                    id="inspiration1"
+                    name="inspiration1"
+                    type="url"
+                    value={formData.inspiration1}
+                    onChange={handleChange}
+                    required
+                    className="glass border-primary/30 focus:border-primary"
+                    placeholder="https://example-site-you-like.com"
+                  />
+                  <p className="text-xs text-muted-foreground mt-1">Share a website whose design or features you admire</p>
+                </div>
+
+                <div>
+                  <label htmlFor="inspiration2" className="block text-sm font-semibold mb-2">
+                    Inspiration Website #2 * <span className="text-xs text-muted-foreground font-normal">(Required)</span>
+                  </label>
+                  <Input
+                    id="inspiration2"
+                    name="inspiration2"
+                    type="url"
+                    value={formData.inspiration2}
+                    onChange={handleChange}
+                    required
+                    className="glass border-primary/30 focus:border-primary"
+                    placeholder="https://another-example-site.com"
+                  />
+                  <p className="text-xs text-muted-foreground mt-1">Share another website for style/feature reference</p>
                 </div>
 
                 <div>
