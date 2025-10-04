@@ -1,7 +1,10 @@
 import { Heart } from "lucide-react";
+import { useState } from "react";
+import TermsOfService from "./TermsOfService";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
+  const [showTerms, setShowTerms] = useState(false);
 
   return (
     <footer className="py-12 border-t border-border/50">
@@ -38,6 +41,14 @@ const Footer = () => {
                     Contact
                   </a>
                 </li>
+                <li>
+                  <button 
+                    onClick={() => setShowTerms(true)}
+                    className="hover:text-primary transition-colors text-left"
+                  >
+                    Terms of Service
+                  </button>
+                </li>
               </ul>
             </div>
 
@@ -61,6 +72,8 @@ const Footer = () => {
           </div>
         </div>
       </div>
+
+      <TermsOfService isOpen={showTerms} onClose={() => setShowTerms(false)} />
     </footer>
   );
 };
