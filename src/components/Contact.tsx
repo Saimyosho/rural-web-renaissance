@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Mail, MapPin, Send } from "lucide-react";
+import { Mail, MapPin, Send, Phone } from "lucide-react";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
@@ -19,12 +19,26 @@ const Contact = () => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Simulate form submission
-    await new Promise((resolve) => setTimeout(resolve, 1500));
+    // Create email body with form data
+    const emailBody = `Name: ${formData.name}
+Email: ${formData.email}
+Business: ${formData.business || 'Not provided'}
+
+Message:
+${formData.message}`;
+
+    // Create mailto link
+    const mailtoLink = `mailto:SheldonGunby@icloud.com?subject=Website Request from ${formData.name}&body=${encodeURIComponent(emailBody)}`;
+
+    // Short delay for better UX
+    await new Promise((resolve) => setTimeout(resolve, 500));
+
+    // Open email client
+    window.location.href = mailtoLink;
 
     toast({
-      title: "Message Sent! 🎉",
-      description: "I'll get back to you within 24 hours. Looking forward to building something amazing together!",
+      title: "Opening Email Client 📧",
+      description: "Your message has been prepared. Please send the email to complete your request!",
     });
 
     setFormData({ name: "", email: "", business: "", message: "" });
@@ -75,18 +89,34 @@ const Contact = () => {
               </div>
 
               <div className="space-y-4">
-                <div className="glass rounded-xl p-6 flex items-center gap-4 hover-lift">
+                <a 
+                  href="mailto:SheldonGunby@icloud.com"
+                  className="glass rounded-xl p-6 flex items-center gap-4 hover-lift block"
+                >
                   <div className="p-3 rounded-xl bg-gradient-to-br from-primary to-primary-glow text-white">
                     <Mail className="w-6 h-6" />
                   </div>
                   <div>
                     <div className="font-semibold mb-1">Email</div>
-                    <div className="text-sm text-muted-foreground">sheldon@example.com</div>
+                    <div className="text-sm text-muted-foreground">SheldonGunby@icloud.com</div>
                   </div>
-                </div>
+                </a>
+
+                <a 
+                  href="tel:+17244908102"
+                  className="glass rounded-xl p-6 flex items-center gap-4 hover-lift block"
+                >
+                  <div className="p-3 rounded-xl bg-gradient-to-br from-accent to-accent-glow text-white">
+                    <Phone className="w-6 h-6" />
+                  </div>
+                  <div>
+                    <div className="font-semibold mb-1">Phone</div>
+                    <div className="text-sm text-muted-foreground">724-490-8102</div>
+                  </div>
+                </a>
 
                 <div className="glass rounded-xl p-6 flex items-center gap-4 hover-lift">
-                  <div className="p-3 rounded-xl bg-gradient-to-br from-accent to-accent-glow text-white">
+                  <div className="p-3 rounded-xl bg-gradient-to-br from-primary to-accent text-white">
                     <MapPin className="w-6 h-6" />
                   </div>
                   <div>
