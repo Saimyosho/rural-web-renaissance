@@ -15,5 +15,5 @@ export default defineConfig(({ mode }) => ({
       "@": path.resolve(__dirname, "./src"),
     },
   },
-  base: "/rural-web-renaissance/",
+  base: mode === "production" ? "/rural-web-renaissance/" : "/",
 }));
