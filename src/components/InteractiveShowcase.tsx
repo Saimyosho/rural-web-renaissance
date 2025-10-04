@@ -16,6 +16,7 @@ import ButtonShowcase from "./showcase/ButtonShowcase";
 import CardShowcase from "./showcase/CardShowcase";
 import FormShowcase from "./showcase/FormShowcase";
 import AnimationShowcase from "./showcase/AnimationShowcase";
+import HeroShowcase from "./showcase/HeroShowcase";
 
 const InteractiveShowcase = () => {
   const [activeFilter, setActiveFilter] = useState("all");
@@ -25,6 +26,7 @@ const InteractiveShowcase = () => {
 
   const categories = [
     { id: "all", label: "All Components", icon: <LayoutGrid className="w-4 h-4" /> },
+    { id: "heroes", label: "Hero Sections", icon: <Sparkles className="w-4 h-4" /> },
     { id: "carousels", label: "Carousels", icon: <Layers className="w-4 h-4" /> },
     { id: "buttons", label: "Buttons", icon: <MousePointer className="w-4 h-4" /> },
     { id: "cards", label: "Cards", icon: <Menu className="w-4 h-4" /> },
@@ -33,6 +35,15 @@ const InteractiveShowcase = () => {
   ];
 
   const showcaseItems = [
+    {
+      id: "heroes",
+      category: "heroes",
+      title: "Hero Section Styles",
+      description: "8 different hero section layouts used across modern websites",
+      useCase: "Perfect for: Landing pages, Home pages, Product launches",
+      complexity: "Moderate",
+      component: <HeroShowcase />,
+    },
     {
       id: "marquee",
       category: "carousels",
