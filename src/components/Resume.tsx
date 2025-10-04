@@ -41,8 +41,8 @@ const Resume = () => {
     },
     {
       title: "Cloud Systems & Virtualization Administrator",
-      company: "Urgently",
-      location: "Vienna, VA (Remote)",
+      company: "Technology Company",
+      location: "Remote",
       period: "2022 – 2023",
       achievements: [
         "Designed scalable Azure cloud infrastructure with hybrid integration supporting 200+ remote users",
@@ -54,8 +54,8 @@ const Resume = () => {
     },
     {
       title: "Senior Windows & Azure Systems Administrator",
-      company: "CJL Engineering",
-      location: "Johnstown, PA",
+      company: "Engineering Firm",
+      location: "Pennsylvania",
       period: "2021 – 2022",
       achievements: [
         "Primary SME for Windows Server, Azure cloud services, and enterprise virtualization supporting 800+ users and 1,200+ VMs",
