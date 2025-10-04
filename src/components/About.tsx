@@ -1,4 +1,4 @@
-import { Code2, Shield, Sparkles, TrendingUp, Award, Zap, Heart } from "lucide-react";
+import { Code2, Shield, Sparkles, TrendingUp, Award, Zap, Heart, Bot, Wand2 } from "lucide-react";
 import AnimatedCounter from "./AnimatedCounter";
 import WireframeBackground from "./WireframeBackground";
 
@@ -86,6 +86,95 @@ const About = () => {
                 <p className="text-xs text-muted-foreground leading-relaxed border-t border-border/50 pt-3">{item.details}</p>
               </div>
             ))}
+          </div>
+
+          {/* AI Tools Showcase */}
+          <div className="mb-20 glass-strong rounded-3xl p-8 md:p-12">
+            <div className="text-center mb-12">
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass mb-4 border border-primary/30">
+                <Sparkles className="w-4 h-4 text-primary" />
+                <span className="text-sm font-semibold">AI-Enhanced Workflow</span>
+              </div>
+              <h3 className="text-3xl font-bold mb-4">
+                Powered by <span className="gradient-text">Modern AI Tools</span>
+              </h3>
+              <p className="text-muted-foreground max-w-2xl mx-auto">
+                Leveraging cutting-edge AI technology to deliver faster turnarounds and award-worthy results at small business prices.
+              </p>
+            </div>
+
+            <div className="grid md:grid-cols-2 gap-8">
+              {/* ChatGPT Card */}
+              <div className="glass rounded-2xl p-8 hover-lift group relative overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                <div className="relative z-10">
+                  <div className="inline-flex p-4 rounded-2xl bg-gradient-to-br from-primary to-primary-glow text-white mb-6 group-hover:scale-110 transition-all duration-500">
+                    <Bot className="w-8 h-8" />
+                  </div>
+                  <h4 className="text-2xl font-bold mb-4 group-hover:text-primary transition-colors">ChatGPT</h4>
+                  <p className="text-muted-foreground mb-6 leading-relaxed">
+                    My AI development partner for intelligent problem-solving, code optimization, and rapid prototyping.
+                  </p>
+                  <div className="space-y-3">
+                    <div className="flex items-start gap-3">
+                      <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2 flex-shrink-0"></div>
+                      <span className="text-sm text-muted-foreground">Architecture planning & best practices</span>
+                    </div>
+                    <div className="flex items-start gap-3">
+                      <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2 flex-shrink-0"></div>
+                      <span className="text-sm text-muted-foreground">Code optimization & debugging</span>
+                    </div>
+                    <div className="flex items-start gap-3">
+                      <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2 flex-shrink-0"></div>
+                      <span className="text-sm text-muted-foreground">Component design & solutions</span>
+                    </div>
+                    <div className="flex items-start gap-3">
+                      <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2 flex-shrink-0"></div>
+                      <span className="text-sm text-muted-foreground">Rapid iteration & testing</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Nano Banana Card */}
+              <div className="glass rounded-2xl p-8 hover-lift group relative overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-br from-accent/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                <div className="relative z-10">
+                  <div className="inline-flex p-4 rounded-2xl bg-gradient-to-br from-accent to-accent-glow text-white mb-6 group-hover:scale-110 transition-all duration-500">
+                    <Wand2 className="w-8 h-8" />
+                  </div>
+                  <h4 className="text-2xl font-bold mb-4 group-hover:text-accent transition-colors">Nano Banana</h4>
+                  <p className="text-muted-foreground mb-6 leading-relaxed">
+                    AI-powered image generation for unique branding, custom graphics, and visual storytelling.
+                  </p>
+                  <div className="space-y-3">
+                    <div className="flex items-start gap-3">
+                      <div className="w-1.5 h-1.5 rounded-full bg-accent mt-2 flex-shrink-0"></div>
+                      <span className="text-sm text-muted-foreground">AI-generated brand imagery</span>
+                    </div>
+                    <div className="flex items-start gap-3">
+                      <div className="w-1.5 h-1.5 rounded-full bg-accent mt-2 flex-shrink-0"></div>
+                      <span className="text-sm text-muted-foreground">Custom illustrations & graphics</span>
+                    </div>
+                    <div className="flex items-start gap-3">
+                      <div className="w-1.5 h-1.5 rounded-full bg-accent mt-2 flex-shrink-0"></div>
+                      <span className="text-sm text-muted-foreground">Visual identity & concepts</span>
+                    </div>
+                    <div className="flex items-start gap-3">
+                      <div className="w-1.5 h-1.5 rounded-full bg-accent mt-2 flex-shrink-0"></div>
+                      <span className="text-sm text-muted-foreground">Unique visual storytelling</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Value Proposition */}
+            <div className="mt-8 text-center p-6 rounded-xl glass border border-primary/20">
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                <span className="text-foreground font-semibold">Why this matters for you:</span> By combining 15+ years of IT expertise with AI-powered tools, I deliver enterprise-quality websites faster and more affordably. You get premium results without the premium price tag.
+              </p>
+            </div>
           </div>
 
           {/* Stats Bar with Animated Counters */}
