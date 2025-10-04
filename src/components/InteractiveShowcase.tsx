@@ -1,5 +1,4 @@
-import { useState, useRef } from "react";
-import { motion, useInView } from "framer-motion";
+import { useState } from "react";
 import { 
   MousePointer, 
   Layers, 
@@ -21,8 +20,6 @@ import HeroShowcase from "./showcase/HeroShowcase";
 const InteractiveShowcase = () => {
   const [activeFilter, setActiveFilter] = useState("all");
   const [selectedComponents, setSelectedComponents] = useState<string[]>([]);
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, amount: 0.2 });
 
   const categories = [
     { id: "all", label: "All Components", icon: <LayoutGrid className="w-4 h-4" /> },
@@ -113,25 +110,16 @@ const InteractiveShowcase = () => {
   };
 
   return (
-    <motion.section
+    <section
       id="showcase"
       className="py-32 relative overflow-hidden"
-      ref={ref}
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 1 }}
     >
       <WireframeBackground variant="dots" density="low" animate={true} />
 
       <div className="container mx-auto px-6 relative z-10">
         <div className="max-w-7xl mx-auto">
           {/* Header */}
-          <motion.div
-            className="text-center mb-16"
-            initial={{ opacity: 0, y: 30 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.8 }}
-          >
+          <div className="text-center mb-16">
             <h2 className="text-4xl md:text-6xl font-bold mb-6">
               Interactive <span className="gradient-accent-text">Component Library</span>
             </h2>
@@ -142,24 +130,15 @@ const InteractiveShowcase = () => {
 
             {/* Selection Counter */}
             {selectedComponents.length > 0 && (
-              <motion.div
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-gradient-to-r from-primary to-primary-glow text-white font-semibold"
-              >
+              <div className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-gradient-to-r from-primary to-primary-glow text-white font-semibold">
                 <Heart className="w-5 h-5 fill-current" />
                 <span>{selectedComponents.length} component{selectedComponents.length !== 1 ? 's' : ''} selected</span>
-              </motion.div>
+              </div>
             )}
-          </motion.div>
+          </div>
 
           {/* Filter Buttons */}
-          <motion.div
-            className="flex flex-wrap justify-center gap-3 mb-12"
-            initial={{ opacity: 0, y: 20 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.2 }}
-          >
+          <div className="flex flex-wrap justify-center gap-3 mb-12">
             {categories.map((category) => (
               <button
                 key={category.id}
@@ -174,28 +153,13 @@ const InteractiveShowcase = () => {
                 <span>{category.label}</span>
               </button>
             ))}
-          </motion.div>
+          </div>
 
           {/* Showcase Grid */}
-          <motion.div
-            className="grid md:grid-cols-2 gap-8 mb-16"
-            initial="hidden"
-            animate={inView ? "visible" : "hidden"}
-            variants={{
-              hidden: { opacity: 0 },
-              visible: {
-                opacity: 1,
-                transition: { staggerChildren: 0.1 },
-              },
-            }}
-          >
-            {filteredItems.map((item, index) => (
-              <motion.div
+          <div className="grid md:grid-cols-2 gap-8 mb-16">
+            {filteredItems.map((item) => (
+              <div
                 key={item.id}
-                variants={{
-                  hidden: { opacity: 0, y: 30 },
-                  visible: { opacity: 1, y: 0 },
-                }}
                 className="glass-strong rounded-3xl p-8 relative group"
               >
                 {/* Header */}
@@ -238,17 +202,13 @@ const InteractiveShowcase = () => {
                 <div className="mt-6 rounded-2xl overflow-hidden bg-background/50 p-6 min-h-[300px] flex items-center justify-center">
                   {item.component}
                 </div>
-              </motion.div>
+              </div>
             ))}
-          </motion.div>
+          </div>
 
           {/* Selected Components Summary */}
           {selectedComponents.length > 0 && (
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="glass-strong rounded-3xl p-8 text-center"
-            >
+            <div className="glass-strong rounded-3xl p-8 text-center">
               <h3 className="text-2xl font-bold mb-4">
                 Your Selected Components
               </h3>
@@ -268,7 +228,7 @@ const InteractiveShowcase = () => {
               <p className="text-muted-foreground mb-6">
                 Ready to get these components on your website? Let's talk about your project!
               </p>
-              <motion.button
+              <button
                 onClick={() => {
                   // Scroll to contact and pre-populate with selections
                   const selections = selectedComponents
@@ -278,16 +238,14 @@ const InteractiveShowcase = () => {
                   document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
                 }}
                 className="px-8 py-4 rounded-full bg-gradient-to-r from-primary to-primary-glow text-white font-semibold hover:shadow-glow transition-all duration-300"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
               >
                 Get Started with These Components
-              </motion.button>
-            </motion.div>
+              </button>
+            </div>
           )}
         </div>
       </div>
-    </motion.section>
+    </section>
   );
 };
 
