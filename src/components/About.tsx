@@ -1,14 +1,8 @@
 import { Code2, Shield, Sparkles, TrendingUp, Award, Zap, Heart } from "lucide-react";
-import { useState } from "react";
-import { motion } from "framer-motion";
-import { useInView } from "react-intersection-observer";
 import AnimatedCounter from "./AnimatedCounter";
 import WireframeBackground from "./WireframeBackground";
 
 const About = () => {
-  const [flippedCard, setFlippedCard] = useState<number | null>(null);
-  const [ref, inView] = useInView({ threshold: 0.2, triggerOnce: true });
-
   const journey = [
     {
       icon: <Code2 className="w-6 h-6" />,
@@ -51,37 +45,20 @@ const About = () => {
   ];
 
   return (
-    <motion.section 
+    <section 
       id="about" 
-      className="py-32 relative overflow-hidden" 
-      ref={ref}
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 1 }}
+      className="py-32 relative overflow-hidden"
     >
       {/* Sophisticated Wireframe Background */}
       <WireframeBackground variant="hexagon" density="low" animate={true} />
       
       {/* Background decoration */}
-      <motion.div 
-        className="absolute top-1/4 right-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl"
-        animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.5, 0.3] }}
-        transition={{ duration: 8, repeat: Infinity }}
-      />
-      <motion.div 
-        className="absolute bottom-1/4 left-0 w-96 h-96 bg-accent/5 rounded-full blur-3xl"
-        animate={{ scale: [1, 1.3, 1], opacity: [0.3, 0.5, 0.3] }}
-        transition={{ duration: 10, repeat: Infinity, delay: 2 }}
-      />
+      <div className="absolute top-1/4 right-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl opacity-50" />
+      <div className="absolute bottom-1/4 left-0 w-96 h-96 bg-accent/5 rounded-full blur-3xl opacity-50" />
 
       <div className="container mx-auto px-6 relative z-10">
         <div className="max-w-6xl mx-auto">
-          <motion.div 
-            className="text-center mb-20"
-            initial={{ opacity: 0, y: 30 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.8 }}
-          >
+          <div className="text-center mb-20">
             <h2 className="text-4xl md:text-6xl font-bold mb-6">
               From <span className="gradient-text text-glow">Infrastructure</span> to{" "}
               <span className="gradient-accent-text text-glow">Innovation</span>
@@ -89,74 +66,34 @@ const About = () => {
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
               Leveraging 15+ years of enterprise IT experience to build award-worthy websites that put rural businesses on equal footing with big-city competitors.
             </p>
-          </motion.div>
+          </div>
 
           {/* Interactive Journey Cards */}
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-20">
             {journey.map((item, index) => (
-              <motion.div
+              <div
                 key={index}
-                className="relative h-64 perspective-1000"
-                onMouseEnter={() => setFlippedCard(index)}
-                onMouseLeave={() => setFlippedCard(null)}
-                initial={{ opacity: 0, y: 50 }}
-                animate={inView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                whileHover={{ y: -10 }}
+                className="glass-strong rounded-2xl p-6 border-gradient"
               >
-                <div 
-                  className={`absolute inset-0 transition-all duration-500 transform-style-3d ${
-                    flippedCard === index ? 'rotate-y-180' : ''
-                  }`}
-                  style={{
-                    transformStyle: 'preserve-3d',
-                    transform: flippedCard === index ? 'rotateY(180deg)' : 'rotateY(0)',
-                  }}
+                <div
+                  className={`inline-flex p-3 rounded-xl bg-gradient-to-br ${item.color} text-white mb-4`}
                 >
-                  {/* Front of card */}
-                  <div className="absolute inset-0 glass-strong rounded-2xl p-6 backface-hidden border-gradient">
-                    <div
-                      className={`inline-flex p-3 rounded-xl bg-gradient-to-br ${item.color} text-white mb-4`}
-                    >
-                      {item.icon}
-                    </div>
-                    <div className="text-sm font-semibold text-primary mb-2">{item.year}</div>
-                    <h3 className="text-xl font-bold mb-2">{item.title}</h3>
-                    <p className="text-muted-foreground text-sm">{item.description}</p>
-                  </div>
-                  
-                  {/* Back of card */}
-                  <div 
-                    className="absolute inset-0 glass-strong rounded-2xl p-6 backface-hidden border-gradient"
-                    style={{ transform: 'rotateY(180deg)' }}
-                  >
-                    <div
-                      className={`inline-flex p-3 rounded-xl bg-gradient-to-br ${item.color} text-white mb-4`}
-                    >
-                      {item.icon}
-                    </div>
-                    <p className="text-sm leading-relaxed">{item.details}</p>
-                  </div>
+                  {item.icon}
                 </div>
-              </motion.div>
+                <div className="text-sm font-semibold text-primary mb-2">{item.year}</div>
+                <h3 className="text-xl font-bold mb-2">{item.title}</h3>
+                <p className="text-muted-foreground text-sm mb-3">{item.description}</p>
+                <p className="text-xs text-muted-foreground leading-relaxed border-t border-border/50 pt-3">{item.details}</p>
+              </div>
             ))}
           </div>
 
           {/* Stats Bar with Animated Counters */}
-          <motion.div 
-            className="grid md:grid-cols-3 gap-6 mb-20"
-            initial={{ opacity: 0, y: 30 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.8, delay: 0.4 }}
-          >
+          <div className="grid md:grid-cols-3 gap-6 mb-20">
             {stats.map((stat, index) => (
-              <motion.div
+              <div
                 key={index}
-                className="glass-strong rounded-2xl p-8 text-center hover-lift animate-scale-in"
-                style={{ animationDelay: `${index * 0.1}s` }}
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={inView ? { opacity: 1, scale: 1 } : {}}
-                transition={{ duration: 0.5, delay: 0.5 + index * 0.1 }}
+                className="glass-strong rounded-2xl p-8 text-center"
               >
                 <div className={`inline-flex p-4 rounded-2xl bg-gradient-to-br from-primary/20 to-accent/20 ${stat.color} mb-4`}>
                   {stat.icon}
@@ -166,23 +103,13 @@ const About = () => {
                   {stat.value.includes('+') ? '+' : ''}
                 </div>
                 <div className="text-muted-foreground">{stat.label}</div>
-              </motion.div>
+              </div>
             ))}
-          </motion.div>
+          </div>
 
-          <motion.div 
-            className="glass-strong rounded-3xl p-8 md:p-12"
-            initial={{ opacity: 0, y: 30 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.8, delay: 0.8 }}
-          >
+          <div className="glass-strong rounded-3xl p-8 md:p-12">
             <div className="grid md:grid-cols-2 gap-12 items-center">
-              <motion.div 
-                className="space-y-6"
-                initial={{ opacity: 0, x: -30 }}
-                animate={inView ? { opacity: 1, x: 0 } : {}}
-                transition={{ duration: 0.8, delay: 1 }}
-              >
+              <div className="space-y-6">
                 <h3 className="text-3xl font-bold mb-6">
                   Why <span className="gradient-text">I Do This</span>
                 </h3>
@@ -198,15 +125,10 @@ const About = () => {
                 <p className="text-muted-foreground leading-relaxed">
                   Tips appreciated but never required. Your success story becomes part of my showcase.
                 </p>
-              </motion.div>
+              </div>
 
-              <motion.div 
-                className="space-y-4"
-                initial={{ opacity: 0, x: 30 }}
-                animate={inView ? { opacity: 1, x: 0 } : {}}
-                transition={{ duration: 0.8, delay: 1.2 }}
-              >
-                <div className="glass rounded-xl p-6 hover-tilt group">
+              <div className="space-y-4">
+                <div className="glass rounded-xl p-6 group">
                   <div className="flex items-start gap-4">
                     <div className="p-3 rounded-lg bg-primary/20 group-hover:bg-primary/30 transition-colors">
                       <Sparkles className="w-6 h-6 text-primary" />
@@ -219,7 +141,7 @@ const About = () => {
                     </div>
                   </div>
                 </div>
-                <div className="glass rounded-xl p-6 hover-tilt group">
+                <div className="glass rounded-xl p-6 group">
                   <div className="flex items-start gap-4">
                     <div className="p-3 rounded-lg bg-accent/20 group-hover:bg-accent/30 transition-colors">
                       <Award className="w-6 h-6 text-accent" />
@@ -232,7 +154,7 @@ const About = () => {
                     </div>
                   </div>
                 </div>
-                <div className="glass rounded-xl p-6 hover-tilt group">
+                <div className="glass rounded-xl p-6 group">
                   <div className="flex items-start gap-4">
                     <div className="p-3 rounded-lg bg-primary/20 group-hover:bg-primary/30 transition-colors">
                       <Code2 className="w-6 h-6 text-primary" />
@@ -245,12 +167,12 @@ const About = () => {
                     </div>
                   </div>
                 </div>
-              </motion.div>
+              </div>
             </div>
-          </motion.div>
+          </div>
         </div>
       </div>
-    </motion.section>
+    </section>
   );
 };
 
