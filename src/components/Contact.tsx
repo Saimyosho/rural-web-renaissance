@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Mail, MapPin, Send, Phone } from "lucide-react";
+import { useState, useEffect } from "react";
+import { Mail, MapPin, Send, Phone, Sparkles } from "lucide-react";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
@@ -7,6 +7,7 @@ import { useToast } from "@/hooks/use-toast";
 
 const Contact = () => {
   const { toast } = useToast();
+  const [selectedComponents, setSelectedComponents] = useState<string>("");
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -16,6 +17,16 @@ const Contact = () => {
     message: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  useEffect(() => {
+    // Check for selected components from showcase
+    const selections = sessionStorage.getItem("selectedComponents");
+    if (selections) {
+      setSelectedComponents(selections);
+      // Clear after retrieving
+      sessionStorage.removeItem("selectedComponents");
+    }
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -27,7 +38,7 @@ Email: ${formData.email}
 Business: ${formData.business || 'Not provided'}
 Inspiration Website 1: ${formData.inspiration1 || 'Not provided'}
 Inspiration Website 2: ${formData.inspiration2 || 'Not provided'}
-
+${selectedComponents ? `\nSelected Components: ${selectedComponents}\n` : ''}
 Message:
 ${formData.message}`;
 
@@ -140,6 +151,27 @@ ${formData.message}`;
             </div>
 
             <div className="glass-strong rounded-2xl p-8">
+              {selectedComponents && (
+                <div className="mb-6 p-4 rounded-xl bg-primary/10 border-2 border-primary/30">
+                  <div className="flex items-center gap-2 mb-2">
+                    <Sparkles className="w-5 h-5 text-primary" />
+                    <h4 className="font-semibold text-primary">Components You Selected</h4>
+                  </div>
+                  <p className="text-sm text-muted-foreground mb-2">
+                    These will be included in your message:
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    {selectedComponents.split(", ").map((component, index) => (
+                      <span
+                        key={index}
+                        className="px-3 py-1 rounded-full glass border border-primary/30 text-xs font-semibold"
+                      >
+                        {component}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              )}
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div>
                   <label htmlFor="name" className="block text-sm font-semibold mb-2">

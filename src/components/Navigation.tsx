@@ -19,7 +19,7 @@ const Navigation = () => {
       const progress = (window.scrollY / windowHeight) * 100;
       setScrollProgress(progress);
 
-      const sections = ["home", "about", "services", "portfolio", "contact"];
+      const sections = ["home", "about", "services", "showcase", "portfolio", "contact"];
       const current = sections.find((section) => {
         const element = document.getElementById(section);
         if (element) {
@@ -39,6 +39,7 @@ const Navigation = () => {
     { id: "home", label: "Home", icon: "🏠" },
     { id: "about", label: "About", icon: "👨‍💻" },
     { id: "services", label: "Services", icon: "⚡" },
+    { id: "showcase", label: "Components", icon: "✨" },
     { id: "portfolio", label: "Portfolio", icon: "🎨" },
     { id: "contact", label: "Contact", icon: "📧" },
   ];
