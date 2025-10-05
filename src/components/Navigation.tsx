@@ -36,14 +36,20 @@ const Navigation = () => {
   }, []);
 
   const navItems = [
-    { id: "home", label: "Home", icon: "🏠" },
-    { id: "about", label: "About", icon: "👨‍💻" },
-    { id: "services", label: "Services", icon: "⚡" },
-    { id: "portfolio", label: "Portfolio", icon: "🎨" },
-    { id: "contact", label: "Contact", icon: "📧" },
+    { id: "home", label: "Home", icon: "🏠", isRoute: false },
+    { id: "about", label: "About", icon: "👨‍💻", isRoute: false },
+    { id: "services", label: "Services", icon: "⚡", isRoute: false },
+    { id: "portfolio", label: "Portfolio", icon: "🎨", isRoute: false },
+    { id: "pricing", label: "Pricing", icon: "💰", isRoute: true },
+    { id: "contact", label: "Contact", icon: "📧", isRoute: false },
   ];
 
-  const scrollToSection = (id: string) => {
+  const scrollToSection = (id: string, isRoute: boolean = false) => {
+    if (isRoute) {
+      window.location.href = `/${id}`;
+      return;
+    }
+    
     const element = document.getElementById(id);
     if (element) {
       const offset = 80;
@@ -93,14 +99,14 @@ const Navigation = () => {
             {navItems.map((item) => (
               <button
                 key={item.id}
-                onClick={() => scrollToSection(item.id)}
+                onClick={() => scrollToSection(item.id, item.isRoute)}
                 className={`relative text-sm font-medium transition-all duration-300 hover:scale-110 ${
                   activeSection === item.id ? "text-primary" : "text-foreground/70 hover:text-foreground"
                 }`}
               >
                 <span className="hidden lg:inline">{item.label}</span>
                 <span className="lg:hidden text-xl">{item.icon}</span>
-                {activeSection === item.id && (
+                {activeSection === item.id && !item.isRoute && (
                   <span className="absolute -bottom-1 left-0 right-0 h-0.5 bg-gradient-to-r from-primary to-accent animate-gradient" />
                 )}
               </button>
@@ -134,7 +140,7 @@ const Navigation = () => {
             {navItems.map((item, index) => (
               <button
                 key={item.id}
-                onClick={() => scrollToSection(item.id)}
+                onClick={() => scrollToSection(item.id, item.isRoute)}
                 className={`text-2xl font-medium transition-all duration-300 hover:scale-110 animate-fade-in ${
                   activeSection === item.id ? "gradient-text" : "text-foreground/70"
                 }`}

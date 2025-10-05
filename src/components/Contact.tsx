@@ -4,6 +4,7 @@ import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
 import { useToast } from "@/hooks/use-toast";
+import { supabase } from "@/lib/supabase";
 
 const Contact = () => {
   const { toast } = useToast();
@@ -31,6 +32,29 @@ const Contact = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
+
+    try {
+      // Save to Supabase (if configured)
+      const { error } = await supabase
+        .from('contact_submissions')
+        .insert([
+          {
+            name: formData.name,
+            email: formData.email,
+            company: formData.business || null,
+            message: formData.message,
+            interested_in: selectedComponents || `Inspiration: ${formData.inspiration1}, ${formData.inspiration2}`,
+          }
+        ]);
+
+      if (error) {
+        console.log('Supabase not configured or error:', error.message);
+        // Continue with mailto even if Supabase fails
+      }
+    } catch (err) {
+      console.log('Supabase save skipped - not configured');
+      // Continue with mailto
+    }
 
     // Create email body with form data
     const emailBody = `Name: ${formData.name}
