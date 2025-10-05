@@ -242,18 +242,18 @@ const Hero = () => {
             transition={{ type: "spring", stiffness: 300 }}
           >
             <Sparkles className="w-4 h-4 text-primary" />
-            <span className="text-sm font-semibold">Award-Winning Design Standards</span>
+            <span className="text-sm font-semibold">AI-Powered Automation Specialist</span>
             <Sparkles className="w-4 h-4 text-accent" />
           </motion.div>
 
           <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold mb-6">
-            <span className="gradient-text animate-gradient">Enterprise Websites</span>
+            <span className="gradient-text animate-gradient">Websites That Run</span>
             <br />
-            <span className="text-foreground">for Small Business Budgets</span>
+            <span className="text-foreground">Your Business on Autopilot</span>
           </h1>
           
           <p className="text-xl md:text-2xl text-muted-foreground mb-8 max-w-3xl mx-auto">
-            15+ years IT experience, now crafting award-worthy web experiences for rural Pennsylvania businesses
+            AI handles your social media, books clients 24/7, and collects deposits automatically—while you focus on what you do best
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16">
@@ -280,20 +280,20 @@ const Hero = () => {
             </Button>
           </div>
 
-          <div className="flex gap-8 justify-center text-sm text-muted-foreground">
+          <div className="flex gap-8 justify-center text-sm text-muted-foreground flex-wrap">
             <div>
-              <div className="text-3xl font-bold gradient-text mb-1">15+</div>
-              <div>Years Experience</div>
+              <div className="text-3xl font-bold gradient-text mb-1">24/7</div>
+              <div>AI Booking</div>
             </div>
             <div className="border-l border-border/50" />
             <div>
-              <div className="text-3xl font-bold gradient-accent-text mb-1">100%</div>
-              <div>Award Standards</div>
+              <div className="text-3xl font-bold gradient-accent-text mb-1">Auto</div>
+              <div>Social Posts</div>
             </div>
             <div className="border-l border-border/50" />
             <div>
-              <div className="text-3xl font-bold gradient-text mb-1">Free</div>
-              <div>Portfolio Builds</div>
+              <div className="text-3xl font-bold gradient-text mb-1">Instant</div>
+              <div>Deposits</div>
             </div>
           </div>
         </motion.div>

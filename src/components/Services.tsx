@@ -38,10 +38,10 @@ const Services = () => {
     },
     {
       icon: <Workflow className="w-8 h-8" />,
-      title: "Business Automation",
-      description: "Custom n8n workflows that automate repetitive tasks, connect your tools, and save hours every week.",
+      title: "AI Social Media & Booking",
+      description: "AI automatically creates and posts your social media content, books clients 24/7, and collects deposits—completely on autopilot.",
       gradient: "from-purple-500 to-purple-700",
-      features: ["Process automation", "Multi-platform integration", "Smart notifications"],
+      features: ["Auto social media posts", "24/7 AI booking bot", "Instant deposit collection"],
       isPremium: true,
     },
     {
