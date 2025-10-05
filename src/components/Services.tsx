@@ -30,6 +30,13 @@ const Services = () => {
 
   const services = [
     {
+      icon: <Palette className="w-8 h-8" />,
+      title: "Custom Website Design",
+      description: "Award-winning designs tailored to your brand. From concept to launch, built to compete with the best sites on the web.",
+      gradient: "from-primary to-primary-glow",
+      features: ["Unique brand identity", "Modern aesthetics", "Mobile-first design"],
+    },
+    {
       icon: <Workflow className="w-8 h-8" />,
       title: "Business Automation",
       description: "Custom n8n workflows that automate repetitive tasks, connect your tools, and save hours every week.",
@@ -38,46 +45,25 @@ const Services = () => {
       isPremium: true,
     },
     {
-      icon: <Palette className="w-8 h-8" />,
-      title: "Custom Design",
-      description: "Bespoke designs tailored to your brand, built to award-winning standards with modern aesthetics.",
-      gradient: "from-primary to-primary-glow",
-      features: ["Unique brand identity", "User-centric layouts", "Award-worthy aesthetics"],
-    },
-    {
-      icon: <Code className="w-8 h-8" />,
-      title: "Modern Frameworks",
-      description: "React, Next.js, Vue - enterprise-level tech stack for maintainability and performance.",
-      gradient: "from-accent to-accent-glow",
-      features: ["Latest technologies", "Scalable architecture", "Clean code standards"],
-    },
-    {
       icon: <Zap className="w-8 h-8" />,
-      title: "Performance Optimization",
-      description: "Lightning-fast load times, perfect Lighthouse scores, optimized for conversions.",
+      title: "Lightning Performance",
+      description: "Fast load times that keep visitors engaged. Optimized for speed, SEO, and conversions.",
       gradient: "from-primary to-accent",
-      features: ["< 1s load times", "100/100 scores", "Core Web Vitals"],
+      features: ["< 1s load times", "SEO optimized", "Google Analytics"],
     },
     {
       icon: <Lock className="w-8 h-8" />,
-      title: "Security First",
-      description: "Cybersecurity integration with best practices for data protection and secure authentication.",
+      title: "Security & Reliability",
+      description: "Enterprise-grade security practices. SSL, secure authentication, and data protection built-in.",
       gradient: "from-accent to-primary",
-      features: ["SSL/HTTPS", "Secure authentication", "Data encryption"],
+      features: ["SSL/HTTPS", "Secure forms", "Daily backups"],
     },
     {
-      icon: <Smartphone className="w-8 h-8" />,
-      title: "Responsive Design",
-      description: "Flawless experience across all devices - mobile-first approach with progressive enhancement.",
-      gradient: "from-primary-glow to-primary",
-      features: ["Mobile-first design", "Cross-browser support", "Touch optimized"],
-    },
-    {
-      icon: <TrendingUp className="w-8 h-8" />,
-      title: "SEO & Analytics",
-      description: "Built-in search optimization and tracking to help your business grow online.",
-      gradient: "from-accent-glow to-accent",
-      features: ["Google Analytics", "SEO optimization", "Performance tracking"],
+      icon: <Code className="w-8 h-8" />,
+      title: "Modern Technology",
+      description: "Built with React, Next.js, and the same tools used by Fortune 500 companies. Future-proof and maintainable.",
+      gradient: "from-accent to-accent-glow",
+      features: ["Latest frameworks", "Clean code", "Easy updates"],
     },
   ];
 
