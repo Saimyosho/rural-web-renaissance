@@ -83,61 +83,115 @@ const TermsOfService = ({ isOpen, onClose }: TermsOfServiceProps) => {
                     </div>
                   </section>
 
-                  {/* Post-Deployment Management */}
+                  {/* Turnkey Delivery */}
                   <section>
                     <div className="flex items-center gap-3 mb-4">
                       <div className="p-2 rounded-lg bg-accent/20">
-                        <Calendar className="w-5 h-5 text-accent" />
+                        <Shield className="w-5 h-5 text-accent" />
                       </div>
-                      <h3 className="text-xl font-bold">2. Post-Deployment Management & Maintenance</h3>
+                      <h3 className="text-xl font-bold">2. Turnkey Delivery & Client Responsibility</h3>
                     </div>
                     <div className="space-y-3 text-muted-foreground pl-11">
                       <p className="flex items-start gap-2">
                         <CheckCircle2 className="w-5 h-5 text-accent flex-shrink-0 mt-0.5" />
                         <span>
-                          <strong className="text-foreground">Ongoing Management is Separate:</strong> After your website is deployed and live, any ongoing maintenance, updates, content changes, or technical support constitutes post-deployment management services.
+                          <strong className="text-foreground">Complete Handoff:</strong> Upon delivery, Client receives a fully functional, turnkey website ready for immediate use. The website is delivered complete with all agreed-upon features and functionality.
                         </span>
                       </p>
                       <p className="flex items-start gap-2">
                         <CheckCircle2 className="w-5 h-5 text-accent flex-shrink-0 mt-0.5" />
                         <span>
-                          <strong className="text-foreground">Pricing at Developer's Discretion:</strong> Post-deployment management services are priced based on the scope, complexity, and time requirements of the requested work, as determined solely by the Developer.
+                          <strong className="text-foreground">Client Assumes Full Responsibility:</strong> After delivery, Client assumes 100% responsibility for all aspects of website management including but not limited to: hosting, domain management, security updates, backups, content updates, maintenance, bug fixes, and ongoing operation.
                         </span>
                       </p>
                       <p className="flex items-start gap-2">
                         <CheckCircle2 className="w-5 h-5 text-accent flex-shrink-0 mt-0.5" />
                         <span>
-                          <strong className="text-foreground">No Obligation:</strong> Clients are under no obligation to purchase post-deployment management services. The Developer is under no obligation to provide free ongoing support beyond the initial deployment.
+                          <strong className="text-foreground">No Ongoing Support Included:</strong> Developer provides NO free ongoing support, maintenance, updates, or technical assistance after delivery unless contracted separately through paid service agreements.
                         </span>
                       </p>
                       <p className="flex items-start gap-2">
                         <CheckCircle2 className="w-5 h-5 text-accent flex-shrink-0 mt-0.5" />
                         <span>
-                          <strong className="text-foreground">Billing Structure:</strong> Management services may be billed hourly, per project, monthly retainer, or another structure as agreed upon between Developer and Client prior to work commencing.
+                          <strong className="text-foreground">Self-Management Required:</strong> Client must manage their own website or hire separate services for ongoing needs. Developer has no obligation to provide post-delivery assistance.
                         </span>
                       </p>
                     </div>
                   </section>
 
-                  {/* Portfolio Rights */}
+                  {/* Data & Showcase Rights */}
                   <section>
                     <div className="flex items-center gap-3 mb-4">
                       <div className="p-2 rounded-lg bg-primary/20">
-                        <Shield className="w-5 h-5 text-primary" />
+                        <FileText className="w-5 h-5 text-primary" />
                       </div>
-                      <h3 className="text-xl font-bold">3. Portfolio & Showcase Rights</h3>
+                      <h3 className="text-xl font-bold">3. Data Ownership & Showcase Rights</h3>
                     </div>
                     <div className="space-y-3 text-muted-foreground pl-11">
                       <p className="flex items-start gap-2">
                         <CheckCircle2 className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
                         <span>
-                          <strong className="text-foreground">Portfolio Display:</strong> By accepting free development services, Client grants Developer perpetual, worldwide rights to display, showcase, and reference the completed website in Developer's portfolio, case studies, and marketing materials.
+                          <strong className="text-foreground">Developer Retains Full Data Rights:</strong> By accepting free website development services, Client acknowledges and agrees that Developer (Sheldon Gunby) retains FULL and EXCLUSIVE ownership of all project data, files, source code, design files, analytics, performance data, metrics, and all materials created during the project.
                         </span>
                       </p>
                       <p className="flex items-start gap-2">
                         <CheckCircle2 className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
                         <span>
-                          <strong className="text-foreground">Client Owns Their Site:</strong> Client retains full ownership of their website content, branding, and intellectual property. Developer retains rights to code, design patterns, and technical implementations as part of Developer's portfolio work.
+                          <strong className="text-foreground">Unlimited Showcase Rights:</strong> Developer may freely showcase, display, publish, reference, and repurpose any and all aspects of the website including but not limited to: design elements, screenshots, code samples, case studies, performance metrics, client testimonials, business outcomes, and project details.
+                        </span>
+                      </p>
+                      <p className="flex items-start gap-2">
+                        <CheckCircle2 className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
+                        <span>
+                          <strong className="text-foreground">Portfolio & Marketing Use:</strong> Developer may use all project materials in portfolio presentations, marketing campaigns, social media, case studies, blog posts, demonstrations, sales materials, and any other professional or commercial purposes without restriction or additional compensation to Client.
+                        </span>
+                      </p>
+                      <p className="flex items-start gap-2">
+                        <CheckCircle2 className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
+                        <span>
+                          <strong className="text-foreground">Client's Rights:</strong> Client receives a functional, deployed website for their business use. Client retains ownership of their own business name, logo, proprietary content, and customer data. However, Developer retains rights to all technical implementations, design patterns, code, and project materials.
+                        </span>
+                      </p>
+                      <p className="flex items-start gap-2">
+                        <CheckCircle2 className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
+                        <span>
+                          <strong className="text-foreground">Perpetual License:</strong> These rights are perpetual, worldwide, royalty-free, and irrevocable. Client cannot revoke Developer's right to use project materials in any capacity.
+                        </span>
+                      </p>
+                    </div>
+                  </section>
+
+                  {/* AI Automation & Microservices */}
+                  <section>
+                    <div className="flex items-center gap-3 mb-4">
+                      <div className="p-2 rounded-lg bg-primary/20">
+                        <Calendar className="w-5 h-5 text-primary" />
+                      </div>
+                      <h3 className="text-xl font-bold">4. AI Automation & Microservices (Primary Revenue)</h3>
+                    </div>
+                    <div className="space-y-3 text-muted-foreground pl-11">
+                      <p className="flex items-start gap-2">
+                        <CheckCircle2 className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
+                        <span>
+                          <strong className="text-foreground">Core Business Model:</strong> The free website serves as an introduction to Developer's primary offering: AI-powered automation and microservices. These paid services represent Developer's main revenue stream and breadwinner.
+                        </span>
+                      </p>
+                      <p className="flex items-start gap-2">
+                        <CheckCircle2 className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
+                        <span>
+                          <strong className="text-foreground">Available Services:</strong> Optional paid services include but are not limited to: AI chatbots, workflow automation (n8n/Zapier), appointment booking systems, social media automation, payment processing integration, lead nurturing, customer support automation, and custom business integrations.
+                        </span>
+                      </p>
+                      <p className="flex items-start gap-2">
+                        <CheckCircle2 className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
+                        <span>
+                          <strong className="text-foreground">Custom Pricing:</strong> All microservices and automation solutions are priced on a case-by-case basis through direct consultation. Pricing is determined by complexity, scope, integration requirements, and ongoing management needs.
+                        </span>
+                      </p>
+                      <p className="flex items-start gap-2">
+                        <CheckCircle2 className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
+                        <span>
+                          <strong className="text-foreground">AI or Self-Managed:</strong> Clients may choose to have AI systems manage and run their website operations at costs determined by Developer and Client agreement, or clients may manage operations themselves at no additional cost.
                         </span>
                       </p>
                     </div>
@@ -149,7 +203,7 @@ const TermsOfService = ({ isOpen, onClose }: TermsOfServiceProps) => {
                       <div className="p-2 rounded-lg bg-accent/20">
                         <Shield className="w-5 h-5 text-accent" />
                       </div>
-                      <h3 className="text-xl font-bold">4. Service Limitations & Liability</h3>
+                      <h3 className="text-xl font-bold">5. Service Limitations & Liability</h3>
                     </div>
                     <div className="space-y-3 text-muted-foreground pl-11">
                       <p className="flex items-start gap-2">
@@ -179,7 +233,7 @@ const TermsOfService = ({ isOpen, onClose }: TermsOfServiceProps) => {
                       <div className="p-2 rounded-lg bg-primary/20">
                         <CheckCircle2 className="w-5 h-5 text-primary" />
                       </div>
-                      <h3 className="text-xl font-bold">5. Client Responsibilities</h3>
+                      <h3 className="text-xl font-bold">6. Client Responsibilities</h3>
                     </div>
                     <div className="space-y-3 text-muted-foreground pl-11">
                       <p className="flex items-start gap-2">
