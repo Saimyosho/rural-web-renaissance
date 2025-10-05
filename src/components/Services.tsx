@@ -1,4 +1,4 @@
-import { Palette, Code, Zap, Lock, Smartphone, TrendingUp, ArrowRight, Check } from "lucide-react";
+import { Palette, Code, Zap, Lock, Smartphone, TrendingUp, ArrowRight, Check, Workflow } from "lucide-react";
 import { useState, useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import WireframeBackground from "./WireframeBackground";
@@ -29,6 +29,14 @@ const Services = () => {
   };
 
   const services = [
+    {
+      icon: <Workflow className="w-8 h-8" />,
+      title: "Business Automation",
+      description: "Custom n8n workflows that automate repetitive tasks, connect your tools, and save hours every week.",
+      gradient: "from-purple-500 to-purple-700",
+      features: ["Process automation", "Multi-platform integration", "Smart notifications"],
+      isPremium: true,
+    },
     {
       icon: <Palette className="w-8 h-8" />,
       title: "Custom Design",
@@ -133,6 +141,13 @@ const Services = () => {
                     onMouseEnter={() => setHoveredService(index)}
                     onMouseLeave={() => setHoveredService(null)}
                   >
+                    {/* Premium badge */}
+                    {service.isPremium && (
+                      <div className="absolute top-4 right-4 px-3 py-1 rounded-full bg-gradient-to-r from-purple-500 to-purple-700 text-white text-xs font-bold">
+                        Premium
+                      </div>
+                    )}
+                    
                     {/* Animated background gradient */}
                     <div 
                       className={`absolute inset-0 bg-gradient-to-br ${service.gradient} opacity-0 group-hover:opacity-5 transition-opacity duration-500`}

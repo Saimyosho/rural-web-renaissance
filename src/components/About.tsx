@@ -1,4 +1,4 @@
-import { Code2, Shield, Sparkles, TrendingUp, Award, Zap, Heart, Bot, Wand2 } from "lucide-react";
+import { Code2, Shield, Sparkles, TrendingUp, Award, Zap, Heart, Bot, Wand2, Workflow } from "lucide-react";
 import AnimatedCounter from "./AnimatedCounter";
 import WireframeBackground from "./WireframeBackground";
 
@@ -103,7 +103,7 @@ const About = () => {
               </p>
             </div>
 
-            <div className="grid md:grid-cols-2 gap-8">
+            <div className="grid md:grid-cols-3 gap-8">
               {/* ChatGPT Card */}
               <div className="glass rounded-2xl p-8 hover-lift group relative overflow-hidden">
                 <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
@@ -131,6 +131,38 @@ const About = () => {
                     <div className="flex items-start gap-3">
                       <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2 flex-shrink-0"></div>
                       <span className="text-sm text-muted-foreground">Rapid iteration & testing</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* n8n Automation Card */}
+              <div className="glass rounded-2xl p-8 hover-lift group relative overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                <div className="relative z-10">
+                  <div className="inline-flex p-4 rounded-2xl bg-gradient-to-br from-purple-500 to-purple-700 text-white mb-6 group-hover:scale-110 transition-all duration-500">
+                    <Workflow className="w-8 h-8" />
+                  </div>
+                  <h4 className="text-2xl font-bold mb-4 group-hover:text-purple-500 transition-colors">n8n Automation</h4>
+                  <p className="text-muted-foreground mb-6 leading-relaxed">
+                    Enterprise workflow automation platform for connecting apps, automating tasks, and building custom business processes.
+                  </p>
+                  <div className="space-y-3">
+                    <div className="flex items-start gap-3">
+                      <div className="w-1.5 h-1.5 rounded-full bg-purple-500 mt-2 flex-shrink-0"></div>
+                      <span className="text-sm text-muted-foreground">Custom workflow design</span>
+                    </div>
+                    <div className="flex items-start gap-3">
+                      <div className="w-1.5 h-1.5 rounded-full bg-purple-500 mt-2 flex-shrink-0"></div>
+                      <span className="text-sm text-muted-foreground">Multi-platform integrations</span>
+                    </div>
+                    <div className="flex items-start gap-3">
+                      <div className="w-1.5 h-1.5 rounded-full bg-purple-500 mt-2 flex-shrink-0"></div>
+                      <span className="text-sm text-muted-foreground">Process automation</span>
+                    </div>
+                    <div className="flex items-start gap-3">
+                      <div className="w-1.5 h-1.5 rounded-full bg-purple-500 mt-2 flex-shrink-0"></div>
+                      <span className="text-sm text-muted-foreground">Business workflow optimization</span>
                     </div>
                   </div>
                 </div>
