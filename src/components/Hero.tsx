@@ -247,34 +247,34 @@ const Hero = () => {
           </motion.div>
 
           <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold mb-6">
-            <span className="gradient-text animate-gradient">Websites That Run</span>
+            <span className="gradient-sunrise-text animate-gradient">Absolute Victory</span>
             <br />
-            <span className="text-foreground">Your Business on Autopilot</span>
+            <span className="text-foreground">for Your Business</span>
           </h1>
           
           <p className="text-xl md:text-2xl text-muted-foreground mb-8 max-w-3xl mx-auto">
-            AI handles your social media, books clients 24/7, and collects deposits automatically—while you focus on what you do best
+            Fortune 500 AI Technology for Main Street Businesses
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16">
             <Button
               size="lg"
-              onClick={scrollToAbout}
-              className="bg-gradient-to-r from-primary to-primary-glow hover:shadow-glow transition-all duration-500 text-lg px-8 py-6 group"
+              onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
+              className="bg-gradient-to-r from-primary via-bridge to-accent hover:shadow-glow transition-all duration-500 text-lg px-8 py-6 group"
             >
               <span className="flex items-center gap-2">
-                Discover More
+                Start Your Victory
                 <Sparkles className="w-5 h-5 group-hover:rotate-12 transition-transform" />
               </span>
             </Button>
             <Button
               size="lg"
               variant="outline"
-              onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
-              className="glass border-primary/50 hover:bg-primary/10 text-lg px-8 py-6 group"
+              onClick={scrollToAbout}
+              className="glass border-primary/50 hover:bg-primary/10 hover:border-bridge/50 text-lg px-8 py-6 group"
             >
               <span className="flex items-center gap-2">
-                Get Your Free Website
+                See How It Works
                 <Zap className="w-5 h-5 group-hover:text-accent transition-colors" />
               </span>
             </Button>
