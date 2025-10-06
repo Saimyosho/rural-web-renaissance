@@ -66,13 +66,13 @@ const Trust = () => {
     },
     {
       icon: Heart,
-      title: "Expert-Built, Not Automated",
-      description: "AI-certified engineer with ML, deep learning, and prompt engineering expertise builds your site.",
+      title: "Built by a Real Expert",
+      description: "Certified technology professional builds your site personally. Real expertise, not automated templates.",
       details: [
-        "Certified in AI prompt & context engineering",
-        "Deep learning & machine learning specialist",
-        "Azure AI & Microsoft integrations expert",
-        "Enterprise-grade solutions for Main Street"
+        "Advanced certifications in business automation",
+        "Specialist in time-saving technology",
+        "Expert in Microsoft and business tools",
+        "Enterprise quality for small business prices"
       ]
     },
     {
@@ -200,10 +200,10 @@ const Trust = () => {
             className="max-w-4xl mx-auto"
           >
             <h2 className="text-3xl md:text-4xl font-bold mb-4 text-center">
-              Crystal Clear <span className="gradient-text">Privacy Policy</span>
+              Security & <span className="gradient-text">Standards</span>
             </h2>
             <p className="text-lg text-muted-foreground mb-12 text-center">
-              No legal jargon. Here's exactly what we collect and why.
+              Your business data is protected by the same standards banks use
             </p>
 
             {/* What We Collect */}
