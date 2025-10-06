@@ -38,7 +38,7 @@ const Navigation = () => {
   const navItems = [
     { id: "home", label: "Home", icon: "🏠", isRoute: false },
     { id: "about", label: "About", icon: "👨‍💻", isRoute: false },
-    { id: "services", label: "Services", icon: "⚡", isRoute: false },
+    { id: "services", label: "Services", icon: "⚡", isRoute: true },
     { id: "portfolio", label: "Portfolio", icon: "🎨", isRoute: false },
     { id: "pricing", label: "Pricing", icon: "💰", isRoute: true },
     { id: "trust", label: "Trust", icon: "🛡️", isRoute: true },
