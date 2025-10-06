@@ -1,0 +1,268 @@
+/* LiftKit-inspired Golden Ratio Design System */
+/* Based on Chainlift's LiftKit framework principles */
+
+:root {
+  /* Golden Ratio Scale Factor */
+  --lk-scalefactor: 1.618;
+  
+  /* Scale Steps */
+  --lk-wholestep: 1.618;
+  --lk-halfstep: 1.272; /* sqrt of 1.618 */
+  --lk-quarterstep: 1.128;
+  --lk-eighthstep: 1.062;
+  
+  /* Size Scale (em-based) */
+  --lk-size-3xs: 0.236em;
+  --lk-size-2xs: 0.382em;
+  --lk-size-xs: 0.618em;
+  --lk-size-sm: 0.618em;
+  --lk-size-md: 1em;
+  --lk-size-lg: 1.618em;
+  --lk-size-xl: 2.618em;
+  --lk-size-2xl: 4.236em;
+  --lk-size-3xl: 6.854em;
+  --lk-size-4xl: 11.089em;
+  
+  /* Typography Scale */
+  --display1-size: 4.236em; /* wholestep^3 */
+  --display2-size: 2.618em; /* wholestep^2 */
+  --title1-size: 2.058em; /* wholestep * halfstep */
+  --title2-size: 1.618em; /* wholestep */
+  --title3-size: 1.272em; /* halfstep */
+  --heading-size: 1.128em; /* quarterstep */
+  --body-size: 1em;
+  --callout-size: 0.943em;
+  --label-size: 0.887em;
+  --caption-size: 0.786em;
+  
+  /* Line Heights (unitless for proper scaling) */
+  --display-lh: 1.128;
+  --title-lh: 1.272;
+  --heading-lh: 1.272;
+  --body-lh: 1.618;
+  --caption-lh: 1.272;
+  
+  /* Spacing Scale */
+  --space-3xs: calc(0.236rem * var(--lk-scalefactor));
+  --space-2xs: calc(0.382rem * var(--lk-scalefactor));
+  --space-xs: calc(0.618rem * var(--lk-scalefactor));
+  --space-sm: calc(1rem * var(--lk-scalefactor));
+  --space-md: calc(1.618rem * var(--lk-scalefactor));
+  --space-lg: calc(2.618rem * var(--lk-scalefactor));
+  --space-xl: calc(4.236rem * var(--lk-scalefactor));
+  --space-2xl: calc(6.854rem * var(--lk-scalefactor));
+  --space-3xl: calc(11.089rem * var(--lk-scalefactor));
+  
+  /* Border Radius */
+  --radius-xs: 0.236rem;
+  --radius-sm: 0.382rem;
+  --radius-md: 0.618rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.618rem;
+  --radius-full: 999px;
+  
+  /* Shadows (optical depth) */
+  --shadow-sm: 0 0 1px 0 rgba(0, 0, 0, 0.12);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.08), 0 2px 4px rgba(0, 0, 0, 0.11), 0 0 1px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 11px 15px -3px rgba(0, 0, 0, 0.11), 0 2px 6px rgba(0, 0, 0, 0.07), 0 0 1px rgba(0, 0, 0, 0.4);
+  --shadow-xl: 0 25px 50px rgba(0, 0, 0, 0.23), 0 9px 18px rgba(0, 0, 0, 0.1), 0 0 1px rgba(0, 0, 0, 0.4);
+}
+
+/* Typography Classes */
+.lk-display1 {
+  font-size: var(--display1-size);
+  line-height: var(--display-lh);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.lk-display2 {
+  font-size: var(--display2-size);
+  line-height: var(--display-lh);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.lk-title1 {
+  font-size: var(--title1-size);
+  line-height: var(--title-lh);
+  font-weight: 600;
+}
+
+.lk-title2 {
+  font-size: var(--title2-size);
+  line-height: var(--title-lh);
+  font-weight: 600;
+}
+
+.lk-title3 {
+  font-size: var(--title3-size);
+  line-height: var(--title-lh);
+  font-weight: 600;
+}
+
+.lk-heading {
+  font-size: var(--heading-size);
+  line-height: var(--heading-lh);
+  font-weight: 600;
+}
+
+.lk-body {
+  font-size: var(--body-size);
+  line-height: var(--body-lh);
+  font-weight: 400;
+}
+
+.lk-callout {
+  font-size: var(--callout-size);
+  line-height: var(--body-lh);
+  font-weight: 500;
+}
+
+.lk-caption {
+  font-size: var(--caption-size);
+  line-height: var(--caption-lh);
+  font-weight: 400;
+}
+
+/* Spacing Utilities */
+.lk-mt-xs { margin-top: var(--space-xs); }
+.lk-mt-sm { margin-top: var(--space-sm); }
+.lk-mt-md { margin-top: var(--space-md); }
+.lk-mt-lg { margin-top: var(--space-lg); }
+.lk-mt-xl { margin-top: var(--space-xl); }
+.lk-mt-2xl { margin-top: var(--space-2xl); }
+.lk-mt-3xl { margin-top: var(--space-3xl); }
+
+.lk-mb-xs { margin-bottom: var(--space-xs); }
+.lk-mb-sm { margin-bottom: var(--space-sm); }
+.lk-mb-md { margin-bottom: var(--space-md); }
+.lk-mb-lg { margin-bottom: var(--space-lg); }
+.lk-mb-xl { margin-bottom: var(--space-xl); }
+.lk-mb-2xl { margin-bottom: var(--space-2xl); }
+.lk-mb-3xl { margin-bottom: var(--space-3xl); }
+
+.lk-py-xs { padding-top: var(--space-xs); padding-bottom: var(--space-xs); }
+.lk-py-sm { padding-top: var(--space-sm); padding-bottom: var(--space-sm); }
+.lk-py-md { padding-top: var(--space-md); padding-bottom: var(--space-md); }
+.lk-py-lg { padding-top: var(--space-lg); padding-bottom: var(--space-lg); }
+.lk-py-xl { padding-top: var(--space-xl); padding-bottom: var(--space-xl); }
+.lk-py-2xl { padding-top: var(--space-2xl); padding-bottom: var(--space-2xl); }
+.lk-py-3xl { padding-top: var(--space-3xl); padding-bottom: var(--space-3xl); }
+
+.lk-px-xs { padding-left: var(--space-xs); padding-right: var(--space-xs); }
+.lk-px-sm { padding-left: var(--space-sm); padding-right: var(--space-sm); }
+.lk-px-md { padding-left: var(--space-md); padding-right: var(--space-md); }
+.lk-px-lg { padding-left: var(--space-lg); padding-right: var(--space-lg); }
+.lk-px-xl { padding-left: var(--space-xl); padding-right: var(--space-xl); }
+
+.lk-gap-xs { gap: var(--space-xs); }
+.lk-gap-sm { gap: var(--space-sm); }
+.lk-gap-md { gap: var(--space-md); }
+.lk-gap-lg { gap: var(--space-lg); }
+.lk-gap-xl { gap: var(--space-xl); }
+.lk-gap-2xl { gap: var(--space-2xl); }
+
+/* Border Radius */
+.lk-rounded-sm { border-radius: var(--radius-sm); }
+.lk-rounded-md { border-radius: var(--radius-md); }
+.lk-rounded-lg { border-radius: var(--radius-lg); }
+.lk-rounded-xl { border-radius: var(--radius-xl); }
+.lk-rounded-full { border-radius: var(--radius-full); }
+
+/* Shadows */
+.lk-shadow-sm { box-shadow: var(--shadow-sm); }
+.lk-shadow-md { box-shadow: var(--shadow-md); }
+.lk-shadow-lg { box-shadow: var(--shadow-lg); }
+.lk-shadow-xl { box-shadow: var(--shadow-xl); }
+
+/* Container Widths (golden ratio-based) */
+.lk-container-sm { max-width: 38.2rem; } /* 618px */
+.lk-container-md { max-width: 61.8rem; } /* 1000px */
+.lk-container-lg { max-width: 100rem; } /* 1618px */
+.lk-container-xl { max-width: 161.8rem; } /* 2618px */
+
+/* Optical Centering */
+.lk-optical-center {
+  text-align: center;
+  padding-left: var(--space-md);
+  padding-right: var(--space-md);
+}
+
+/* Card with optical padding correction */
+.lk-card {
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+  background: var(--lk-surface, #fff);
+  box-shadow: var(--shadow-md);
+}
+
+.lk-card-optical {
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+  padding-top: calc(var(--space-lg) * 0.854); /* Optical correction: reduce top padding by ~14.6% */
+  background: var(--lk-surface, #fff);
+  box-shadow: var(--shadow-md);
+}
+
+/* Button with golden ratio proportions */
+.lk-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-xs);
+  padding: calc(var(--space-sm) * 0.618) var(--space-md);
+  border-radius: var(--radius-full);
+  font-size: var(--body-size);
+  font-weight: 500;
+  line-height: var(--lk-halfstep);
+  transition: all 0.2s ease;
+}
+
+.lk-button-lg {
+  padding: var(--space-sm) var(--space-lg);
+  font-size: var(--heading-size);
+}
+
+/* Grid with golden ratio proportions */
+.lk-grid-golden {
+  display: grid;
+  grid-template-columns: 1fr 1.618fr; /* Golden ratio columns */
+  gap: var(--space-lg);
+}
+
+@media (max-width: 768px) {
+  .lk-grid-golden {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Aspect Ratios */
+.lk-aspect-golden {
+  aspect-ratio: 1.618 / 1;
+}
+
+.lk-aspect-golden-portrait {
+  aspect-ratio: 1 / 1.618;
+}
+
+.lk-aspect-square {
+  aspect-ratio: 1 / 1;
+}
+
+/* Responsive Typography */
+@media (max-width: 768px) {
+  :root {
+    --display1-size: 2.618em;
+    --display2-size: 2.058em;
+    --title1-size: 1.618em;
+    --title2-size: 1.272em;
+  }
+}
+
+/* Font Smoothing (from LiftKit) */
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-smooth: never;
+}
