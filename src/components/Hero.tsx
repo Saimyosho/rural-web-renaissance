@@ -180,11 +180,7 @@ const Hero = () => {
 
   const itemVariants = {
     hidden: { y: 30, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: { duration: 0.8, ease: [0.6, -0.05, 0.01, 0.99] }
-    }
+    visible: { y: 0, opacity: 1 }
   };
 
   return (
@@ -246,14 +242,17 @@ const Hero = () => {
             <Sparkles className="w-4 h-4 text-accent" />
           </motion.div>
 
-          <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold mb-6">
-            <span className="gradient-sunrise-text animate-gradient">Absolute Victory</span>
-            <br />
-            <span className="text-foreground">for Your Business</span>
+          <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-8 leading-tight">
+            <span className="text-foreground block mb-2">Your Website is</span>
+            <span className="gradient-sunrise-text animate-gradient text-5xl md:text-7xl lg:text-8xl block">100% Free</span>
           </h1>
           
-          <p className="text-xl md:text-2xl text-muted-foreground mb-8 max-w-3xl mx-auto">
-            Fortune 500 AI Technology for Main Street Businesses
+          <p className="text-2xl md:text-3xl text-primary mb-6 max-w-3xl mx-auto font-semibold">
+            We Make Money When You Make Money
+          </p>
+          
+          <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
+            Free professional website + AI automation. You only pay for premium features when your business grows.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16">
@@ -280,21 +279,37 @@ const Hero = () => {
             </Button>
           </div>
 
-          <div className="flex gap-8 justify-center text-sm text-muted-foreground flex-wrap">
-            <div>
-              <div className="text-3xl font-bold gradient-text mb-1">24/7</div>
-              <div>AI Booking</div>
-            </div>
-            <div className="border-l border-border/50" />
-            <div>
-              <div className="text-3xl font-bold gradient-accent-text mb-1">Auto</div>
-              <div>Social Posts</div>
-            </div>
-            <div className="border-l border-border/50" />
-            <div>
-              <div className="text-3xl font-bold gradient-text mb-1">Instant</div>
-              <div>Deposits</div>
-            </div>
+          {/* Value Proposition Cards */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto text-left">
+            <motion.div 
+              className="glass-strong p-6 rounded-xl border border-primary/20 hover:border-primary/40 transition-all duration-300"
+              variants={itemVariants}
+              whileHover={{ y: -5, boxShadow: "0 20px 40px -15px rgba(1, 180, 210, 0.3)" }}
+            >
+              <div className="text-4xl mb-3">🎁</div>
+              <h3 className="text-lg font-semibold mb-2 text-primary">Free Forever Website</h3>
+              <p className="text-sm text-muted-foreground">Professional design, hosting, and maintenance. Zero upfront cost.</p>
+            </motion.div>
+
+            <motion.div 
+              className="glass-strong p-6 rounded-xl border border-bridge/20 hover:border-bridge/40 transition-all duration-300"
+              variants={itemVariants}
+              whileHover={{ y: -5, boxShadow: "0 20px 40px -15px rgba(170, 85, 247, 0.3)" }}
+            >
+              <div className="text-4xl mb-3">🤖</div>
+              <h3 className="text-lg font-semibold mb-2 text-bridge">AI Does The Work</h3>
+              <p className="text-sm text-muted-foreground">24/7 booking, social media, client follow-ups. Set it and forget it.</p>
+            </motion.div>
+
+            <motion.div 
+              className="glass-strong p-6 rounded-xl border border-accent/20 hover:border-accent/40 transition-all duration-300"
+              variants={itemVariants}
+              whileHover={{ y: -5, boxShadow: "0 20px 40px -15px rgba(245, 155, 0, 0.3)" }}
+            >
+              <div className="text-4xl mb-3">💰</div>
+              <h3 className="text-lg font-semibold mb-2 text-accent">Pay As You Grow</h3>
+              <p className="text-sm text-muted-foreground">Want more? Add premium features only when you're ready.</p>
+            </motion.div>
           </div>
         </motion.div>
       </motion.div>
