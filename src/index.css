@@ -32,10 +32,10 @@ All colors MUST be HSL.
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
 
-    /* Digital Sunrise Palette - Cyan (Dawn Signal) #06B6D4 */
-    --primary: 188 94% 43%;
+    /* Digital Sunrise Palette - Cyan (Dawn Signal) #01B4D2 */
+    --primary: 188 99% 41%;
     --primary-foreground: 0 0% 100%;
-    --primary-glow: 188 94% 53%;
+    --primary-glow: 188 99% 51%;
 
     --secondary: 220 15% 20%;
     --secondary-foreground: 0 0% 100%;
@@ -43,14 +43,14 @@ All colors MUST be HSL.
     --muted: 220 15% 85%;
     --muted-foreground: 220 10% 45%;
 
-    /* Digital Sunrise Palette - Amber (Community Hearth) #F59E0B */
-    --accent: 38 92% 50%;
+    /* Digital Sunrise Palette - Amber (Community Hearth) #F79B00 */
+    --accent: 37 100% 48%;
     --accent-foreground: 0 0% 100%;
-    --accent-glow: 38 92% 60%;
+    --accent-glow: 37 100% 58%;
 
-    /* Purple (Bridge Frequency) #A855F7 - Added as bridge color */
-    --bridge: 271 81% 66%;
-    --bridge-glow: 271 81% 76%;
+    /* Purple (Bridge Frequency) #AA55F7 */
+    --bridge: 271 90% 65%;
+    --bridge-glow: 271 90% 75%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 100%;
@@ -62,9 +62,9 @@ All colors MUST be HSL.
     --radius: 1rem;
 
     /* Digital Sunrise Gradients: Cyan → Purple → Amber */
-    --gradient-primary: linear-gradient(135deg, hsl(188 94% 43%), hsl(271 81% 66%));
-    --gradient-accent: linear-gradient(135deg, hsl(271 81% 66%), hsl(38 92% 50%));
-    --gradient-sunrise: linear-gradient(135deg, hsl(188 94% 43%), hsl(271 81% 66%), hsl(38 92% 50%));
+    --gradient-primary: linear-gradient(135deg, hsl(188 99% 41%), hsl(271 90% 65%));
+    --gradient-accent: linear-gradient(135deg, hsl(271 90% 65%), hsl(37 100% 48%));
+    --gradient-sunrise: linear-gradient(135deg, hsl(188 99% 41%), hsl(271 90% 65%), hsl(37 100% 48%));
     --gradient-ambient: linear-gradient(180deg, hsl(220 20% 8%), hsl(220 25% 12%));
     
     --shadow-elegant: 0 20px 60px -15px hsl(188 94% 43% / 0.4);
@@ -75,55 +75,55 @@ All colors MUST be HSL.
   }
 
   .dark {
-    /* Background Depths - Navy Midnight #0A0E27 */
-    --background: 229 58% 10%;
+    /* Background Depths - Infinite Canvas Dark Blue #0C0C2D */
+    --background: 240 55% 11%;
     --foreground: 0 0% 98%;
 
-    /* Card backgrounds - slightly lighter for depth */
-    --card: 229 45% 12%;
+    /* Card backgrounds - Twilight Deep Purple #201E49 */
+    --card: 243 42% 20%;
     --card-foreground: 0 0% 98%;
 
-    --popover: 229 45% 12%;
+    --popover: 243 42% 20%;
     --popover-foreground: 0 0% 98%;
 
-    /* Digital Sunrise Palette - Cyan (Dawn Signal) #06B6D4 */
-    --primary: 188 94% 43%;
+    /* Digital Sunrise Palette - Cyan (Dawn Signal) #01B4D2 */
+    --primary: 188 99% 41%;
     --primary-foreground: 0 0% 100%;
-    --primary-glow: 188 94% 58%;
+    --primary-glow: 188 99% 56%;
 
-    /* Purple Dusk depth layer #1E1B4B */
-    --secondary: 244 47% 20%;
+    /* Twilight Deep Purple #201E49 for secondary */
+    --secondary: 243 42% 20%;
     --secondary-foreground: 0 0% 98%;
 
-    /* Teal Shadow depth #164E63 */
-    --muted: 197 52% 24%;
-    --muted-foreground: 220 10% 65%;
+    /* Soft Gray #E0E0E0 for muted text */
+    --muted: 243 30% 22%;
+    --muted-foreground: 0 0% 88%;
 
-    /* Digital Sunrise Palette - Amber (Community Hearth) #F59E0B */
-    --accent: 38 92% 50%;
+    /* Digital Sunrise Palette - Amber (Community Hearth) #F79B00 */
+    --accent: 37 100% 48%;
     --accent-foreground: 0 0% 100%;
-    --accent-glow: 38 92% 65%;
+    --accent-glow: 37 100% 63%;
 
-    /* Purple (Bridge Frequency) #A855F7 */
-    --bridge: 271 81% 66%;
-    --bridge-glow: 271 81% 80%;
+    /* Purple (Bridge Frequency) #AA55F7 */
+    --bridge: 271 90% 65%;
+    --bridge-glow: 271 90% 80%;
 
     --destructive: 0 62.8% 50%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 229 30% 18%;
-    --input: 229 30% 18%;
-    --ring: 188 94% 43%;
+    --border: 243 30% 25%;
+    --input: 243 30% 25%;
+    --ring: 188 99% 41%;
     
     /* Digital Sunrise Gradients: Cyan → Purple → Amber */
-    --gradient-primary: linear-gradient(135deg, hsl(188 94% 43%), hsl(271 81% 66%));
-    --gradient-accent: linear-gradient(135deg, hsl(271 81% 66%), hsl(38 92% 50%));
-    --gradient-sunrise: linear-gradient(135deg, hsl(188 94% 43%), hsl(271 81% 66%), hsl(38 92% 50%));
-    /* Background gradient: Navy Midnight → Purple Dusk → Teal Shadow */
-    --gradient-ambient: linear-gradient(180deg, hsl(229 58% 10%), hsl(244 47% 20%), hsl(197 52% 24%));
+    --gradient-primary: linear-gradient(135deg, hsl(188 99% 41%), hsl(271 90% 65%));
+    --gradient-accent: linear-gradient(135deg, hsl(271 90% 65%), hsl(37 100% 48%));
+    --gradient-sunrise: linear-gradient(135deg, hsl(188 99% 41%), hsl(271 90% 65%), hsl(37 100% 48%));
+    /* Background gradient: Infinite Canvas → Twilight Deep Purple */
+    --gradient-ambient: linear-gradient(180deg, hsl(240 55% 11%), hsl(243 42% 20%));
     
-    --shadow-elegant: 0 20px 60px -15px hsl(188 94% 43% / 0.5);
-    --shadow-glow: 0 0 60px hsl(188 94% 58% / 0.5);
+    --shadow-elegant: 0 20px 60px -15px hsl(188 99% 41% / 0.5);
+    --shadow-glow: 0 0 60px hsl(188 99% 56% / 0.5);
   }
 }
 
@@ -161,9 +161,9 @@ All colors MUST be HSL.
     @apply bg-gradient-to-r from-accent to-accent-glow bg-clip-text text-transparent;
   }
 
-  /* Digital Sunrise gradient text: Cyan → Purple → Amber */
+  /* Digital Sunrise gradient text: Cyan #01B4D2 → Purple #AA55F7 → Amber #F79B00 */
   .gradient-sunrise-text {
-    background: linear-gradient(135deg, hsl(188 94% 43%), hsl(271 81% 66%), hsl(38 92% 50%));
+    background: linear-gradient(135deg, hsl(188 99% 41%), hsl(271 90% 65%), hsl(37 100% 48%));
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
