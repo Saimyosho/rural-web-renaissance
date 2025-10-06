@@ -252,7 +252,7 @@ const Hero = () => {
           </p>
           
           <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
-            Free professional website + AI automation. You only pay for premium features when your business grows.
+            I build your website free using my AI expertise. Want enterprise automation? Add Azure AI tools, Microsoft integrations, and advanced features when you're ready.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16">
@@ -287,8 +287,8 @@ const Hero = () => {
               whileHover={{ y: -5, boxShadow: "0 20px 40px -15px rgba(1, 180, 210, 0.3)" }}
             >
               <div className="text-4xl mb-3">🎁</div>
-              <h3 className="text-lg font-semibold mb-2 text-primary">Free Forever Website</h3>
-              <p className="text-sm text-muted-foreground">Professional design, hosting, and maintenance. Zero upfront cost.</p>
+              <h3 className="text-lg font-semibold mb-2 text-primary">Free Website Built by Expert</h3>
+              <p className="text-sm text-muted-foreground">I build your site using my AI & IT expertise. Professional design, hosting included.</p>
             </motion.div>
 
             <motion.div 
@@ -296,9 +296,9 @@ const Hero = () => {
               variants={itemVariants}
               whileHover={{ y: -5, boxShadow: "0 20px 40px -15px rgba(170, 85, 247, 0.3)" }}
             >
-              <div className="text-4xl mb-3">🤖</div>
-              <h3 className="text-lg font-semibold mb-2 text-bridge">AI Does The Work</h3>
-              <p className="text-sm text-muted-foreground">24/7 booking, social media, client follow-ups. Set it and forget it.</p>
+              <div className="text-4xl mb-3">🎓</div>
+              <h3 className="text-lg font-semibold mb-2 text-bridge">AI Engineering Certified</h3>
+              <p className="text-sm text-muted-foreground">Prompt engineering, ML, deep learning. I architect AI solutions others can't.</p>
             </motion.div>
 
             <motion.div 
@@ -306,9 +306,9 @@ const Hero = () => {
               variants={itemVariants}
               whileHover={{ y: -5, boxShadow: "0 20px 40px -15px rgba(245, 155, 0, 0.3)" }}
             >
-              <div className="text-4xl mb-3">💰</div>
-              <h3 className="text-lg font-semibold mb-2 text-accent">Pay As You Grow</h3>
-              <p className="text-sm text-muted-foreground">Want more? Add premium features only when you're ready.</p>
+              <div className="text-4xl mb-3">⚡</div>
+              <h3 className="text-lg font-semibold mb-2 text-accent">Enterprise AI Tools (Paid)</h3>
+              <p className="text-sm text-muted-foreground">Azure integrations, Microsoft AI, advanced automation when your business scales.</p>
             </motion.div>
           </div>
         </motion.div>

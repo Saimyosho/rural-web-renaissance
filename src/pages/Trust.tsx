@@ -66,13 +66,13 @@ const Trust = () => {
     },
     {
       icon: Heart,
-      title: "Community First",
-      description: "Fortune 500 technology meets small-town values. We succeed when you succeed.",
+      title: "Expert-Built, Not Automated",
+      description: "AI-certified engineer with ML, deep learning, and prompt engineering expertise builds your site.",
       details: [
-        "Free websites for rural and underserved businesses",
-        "Portion of profits support local tech education",
-        "No vendor lock-in—you own everything",
-        "Personal support, not ticket systems"
+        "Certified in AI prompt & context engineering",
+        "Deep learning & machine learning specialist",
+        "Azure AI & Microsoft integrations expert",
+        "Enterprise-grade solutions for Main Street"
       ]
     },
     {
