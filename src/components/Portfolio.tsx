@@ -8,7 +8,7 @@ const Portfolio = () => {
       title: "Chainlift LiftKit",
       category: "Design System & UI Framework",
       description: "Implemented golden ratio (φ = 1.618) design principles from Chainlift's LiftKit framework. Created custom CSS system with mathematical precision for typography, spacing, and optical symmetry.",
-      image: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=800&auto=format&fit=crop&q=80",
+      image: "https://images.unsplash.com/photo-1558655146-9f40138edfeb?w=800&auto=format&fit=crop&q=80",
       tags: ["Golden Ratio", "Design System", "CSS Architecture"],
       size: "large",
       link: "https://www.chainlift.io/liftkit",
