@@ -209,6 +209,98 @@ const About = () => {
             </div>
           </div>
 
+          {/* Credentials & Certifications Showcase */}
+          <div className="mb-20">
+            <div className="text-center mb-12">
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass mb-4 border border-primary/30">
+                <Shield className="w-4 h-4 text-primary" />
+                <span className="text-sm font-semibold">Verified Professional</span>
+              </div>
+              <h3 className="text-3xl font-bold mb-4">
+                <span className="gradient-text">Certified</span> & <span className="gradient-accent-text">Credentialed</span>
+              </h3>
+              <p className="text-muted-foreground max-w-2xl mx-auto">
+                10+ years enterprise IT experience backed by industry-recognized certifications
+              </p>
+            </div>
+
+            {/* Certification Badges Grid */}
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-8">
+              {[
+                { name: "Cloud+", status: "Active", expires: "2025", color: "from-blue-500 to-blue-600" },
+                { name: "Security+", status: "Active", expires: "2025", color: "from-red-500 to-red-600" },
+                { name: "Network+", status: "Active", expires: "2025", color: "from-green-500 to-green-600" },
+                { name: "A+", status: "Active", expires: "2024", color: "from-purple-500 to-purple-600" },
+                { name: "Azure Architect", status: "In Progress", expires: "2025", color: "from-cyan-500 to-cyan-600" },
+                { name: "AWS Architect", status: "In Progress", expires: "2025", color: "from-orange-500 to-orange-600" },
+              ].map((cert, index) => (
+                <div
+                  key={index}
+                  className="glass-strong rounded-xl p-4 hover-lift group relative overflow-hidden"
+                >
+                  <div className={`absolute inset-0 bg-gradient-to-br ${cert.color} opacity-0 group-hover:opacity-10 transition-opacity duration-500`}></div>
+                  <div className="relative z-10 text-center">
+                    <div className={`w-12 h-12 mx-auto mb-3 rounded-full bg-gradient-to-br ${cert.color} flex items-center justify-center text-white font-bold text-sm shadow-lg group-hover:scale-110 transition-transform duration-300`}>
+                      <Award className="w-6 h-6" />
+                    </div>
+                    <div className="font-bold text-sm mb-1">{cert.name}</div>
+                    <div className="text-xs text-primary font-semibold">{cert.status}</div>
+                    <div className="text-xs text-muted-foreground">Exp: {cert.expires}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Experience Highlight */}
+            <div className="glass-strong rounded-2xl p-8">
+              <div className="grid md:grid-cols-3 gap-8 text-center">
+                <div>
+                  <div className="text-5xl font-bold gradient-text mb-2">10+</div>
+                  <div className="text-muted-foreground">Years Enterprise IT</div>
+                  <div className="text-xs text-primary mt-2">Windows Server, Azure, VMware</div>
+                </div>
+                <div>
+                  <div className="text-5xl font-bold gradient-accent-text mb-2">1,200+</div>
+                  <div className="text-muted-foreground">VMs Managed</div>
+                  <div className="text-xs text-accent mt-2">99.95% Uptime Achieved</div>
+                </div>
+                <div>
+                  <div className="text-5xl font-bold gradient-text mb-2">800+</div>
+                  <div className="text-muted-foreground">Users Supported</div>
+                  <div className="text-xs text-primary mt-2">Fortune 500 Experience</div>
+                </div>
+              </div>
+            </div>
+
+            {/* Education */}
+            <div className="grid md:grid-cols-2 gap-6 mt-6">
+              <div className="glass rounded-xl p-6 hover-lift">
+                <div className="flex items-start gap-4">
+                  <div className="p-3 rounded-xl bg-gradient-to-br from-primary to-primary-glow text-white">
+                    <Award className="w-6 h-6" />
+                  </div>
+                  <div className="flex-1">
+                    <div className="font-bold text-lg mb-1">BS in Information Technology</div>
+                    <div className="text-primary text-sm font-semibold mb-2">Southern New Hampshire University</div>
+                    <div className="text-sm text-muted-foreground">GPA: <span className="text-accent font-bold">3.8</span> | Cloud Computing, AI/ML, Cybersecurity</div>
+                  </div>
+                </div>
+              </div>
+              <div className="glass rounded-xl p-6 hover-lift">
+                <div className="flex items-start gap-4">
+                  <div className="p-3 rounded-xl bg-gradient-to-br from-accent to-accent-glow text-white">
+                    <Award className="w-6 h-6" />
+                  </div>
+                  <div className="flex-1">
+                    <div className="font-bold text-lg mb-1">AS in Network Administration</div>
+                    <div className="text-accent text-sm font-semibold mb-2">Pittsburgh Technical Institute</div>
+                    <div className="text-sm text-muted-foreground">GPA: <span className="text-primary font-bold">3.5</span> | <span className="text-accent font-semibold">Dean's List</span></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
           {/* Stats Bar with Animated Counters */}
           <div className="grid md:grid-cols-3 gap-6 mb-20">
             {stats.map((stat, index) => (
