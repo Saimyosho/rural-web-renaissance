@@ -72,7 +72,7 @@ const Navigation = () => {
   return (
     <>
       {/* Scroll Progress Bar */}
-      <div className="fixed top-0 left-0 right-0 h-1 bg-background/50 z-[60]">
+      <div className="fixed top-0 left-0 right-0 h-1 bg-background/50 z-[100]">
         <div
           className="h-full bg-gradient-to-r from-primary via-accent to-primary-glow transition-all duration-300"
           style={{ width: `${scrollProgress}%` }}
@@ -80,7 +80,7 @@ const Navigation = () => {
       </div>
 
       <nav
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+        className={`fixed top-0 left-0 right-0 z-[99] transition-all duration-500 ${
           isScrolled ? "glass-strong py-4 shadow-elegant" : "bg-transparent py-6"
         }`}
       >
@@ -135,7 +135,7 @@ const Navigation = () => {
 
       {/* Mobile Menu */}
       {isMobileMenuOpen && (
-        <div className="fixed inset-0 z-40 md:hidden animate-fade-in">
+        <div className="fixed inset-0 z-[98] md:hidden animate-fade-in">
           <div className="absolute inset-0 bg-background/95 backdrop-blur-2xl" />
           <div className="relative h-full flex flex-col items-center justify-center gap-8">
             {navItems.map((item, index) => (
@@ -165,7 +165,7 @@ const Navigation = () => {
       {showScrollTop && (
         <button
           onClick={scrollToTop}
-          className="fixed bottom-8 right-8 z-50 p-4 rounded-full bg-gradient-to-r from-primary to-accent text-white shadow-glow hover:scale-110 transition-all duration-300 animate-bounce-slow"
+          className="fixed bottom-8 right-8 z-[97] p-4 rounded-full bg-gradient-to-r from-primary to-accent text-white shadow-glow hover:scale-110 transition-all duration-300 animate-bounce-slow"
           aria-label="Scroll to top"
         >
           <ArrowUp className="w-6 h-6" />
