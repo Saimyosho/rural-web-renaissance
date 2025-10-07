@@ -184,7 +184,7 @@ const Hero = () => {
   };
 
   return (
-    <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden pb-20">
       {/* Sophisticated Wireframe Background */}
       <WireframeBackground variant="dots" density="medium" animate={true} />
       
@@ -225,7 +225,7 @@ const Hero = () => {
       />
 
       <motion.div 
-        className="relative z-20 container mx-auto px-6 text-center"
+        className="relative z-20 container mx-auto px-6 text-center py-8"
         style={{ transform: `translateY(${parallaxOffset * 0.3}px)` }}
         variants={containerVariants}
         initial="hidden"
@@ -280,7 +280,7 @@ const Hero = () => {
           </div>
 
           {/* Value Proposition Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto text-left">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto text-left mb-8">
             <motion.div 
               className="glass-strong p-6 rounded-xl border border-primary/20 hover:border-primary/40 transition-all duration-300"
               variants={itemVariants}
