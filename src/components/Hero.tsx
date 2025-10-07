@@ -225,7 +225,7 @@ const Hero = () => {
       />
 
       <motion.div 
-        className="relative z-20 container mx-auto px-6 text-center py-8"
+        className="relative z-20 container mx-auto px-6 text-center py-8 pt-32"
         style={{ transform: `translateY(${parallaxOffset * 0.3}px)` }}
         variants={containerVariants}
         initial="hidden"
