@@ -113,7 +113,7 @@ const Footer = () => {
                 <span className="text-sm">Buy Me a Coffee</span>
               </a>
               <p className="text-sm text-muted-foreground">
-                Ferndale, PA • Serving Johnstown Area
+                Johnstown, PA • Serving Pennsylvania
               </p>
             </div>
           </div>

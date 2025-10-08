@@ -34,8 +34,8 @@ const Contact = () => {
     setIsSubmitting(true);
 
     try {
-      // Save to Supabase (if configured)
-      const { error } = await supabase
+      // Save to Supabase
+      const { data, error } = await supabase
         .from('contact_submissions')
         .insert([
           {
@@ -43,45 +43,47 @@ const Contact = () => {
             email: formData.email,
             company: formData.business || null,
             message: formData.message,
-            interested_in: selectedComponents || `Inspiration: ${formData.inspiration1}, ${formData.inspiration2}`,
+            interested_in: selectedComponents 
+              ? `Components: ${selectedComponents} | Inspiration: ${formData.inspiration1}, ${formData.inspiration2}`
+              : `Inspiration: ${formData.inspiration1}, ${formData.inspiration2}`,
           }
-        ]);
+        ])
+        .select();
 
       if (error) {
-        console.log('Supabase not configured or error:', error.message);
-        // Continue with mailto even if Supabase fails
+        throw error;
       }
-    } catch (err) {
-      console.log('Supabase save skipped - not configured');
-      // Continue with mailto
+
+      // Success!
+      toast({
+        title: "Message Sent Successfully! 🎉",
+        description: "Thanks for reaching out! I'll get back to you within 24 hours.",
+      });
+
+      // Reset form
+      setFormData({ 
+        name: "", 
+        email: "", 
+        business: "", 
+        inspiration1: "", 
+        inspiration2: "", 
+        message: "" 
+      });
+      setSelectedComponents("");
+
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      
+      const errorMessage = error instanceof Error ? error.message : "Please try again or email me directly at SheldonGunby@icloud.com";
+      
+      toast({
+        title: "Oops! Something went wrong",
+        description: errorMessage,
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
     }
-
-    // Create email body with form data
-    const emailBody = `Name: ${formData.name}
-Email: ${formData.email}
-Business: ${formData.business || 'Not provided'}
-Inspiration Website 1: ${formData.inspiration1 || 'Not provided'}
-Inspiration Website 2: ${formData.inspiration2 || 'Not provided'}
-${selectedComponents ? `\nSelected Components: ${selectedComponents}\n` : ''}
-Message:
-${formData.message}`;
-
-    // Create mailto link
-    const mailtoLink = `mailto:SheldonGunby@icloud.com?subject=Website Request from ${formData.name}&body=${encodeURIComponent(emailBody)}`;
-
-    // Short delay for better UX
-    await new Promise((resolve) => setTimeout(resolve, 500));
-
-    // Open email client
-    window.location.href = mailtoLink;
-
-    toast({
-      title: "Opening Email Client 📧",
-      description: "Your message has been prepared. Please send the email to complete your request!",
-    });
-
-    setFormData({ name: "", email: "", business: "", inspiration1: "", inspiration2: "", message: "" });
-    setIsSubmitting(false);
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -160,7 +162,7 @@ ${formData.message}`;
                   </div>
                   <div>
                     <div className="font-semibold mb-1">Location</div>
-                    <div className="text-sm text-muted-foreground">Ferndale, PA • Serving Johnstown Area</div>
+                    <div className="text-sm text-muted-foreground">Johnstown, PA • Serving Pennsylvania</div>
                   </div>
                 </div>
               </div>
@@ -340,17 +342,62 @@ ${formData.message}`;
                 </div>
 
                 <div>
-                  <label htmlFor="message" className="block text-sm font-semibold mb-2">
+                  <label htmlFor="message" className="block text-sm font-semibold mb-3">
                     Tell Me About Your Project *
                   </label>
+                  <div className="mb-3 p-4 rounded-xl bg-primary/5 border border-primary/20">
+                    <p className="text-sm font-semibold text-primary mb-2">💡 The more details you share, the better I can help!</p>
+                    <p className="text-xs text-muted-foreground mb-3">
+                      Please share as much as you can about what you need. Even if you think something isn't important - 
+                      it helps me understand your vision! Here's what's helpful to know:
+                    </p>
+                    <ul className="text-xs text-muted-foreground space-y-2">
+                      <li className="flex items-start gap-2">
+                        <span className="text-primary mt-0.5">•</span>
+                        <span><strong className="text-foreground">What you do:</strong> Tell me about your business, restaurant, hobby, or project</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <span className="text-primary mt-0.5">•</span>
+                        <span><strong className="text-foreground">What you need:</strong> Menu, gallery, online store, booking system, contact form, etc.</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <span className="text-primary mt-0.5">•</span>
+                        <span><strong className="text-foreground">Your style:</strong> Modern, classic, playful, professional - describe it your way!</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <span className="text-primary mt-0.5">•</span>
+                        <span><strong className="text-foreground">Colors you like:</strong> Any favorite colors or colors to avoid?</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <span className="text-primary mt-0.5">•</span>
+                        <span><strong className="text-foreground">Who visits your site:</strong> Customers? Clients? Friends? What should they do on your site?</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <span className="text-primary mt-0.5">•</span>
+                        <span><strong className="text-foreground">Content you have:</strong> Photos, logos, text, videos - what do you already have?</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <span className="text-primary mt-0.5">•</span>
+                        <span><strong className="text-foreground">Any must-haves:</strong> Something specific you definitely want or need?</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <span className="text-primary mt-0.5">•</span>
+                        <span><strong className="text-foreground">Timeline:</strong> When do you hope to have this ready?</span>
+                      </li>
+                    </ul>
+                    <p className="text-xs text-muted-foreground mt-3 italic">
+                      Don't worry about using the "right" words - just tell me your vision in your own words! 
+                      Every detail helps me create exactly what you're imagining.
+                    </p>
+                  </div>
                   <Textarea
                     id="message"
                     name="message"
                     value={formData.message}
                     onChange={handleChange}
                     required
-                    className="glass border-primary/30 focus:border-primary min-h-[150px]"
-                    placeholder="What kind of website do you need? Tell me about your business and vision..."
+                    className="glass border-primary/30 focus:border-primary min-h-[200px]"
+                    placeholder="Example: I run a small bakery called Sweet Treats in Johnstown. I need a website to show my cakes and pastries with pictures, our menu with prices, and a way for people to place orders. I like warm colors like pink and cream. I want it to feel cozy and friendly. I have lots of photos of my cakes. I'd love to have it ready for the holidays..."
                   />
                 </div>
 

@@ -327,7 +327,7 @@ const About = () => {
                   Why <span className="gradient-text">I Do This</span>
                 </h3>
                 <p className="text-muted-foreground leading-relaxed">
-                  Based in <span className="text-primary font-semibold">Ferndale, Pennsylvania</span>, I serve small businesses in the Johnstown area who deserve the same premium web presence as Fortune 500 companies.
+                  Based in <span className="text-primary font-semibold">Johnstown, Pennsylvania</span>, I serve small businesses across Pennsylvania who deserve the same premium web presence as Fortune 500 companies.
                 </p>
                 <p className="text-muted-foreground leading-relaxed">
                   Every website I build meets <span className="text-accent font-semibold">award competition standards</span> - Webby Awards, Awwwards, CSS Design Awards. You get something that looks like you paid $10k+, completely free as I build my portfolio.

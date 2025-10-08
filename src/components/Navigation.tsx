@@ -39,6 +39,9 @@ const Navigation = () => {
     { id: "home", label: "Home", icon: "🏠", isRoute: false },
     { id: "about", label: "About", icon: "👨‍💻", isRoute: false },
     { id: "services", label: "Services", icon: "⚡", isRoute: true },
+    { id: "ai-agents", label: "AI Agents", icon: "🤖", isRoute: true },
+    { id: "expertise", label: "Expertise", icon: "🚀", isRoute: true },
+    { id: "process", label: "Process", icon: "⚙️", isRoute: true },
     { id: "portfolio", label: "Portfolio", icon: "🎨", isRoute: false },
     { id: "pricing", label: "Pricing", icon: "💰", isRoute: true },
     { id: "trust", label: "Trust", icon: "🛡️", isRoute: true },
@@ -46,11 +49,22 @@ const Navigation = () => {
   ];
 
   const scrollToSection = (id: string, isRoute: boolean = false) => {
+    // If it's a route (separate page), navigate to that page
     if (isRoute) {
       window.location.href = `/${id}`;
       return;
     }
     
+    // Check if we're on the homepage
+    const isHomePage = window.location.pathname === '/';
+    
+    // If we're not on homepage and trying to scroll to a section, go to homepage first
+    if (!isHomePage) {
+      window.location.href = `/#${id}`;
+      return;
+    }
+    
+    // If we're on homepage, scroll to the section
     const element = document.getElementById(id);
     if (element) {
       const offset = 80;
