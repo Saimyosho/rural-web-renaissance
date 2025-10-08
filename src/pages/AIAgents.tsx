@@ -1,5 +1,7 @@
 import { motion } from "framer-motion";
 import { Bot, Calendar, Star, MessageSquare, Instagram, UtensilsCrossed, ArrowRight, CheckCircle, TrendingUp, Clock, DollarSign, Zap } from "lucide-react";
+import Navigation from "@/components/Navigation";
+import Footer from "@/components/Footer";
 import WireframeBackground from "@/components/WireframeBackground";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -155,8 +157,10 @@ const AIAgents = () => {
 
   return (
     <div className="min-h-screen">
+      <Navigation />
+      
       {/* Hero Section */}
-      <section className="relative py-32 overflow-hidden">
+      <section className="relative pt-32 pb-20 overflow-hidden">
         <WireframeBackground variant="circuit" density="medium" animate={true} />
         
         <div className="container mx-auto px-6 relative z-10">
@@ -453,6 +457,8 @@ const AIAgents = () => {
           </Card>
         </div>
       </section>
+
+      <Footer />
     </div>
   );
 };
