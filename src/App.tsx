@@ -11,6 +11,7 @@ import Expertise from "./pages/Expertise";
 import Process from "./pages/Process";
 import AIAgents from "./pages/AIAgents";
 import NotFound from "./pages/NotFound";
+import { Analytics } from "@vercel/analytics/react";
 
 const queryClient = new QueryClient();
 
@@ -32,6 +33,7 @@ const App = () => (
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
+      <Analytics />
     </TooltipProvider>
   </QueryClientProvider>
 );
