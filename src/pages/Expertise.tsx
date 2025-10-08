@@ -1,5 +1,7 @@
 import Navigation from "@/components/Navigation";
-import PerformanceDashboard from "@/components/PerformanceDashboard";
+import RealTimeWebVitals from "@/components/RealTimeWebVitals";
+import BuildStatus from "@/components/BuildStatus";
+import AccessibilityShowcase from "@/components/AccessibilityShowcase";
 import DesignSystemShowcase from "@/components/DesignSystemShowcase";
 import Footer from "@/components/Footer";
 import { motion } from "framer-motion";
@@ -72,7 +74,15 @@ const Expertise = () => {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                 <a href="#performance" className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors">
                   <ChevronRight className="w-4 h-4" />
-                  Performance & Core Web Vitals
+                  Real-Time Web Vitals
+                </a>
+                <a href="#ci-cd" className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors">
+                  <ChevronRight className="w-4 h-4" />
+                  CI/CD Pipeline Status
+                </a>
+                <a href="#accessibility" className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors">
+                  <ChevronRight className="w-4 h-4" />
+                  Accessibility Compliance
                 </a>
                 <a href="#design-system" className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors">
                   <ChevronRight className="w-4 h-4" />
@@ -93,7 +103,15 @@ const Expertise = () => {
       </section>
 
       <div id="performance">
-        <PerformanceDashboard />
+        <RealTimeWebVitals />
+      </div>
+
+      <div id="ci-cd">
+        <BuildStatus />
+      </div>
+
+      <div id="accessibility">
+        <AccessibilityShowcase />
       </div>
       
       <div id="design-system">

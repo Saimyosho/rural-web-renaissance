@@ -4,7 +4,6 @@ import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
 import { useToast } from "@/hooks/use-toast";
-import { supabase } from "@/lib/supabase";
 
 const Contact = () => {
   const { toast } = useToast();
@@ -34,27 +33,33 @@ const Contact = () => {
     setIsSubmitting(true);
 
     try {
-      // Save to Supabase
-      const { data, error } = await supabase
-        .from('contact_submissions')
-        .insert([
-          {
-            name: formData.name,
-            email: formData.email,
-            company: formData.business || null,
-            message: formData.message,
-            interested_in: selectedComponents 
-              ? `Components: ${selectedComponents} | Inspiration: ${formData.inspiration1}, ${formData.inspiration2}`
-              : `Inspiration: ${formData.inspiration1}, ${formData.inspiration2}`,
-          }
-        ])
-        .select();
+      const payload = {
+        name: formData.name,
+        email: formData.email,
+        company: formData.business || null,
+        message: formData.message,
+        interested_in: selectedComponents 
+          ? `Components: ${selectedComponents} | Inspiration: ${formData.inspiration1}, ${formData.inspiration2}`
+          : `Inspiration: ${formData.inspiration1}, ${formData.inspiration2}`,
+      };
 
-      if (error) {
-        throw error;
+      const resp = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+
+      if (!resp.ok) {
+        let details = '';
+        try {
+          const j = await resp.json();
+          details = j?.error || j?.details || '';
+        } catch (_e) {
+          details = '';
+        }
+        throw new Error(details || `Request failed (${resp.status})`);
       }
 
-      // Success!
       toast({
         title: "Message Sent Successfully! 🎉",
         description: "Thanks for reaching out! I'll get back to you within 24 hours.",
@@ -73,9 +78,7 @@ const Contact = () => {
 
     } catch (error) {
       console.error('Error submitting form:', error);
-      
       const errorMessage = error instanceof Error ? error.message : "Please try again or email me directly at SheldonGunby@icloud.com";
-      
       toast({
         title: "Oops! Something went wrong",
         description: errorMessage,
