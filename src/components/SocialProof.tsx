@@ -22,12 +22,12 @@ const SocialProof = () => {
       location: "Johnstown, PA"
     },
     {
-      name: "David Chen",
-      business: "Chenshuan Family Restaurant",
-      role: "Manager",
+      name: "Marcus Williams",
+      business: "Williams Auto Repair",
+      role: "Owner",
       rating: 5,
-      text: "Working with Sheldon was seamless. He understood our needs, provided weekly updates, and delivered ahead of schedule. The online ordering integration has been a game-changer for our business.",
-      location: "Reading, PA"
+      text: "Best investment we've made! The appointment booking system and customer portal have streamlined our operations. Our customers love the convenience, and we've seen a 40% increase in bookings.",
+      location: "Altoona, PA"
     },
     {
       name: "Lisa Thompson",
