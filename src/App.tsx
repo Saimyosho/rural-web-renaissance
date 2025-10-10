@@ -20,6 +20,8 @@ const AIAgents = lazy(() => import("./pages/AIAgents"));
 const FAQPage = lazy(() => import("./pages/FAQ"));
 const PrivacyPolicy = lazy(() => import("./pages/PrivacyPolicy"));
 const ForBusinessOwners = lazy(() => import("./pages/ForBusinessOwners"));
+const Restaurants = lazy(() => import("./pages/industries/Restaurants"));
+const Salons = lazy(() => import("./pages/industries/Salons"));
 
 const queryClient = new QueryClient();
 
@@ -52,6 +54,8 @@ const App = () => (
             <Route path="/faq" element={<FAQPage />} />
             <Route path="/privacy" element={<PrivacyPolicy />} />
             <Route path="/for-business-owners" element={<ForBusinessOwners />} />
+            <Route path="/industries/restaurants" element={<Restaurants />} />
+            <Route path="/industries/salons" element={<Salons />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
