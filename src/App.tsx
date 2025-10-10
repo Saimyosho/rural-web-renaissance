@@ -11,6 +11,7 @@ import Expertise from "./pages/Expertise";
 import Process from "./pages/Process";
 import AIAgents from "./pages/AIAgents";
 import NotFound from "./pages/NotFound";
+import FAQPage from "./pages/FAQ";
 import { Analytics } from "@vercel/analytics/react";
 
 const queryClient = new QueryClient();
@@ -29,6 +30,7 @@ const App = () => (
           <Route path="/expertise" element={<Expertise />} />
           <Route path="/process" element={<Process />} />
           <Route path="/ai-agents" element={<AIAgents />} />
+          <Route path="/faq" element={<FAQPage />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

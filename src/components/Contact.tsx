@@ -50,14 +50,17 @@ const Contact = () => {
       });
 
       if (!resp.ok) {
-        let details = '';
+        let msg = `Request failed (${resp.status})`;
         try {
           const j = await resp.json();
-          details = j?.error || j?.details || '';
+          const status = j?.status ? ` (status ${j.status})` : '';
+          const hint = j?.hint ? ` — ${j.hint}` : '';
+          const details = j?.details || j?.error || '';
+          msg = `${details}${hint}${status}`.trim() || msg;
         } catch (_e) {
-          details = '';
+          console.debug('contact: failed to parse error JSON');
         }
-        throw new Error(details || `Request failed (${resp.status})`);
+        throw new Error(msg);
       }
 
       toast({

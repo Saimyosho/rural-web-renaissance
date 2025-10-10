@@ -45,6 +45,7 @@ const Navigation = () => {
     { id: "portfolio", label: "Portfolio", icon: "🎨", isRoute: false },
     { id: "pricing", label: "Pricing", icon: "💰", isRoute: true },
     { id: "trust", label: "Trust", icon: "🛡️", isRoute: true },
+    { id: "faq", label: "FAQ", icon: "❓", isRoute: true },
     { id: "contact", label: "Contact", icon: "📧", isRoute: false },
   ];
 

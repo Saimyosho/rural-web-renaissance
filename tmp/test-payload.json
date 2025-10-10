@@ -1,0 +1,7 @@
+{
+  "name": "Test Bot",
+  "email": "test@saimyosho.com",
+  "message": "Automated test to verify email send path.",
+  "company": "RWR QA",
+  "interested_in": "contact-form"
+}
