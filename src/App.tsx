@@ -19,6 +19,7 @@ const Process = lazy(() => import("./pages/Process"));
 const AIAgents = lazy(() => import("./pages/AIAgents"));
 const FAQPage = lazy(() => import("./pages/FAQ"));
 const PrivacyPolicy = lazy(() => import("./pages/PrivacyPolicy"));
+const ForBusinessOwners = lazy(() => import("./pages/ForBusinessOwners"));
 
 const queryClient = new QueryClient();
 
@@ -50,6 +51,7 @@ const App = () => (
             <Route path="/ai-agents" element={<AIAgents />} />
             <Route path="/faq" element={<FAQPage />} />
             <Route path="/privacy" element={<PrivacyPolicy />} />
+            <Route path="/for-business-owners" element={<ForBusinessOwners />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
