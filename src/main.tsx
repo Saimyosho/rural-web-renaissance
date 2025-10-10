@@ -1,6 +1,8 @@
 import { createRoot } from "react-dom/client";
 import App from "./App.tsx";
 import "./index.css";
+import ErrorBoundary from "./components/ErrorBoundary";
+import { Analytics } from "@vercel/analytics/react";
 
 // Ensure dark mode is applied (redundant with inline script, but safe)
 document.documentElement.classList.add('dark');
@@ -18,4 +20,9 @@ if ('serviceWorker' in navigator && import.meta.env.PROD) {
   });
 }
 
-createRoot(document.getElementById("root")!).render(<App />);
+createRoot(document.getElementById("root")!).render(
+  <ErrorBoundary>
+    <App />
+    <Analytics />
+  </ErrorBoundary>
+);
