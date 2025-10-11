@@ -135,6 +135,8 @@ const Services = () => {
                   <div
                     onMouseEnter={() => setHoveredService(index)}
                     onMouseLeave={() => setHoveredService(null)}
+                    onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
+                    className="cursor-pointer"
                   >
                     {/* Premium badge */}
                     {service.isPremium && (
