@@ -281,7 +281,7 @@ const Hero = () => {
 
       <motion.button
         onClick={scrollToAbout}
-        className="absolute bottom-12 left-1/2 -translate-x-1/2 z-20 text-primary hover:scale-110 transition-transform p-3 rounded-full glass hover:bg-primary/20"
+        className="absolute bottom-4 md:bottom-12 left-1/2 -translate-x-1/2 z-20 text-primary hover:scale-110 transition-transform p-3 rounded-full glass hover:bg-primary/20"
         animate={{ y: [0, -10, 0] }}
         transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
         whileHover={{ scale: 1.2 }}
