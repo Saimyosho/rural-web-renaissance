@@ -1,20 +1,23 @@
-import { useState, useEffect } from "react";
-import { Menu, X, ArrowUp, Sparkles } from "lucide-react";
+import { useState, useEffect, useRef } from "react";
+import { Menu, X, ChevronDown, Sparkles } from "lucide-react";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 
 const Navigation = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
   const [scrollProgress, setScrollProgress] = useState(0);
-  const [showScrollTop, setShowScrollTop] = useState(false);
+  const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+  const [mobileOpenDropdown, setMobileOpenDropdown] = useState<string | null>(null);
+  const dropdownTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
       const scrolled = window.scrollY > 50;
       setIsScrolled(scrolled);
-      setShowScrollTop(window.scrollY > 500);
 
-      // Calculate scroll progress
       const windowHeight = document.documentElement.scrollHeight - window.innerHeight;
       const progress = (window.scrollY / windowHeight) * 100;
       setScrollProgress(progress);
@@ -36,52 +39,117 @@ const Navigation = () => {
   }, []);
 
   const navItems = [
-    { id: "home", label: "Home", icon: "🏠", isRoute: false },
-    { id: "about", label: "About", icon: "👨‍💻", isRoute: false },
-    { id: "services", label: "Services", icon: "⚡", isRoute: true },
-    { id: "ai-agents", label: "AI Agents", icon: "🤖", isRoute: true },
-    { id: "expertise", label: "Expertise", icon: "🚀", isRoute: true },
-    { id: "process", label: "Process", icon: "⚙️", isRoute: true },
-    { id: "portfolio", label: "Portfolio", icon: "🎨", isRoute: false },
-    { id: "pricing", label: "Pricing", icon: "💰", isRoute: true },
-    { id: "trust", label: "Trust", icon: "🛡️", isRoute: true },
-    { id: "faq", label: "FAQ", icon: "❓", isRoute: true },
-    { id: "contact", label: "Contact", icon: "📧", isRoute: false },
+    { 
+      id: "home", 
+      label: "Home", 
+      isRoute: false,
+      action: () => scrollToSection("home")
+    },
+    { 
+      id: "services", 
+      label: "Services",
+      hasDropdown: true,
+      dropdownItems: [
+        { label: "Web Development", path: "/#services", description: "Custom websites & apps" },
+        { label: "AI Agents", path: "/ai-agents", description: "Intelligent automation" },
+        { label: "All Services", path: "/#services", description: "View complete offerings" }
+      ]
+    },
+    { 
+      id: "about", 
+      label: "About",
+      hasDropdown: true,
+      dropdownItems: [
+        { label: "Expertise", path: "/expertise", description: "Skills & technologies" },
+        { label: "Process", path: "/process", description: "How we work" },
+        { label: "About Me", path: "/#about", description: "My background" }
+      ]
+    },
+    { 
+      id: "portfolio", 
+      label: "Portfolio", 
+      isRoute: false,
+      action: () => scrollToSection("portfolio")
+    },
+    { 
+      id: "resources", 
+      label: "Resources",
+      hasDropdown: true,
+      dropdownItems: [
+        { label: "FAQ", path: "/faq", description: "Common questions" },
+        { label: "Pricing", path: "/pricing", description: "Transparent rates" },
+        { label: "Trust & Security", path: "/trust", description: "Our commitment" },
+        { label: "Privacy Policy", path: "/privacy", description: "Data protection" }
+      ]
+    },
+    { 
+      id: "contact", 
+      label: "Contact", 
+      isRoute: false,
+      action: () => scrollToSection("contact")
+    },
   ];
 
-  const scrollToSection = (id: string, isRoute: boolean = false) => {
-    // If it's a route (separate page), navigate to that page
-    if (isRoute) {
-      window.location.href = `/${id}`;
-      return;
-    }
+  const scrollToSection = (id: string) => {
+    const isHomePage = location.pathname === '/';
     
-    // Check if we're on the homepage
-    const isHomePage = window.location.pathname === '/';
-    
-    // If we're not on homepage and trying to scroll to a section, go to homepage first
     if (!isHomePage) {
-      window.location.href = `/#${id}`;
+      navigate(`/#${id}`);
+      setTimeout(() => {
+        const element = document.getElementById(id);
+        if (element) {
+          const offset = 80;
+          const elementPosition = element.getBoundingClientRect().top;
+          const offsetPosition = elementPosition + window.pageYOffset - offset;
+          window.scrollTo({ top: offsetPosition, behavior: "smooth" });
+        }
+      }, 100);
       return;
     }
     
-    // If we're on homepage, scroll to the section
     const element = document.getElementById(id);
     if (element) {
       const offset = 80;
       const elementPosition = element.getBoundingClientRect().top;
       const offsetPosition = elementPosition + window.pageYOffset - offset;
-
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: "smooth",
-      });
+      window.scrollTo({ top: offsetPosition, behavior: "smooth" });
     }
     setIsMobileMenuOpen(false);
   };
 
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
+  const handleDropdownEnter = (id: string) => {
+    if (dropdownTimeoutRef.current) {
+      clearTimeout(dropdownTimeoutRef.current);
+    }
+    setOpenDropdown(id);
+  };
+
+  const handleDropdownLeave = () => {
+    dropdownTimeoutRef.current = setTimeout(() => {
+      setOpenDropdown(null);
+    }, 200);
+  };
+
+  const handleMobileDropdownToggle = (id: string) => {
+    setMobileOpenDropdown(mobileOpenDropdown === id ? null : id);
+  };
+
+  const handleDropdownItemClick = (path: string) => {
+    setOpenDropdown(null);
+    setIsMobileMenuOpen(false);
+    setMobileOpenDropdown(null);
+    
+    if (path.startsWith('/#')) {
+      const section = path.substring(2);
+      if (location.pathname === '/') {
+        scrollToSection(section);
+      } else {
+        navigate('/');
+        setTimeout(() => scrollToSection(section), 100);
+      }
+    } else {
+      navigate(path);
+    }
   };
 
   return (
@@ -95,53 +163,83 @@ const Navigation = () => {
       </div>
 
       <nav
-        className={`fixed top-0 left-0 right-0 z-[99] transition-all duration-500 ${
-          isScrolled ? "glass-strong py-4 shadow-elegant" : "bg-transparent py-6"
+        className={`fixed top-0 left-0 right-0 z-[99] transition-all duration-300 ${
+          isScrolled ? "glass-strong py-3 shadow-lg border-b border-border/10" : "bg-transparent py-5"
         }`}
       >
         <div className="container mx-auto px-6 flex items-center justify-between">
           <button
-            onClick={() => scrollToSection("home")}
+            onClick={() => {
+              navigate('/');
+              setTimeout(() => scrollToSection("home"), 100);
+            }}
             className="flex items-center gap-2 group"
           >
-            <div className="text-2xl font-bold gradient-text group-hover:scale-110 transition-transform">
+            <div className="text-2xl font-semibold text-foreground group-hover:text-primary transition-colors">
               SG
             </div>
-            <Sparkles className="w-4 h-4 text-primary opacity-0 group-hover:opacity-100 transition-opacity" />
           </button>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-8">
+          <div className="hidden lg:flex items-center gap-1">
             {navItems.map((item) => (
-              <button
+              <div
                 key={item.id}
-                onClick={() => scrollToSection(item.id, item.isRoute)}
-                className={`relative text-sm font-medium transition-all duration-300 hover:scale-110 ${
-                  activeSection === item.id ? "text-primary" : "text-foreground/70 hover:text-foreground"
-                }`}
+                className="relative"
+                onMouseEnter={() => item.hasDropdown && handleDropdownEnter(item.id)}
+                onMouseLeave={() => item.hasDropdown && handleDropdownLeave()}
               >
-                <span className="hidden lg:inline">{item.label}</span>
-                <span className="lg:hidden text-xl">{item.icon}</span>
-                {activeSection === item.id && !item.isRoute && (
-                  <span className="absolute -bottom-1 left-0 right-0 h-0.5 bg-gradient-to-r from-primary to-accent animate-gradient" />
+                <button
+                  onClick={() => !item.hasDropdown && item.action && item.action()}
+                  className={`flex items-center gap-1 px-4 py-2 text-sm font-medium transition-colors rounded-sm ${
+                    activeSection === item.id && !item.hasDropdown
+                      ? "text-primary" 
+                      : "text-foreground/80 hover:text-foreground hover:bg-foreground/5"
+                  }`}
+                >
+                  {item.label}
+                  {item.hasDropdown && (
+                    <ChevronDown className={`w-4 h-4 transition-transform ${
+                      openDropdown === item.id ? 'rotate-180' : ''
+                    }`} />
+                  )}
+                </button>
+
+                {/* Dropdown Menu */}
+                {item.hasDropdown && openDropdown === item.id && (
+                  <div 
+                    className="absolute top-full left-0 mt-1 w-64 glass-strong rounded-lg shadow-xl border border-border/20 overflow-hidden animate-fade-in"
+                    onMouseEnter={() => handleDropdownEnter(item.id)}
+                    onMouseLeave={handleDropdownLeave}
+                  >
+                    {item.dropdownItems?.map((dropItem, index) => (
+                      <button
+                        key={index}
+                        onClick={() => handleDropdownItemClick(dropItem.path)}
+                        className="w-full px-4 py-3 text-left hover:bg-foreground/5 transition-colors border-b border-border/10 last:border-0"
+                      >
+                        <div className="font-medium text-sm text-foreground">{dropItem.label}</div>
+                        <div className="text-xs text-muted-foreground mt-0.5">{dropItem.description}</div>
+                      </button>
+                    ))}
+                  </div>
                 )}
-              </button>
+              </div>
             ))}
           </div>
 
           {/* CTA Button */}
           <button
             onClick={() => scrollToSection("contact")}
-            className="hidden md:inline-flex items-center gap-2 px-6 py-2 rounded-full bg-gradient-to-r from-primary to-accent text-white font-semibold hover:shadow-glow transition-all duration-300 hover:scale-105"
+            className="hidden lg:inline-flex items-center gap-2 px-5 py-2 rounded-sm bg-primary text-primary-foreground font-medium hover:bg-primary/90 transition-all text-sm"
           >
             Get Started
-            <Sparkles className="w-4 h-4" />
           </button>
 
           {/* Mobile Menu Button */}
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="md:hidden text-foreground p-2 hover:bg-primary/10 rounded-lg transition-colors"
+            className="lg:hidden text-foreground p-2 hover:bg-foreground/5 rounded-sm transition-colors"
           >
             {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
@@ -150,41 +248,57 @@ const Navigation = () => {
 
       {/* Mobile Menu */}
       {isMobileMenuOpen && (
-        <div className="fixed inset-0 z-[98] md:hidden animate-fade-in">
-          <div className="absolute inset-0 bg-background/95 backdrop-blur-2xl" />
-          <div className="relative h-full flex flex-col items-center justify-center gap-8">
-            {navItems.map((item, index) => (
+        <div className="fixed inset-0 z-[98] lg:hidden animate-fade-in">
+          <div className="absolute inset-0 bg-background/98 backdrop-blur-xl" />
+          <div className="relative h-full overflow-y-auto pt-24 pb-8 px-6">
+            <div className="space-y-2">
+              {navItems.map((item) => (
+                <div key={item.id}>
+                  {item.hasDropdown ? (
+                    <>
+                      <button
+                        onClick={() => handleMobileDropdownToggle(item.id)}
+                        className="w-full flex items-center justify-between px-4 py-3 text-left font-medium hover:bg-foreground/5 rounded-sm transition-colors"
+                      >
+                        {item.label}
+                        <ChevronDown className={`w-5 h-5 transition-transform ${
+                          mobileOpenDropdown === item.id ? 'rotate-180' : ''
+                        }`} />
+                      </button>
+                      {mobileOpenDropdown === item.id && (
+                        <div className="ml-4 mt-1 space-y-1 animate-fade-in">
+                          {item.dropdownItems?.map((dropItem, index) => (
+                            <button
+                              key={index}
+                              onClick={() => handleDropdownItemClick(dropItem.path)}
+                              className="w-full px-4 py-2 text-left text-sm hover:bg-foreground/5 rounded-sm transition-colors"
+                            >
+                              <div className="font-medium text-foreground">{dropItem.label}</div>
+                              <div className="text-xs text-muted-foreground">{dropItem.description}</div>
+                            </button>
+                          ))}
+                        </div>
+                      )}
+                    </>
+                  ) : (
+                    <button
+                      onClick={item.action}
+                      className="w-full px-4 py-3 text-left font-medium hover:bg-foreground/5 rounded-sm transition-colors"
+                    >
+                      {item.label}
+                    </button>
+                  )}
+                </div>
+              ))}
               <button
-                key={item.id}
-                onClick={() => scrollToSection(item.id, item.isRoute)}
-                className={`text-2xl font-medium transition-all duration-300 hover:scale-110 animate-fade-in ${
-                  activeSection === item.id ? "gradient-text" : "text-foreground/70"
-                }`}
-                style={{ animationDelay: `${index * 0.1}s` }}
+                onClick={() => scrollToSection("contact")}
+                className="w-full mt-6 px-5 py-3 rounded-sm bg-primary text-primary-foreground font-medium hover:bg-primary/90 transition-all"
               >
-                <span className="mr-3">{item.icon}</span>
-                {item.label}
+                Get Started
               </button>
-            ))}
-            <button
-              onClick={() => scrollToSection("contact")}
-              className="mt-8 px-8 py-4 rounded-full bg-gradient-to-r from-primary to-accent text-white font-semibold hover:shadow-glow transition-all duration-300 hover:scale-105"
-            >
-              Get Started Free
-            </button>
+            </div>
           </div>
         </div>
-      )}
-
-      {/* Scroll to Top Button */}
-      {showScrollTop && (
-        <button
-          onClick={scrollToTop}
-          className="fixed bottom-8 right-8 z-[97] p-4 rounded-full bg-gradient-to-r from-primary to-accent text-white shadow-glow hover:scale-110 transition-all duration-300 animate-bounce-slow"
-          aria-label="Scroll to top"
-        >
-          <ArrowUp className="w-6 h-6" />
-        </button>
       )}
     </>
   );
