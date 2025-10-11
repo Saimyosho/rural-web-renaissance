@@ -248,9 +248,9 @@ const Navigation = () => {
 
       {/* Mobile Menu */}
       {isMobileMenuOpen && (
-        <div className="fixed inset-0 z-[98] lg:hidden animate-fade-in">
-          <div className="absolute inset-0 bg-background/98 backdrop-blur-xl" />
-          <div className="relative h-full overflow-y-auto pt-24 pb-8 px-6">
+        <div className="fixed inset-0 z-[98] lg:hidden">
+          <div className="absolute inset-0 bg-background backdrop-blur-xl transition-opacity duration-300" />
+          <div className="relative h-full overflow-y-auto pt-24 pb-8 px-6 animate-fade-in">
             <div className="space-y-2">
               {navItems.map((item) => (
                 <div key={item.id}>
