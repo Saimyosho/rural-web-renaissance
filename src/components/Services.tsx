@@ -45,6 +45,22 @@ const Services = () => {
       isPremium: true,
     },
     {
+      icon: <TrendingUp className="w-8 h-8" />,
+      title: "AI Lead Generation Agent",
+      description: "Intelligent AI agent that qualifies leads, answers questions, and nurtures prospects while you sleep. Converts browsers into buyers automatically.",
+      gradient: "from-emerald-500 to-teal-600",
+      features: ["24/7 lead qualification", "Auto follow-ups", "Smart conversation AI"],
+      isPremium: true,
+    },
+    {
+      icon: <Smartphone className="w-8 h-8" />,
+      title: "AI Customer Support Bot",
+      description: "Deploy a custom AI assistant trained on your business that handles customer inquiries, support tickets, and FAQs instantly—cutting support costs by 80%.",
+      gradient: "from-blue-500 to-indigo-600",
+      features: ["Instant responses 24/7", "Custom trained on your business", "Integrates everywhere"],
+      isPremium: true,
+    },
+    {
       icon: <Zap className="w-8 h-8" />,
       title: "Lightning Performance",
       description: "Fast load times that keep visitors engaged. Optimized for speed, SEO, and conversions.",
