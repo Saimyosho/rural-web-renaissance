@@ -27,7 +27,7 @@ const NewsletterPopup = () => {
       }
     };
 
-    // Backup trigger: after 45 seconds + 50% scroll
+    // Backup trigger: after 10 seconds + 30% scroll (more aggressive for testing)
     let scrollTriggered = false;
     let timeTriggered = false;
 
@@ -39,7 +39,7 @@ const NewsletterPopup = () => {
 
     const handleScroll = () => {
       const scrollPercent = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
-      if (scrollPercent > 50) {
+      if (scrollPercent > 30) {
         scrollTriggered = true;
         checkTriggers();
       }
@@ -48,7 +48,7 @@ const NewsletterPopup = () => {
     const timer = setTimeout(() => {
       timeTriggered = true;
       checkTriggers();
-    }, 45000);
+    }, 10000); // 10 seconds instead of 45
 
     document.addEventListener("mouseleave", handleMouseLeave);
     window.addEventListener("scroll", handleScroll, { passive: true });
