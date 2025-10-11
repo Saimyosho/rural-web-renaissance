@@ -58,19 +58,12 @@ const Services = () => {
       gradient: "from-accent to-primary",
       features: ["SSL/HTTPS", "Secure forms", "Daily backups"],
     },
-    {
-      icon: <Code className="w-8 h-8" />,
-      title: "Modern Technology",
-      description: "Built with React, Next.js, and the same tools used by Fortune 500 companies. Future-proof and maintainable.",
-      gradient: "from-accent to-accent-glow",
-      features: ["Latest frameworks", "Clean code", "Easy updates"],
-    },
   ];
 
   return (
     <motion.section 
       id="services" 
-      className="py-32 relative overflow-hidden"
+      className="py-20 relative overflow-hidden"
       ref={ref}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
@@ -180,53 +173,6 @@ const Services = () => {
             ))}
           </motion.div>
 
-          {/* Tech Stack Section */}
-          <motion.div 
-            className="glass-strong rounded-3xl p-8 md:p-12 text-center"
-            initial={{ opacity: 0, y: 30 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.8, delay: 0.6 }}
-          >
-            <h3 className="text-3xl font-bold mb-4">
-              The <span className="gradient-accent-text">Tech Stack</span>
-            </h3>
-            <p className="text-muted-foreground mb-8 max-w-2xl mx-auto">
-              I use the same cutting-edge tools that power the world's best websites
-            </p>
-            <div className="flex flex-wrap justify-center gap-4">
-              {["React", "Next.js", "Vue", "TypeScript", "Tailwind CSS", "Node.js", "PostgreSQL", "Vercel"].map(
-                (tech, index) => (
-                  <div
-                    key={index}
-                    className="glass rounded-full px-6 py-3 font-semibold hover:bg-primary/10 hover:scale-105 hover:-translate-y-1 transition-all duration-300 cursor-default hover:shadow-glow group"
-                  >
-                    <span className="group-hover:gradient-text transition-all">{tech}</span>
-                  </div>
-                )
-              )}
-            </div>
-
-            {/* Call to action */}
-            <motion.div 
-              className="mt-12 pt-8 border-t border-border/50"
-              initial={{ opacity: 0 }}
-              animate={inView ? { opacity: 1 } : {}}
-              transition={{ duration: 0.8, delay: 0.8 }}
-            >
-              <p className="text-lg text-muted-foreground mb-4">
-                Ready to bring enterprise quality to your business?
-              </p>
-              <motion.button
-                onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
-                className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-gradient-to-r from-primary to-primary-glow text-white font-semibold hover:shadow-glow transition-all duration-300"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                Get Started Free
-                <ArrowRight className="w-5 h-5" />
-              </motion.button>
-            </motion.div>
-          </motion.div>
         </div>
       </div>
     </motion.section>

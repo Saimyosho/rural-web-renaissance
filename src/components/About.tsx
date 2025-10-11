@@ -47,7 +47,7 @@ const About = () => {
   return (
     <section 
       id="about" 
-      className="py-32 relative overflow-hidden"
+      className="py-20 relative overflow-hidden"
     >
       {/* Sophisticated Wireframe Background */}
       <WireframeBackground variant="hexagon" density="low" animate={true} />
@@ -88,127 +88,6 @@ const About = () => {
             ))}
           </div>
 
-          {/* AI Tools Showcase */}
-          <div className="mb-20 glass-strong rounded-3xl p-8 md:p-12">
-            <div className="text-center mb-12">
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass mb-4 border border-primary/30">
-                <Sparkles className="w-4 h-4 text-primary" />
-                <span className="text-sm font-semibold">AI-Enhanced Workflow</span>
-              </div>
-              <h3 className="text-3xl font-bold mb-4">
-                Powered by <span className="gradient-text">Modern AI Tools</span>
-              </h3>
-              <p className="text-muted-foreground max-w-2xl mx-auto">
-                Leveraging cutting-edge AI technology to deliver faster turnarounds and award-worthy results at small business prices.
-              </p>
-            </div>
-
-            <div className="grid md:grid-cols-3 gap-8">
-              {/* ChatGPT Card */}
-              <div className="glass rounded-2xl p-8 hover-lift group relative overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                <div className="relative z-10">
-                  <div className="inline-flex p-4 rounded-2xl bg-gradient-to-br from-primary to-primary-glow text-white mb-6 group-hover:scale-110 transition-all duration-500">
-                    <Bot className="w-8 h-8" />
-                  </div>
-                  <h4 className="text-2xl font-bold mb-4 group-hover:text-primary transition-colors">ChatGPT</h4>
-                  <p className="text-muted-foreground mb-6 leading-relaxed">
-                    My AI development partner for intelligent problem-solving, code optimization, and rapid prototyping.
-                  </p>
-                  <div className="space-y-3">
-                    <div className="flex items-start gap-3">
-                      <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2 flex-shrink-0"></div>
-                      <span className="text-sm text-muted-foreground">Architecture planning & best practices</span>
-                    </div>
-                    <div className="flex items-start gap-3">
-                      <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2 flex-shrink-0"></div>
-                      <span className="text-sm text-muted-foreground">Code optimization & debugging</span>
-                    </div>
-                    <div className="flex items-start gap-3">
-                      <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2 flex-shrink-0"></div>
-                      <span className="text-sm text-muted-foreground">Component design & solutions</span>
-                    </div>
-                    <div className="flex items-start gap-3">
-                      <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2 flex-shrink-0"></div>
-                      <span className="text-sm text-muted-foreground">Rapid iteration & testing</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* n8n Automation Card */}
-              <div className="glass rounded-2xl p-8 hover-lift group relative overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                <div className="relative z-10">
-                  <div className="inline-flex p-4 rounded-2xl bg-gradient-to-br from-purple-500 to-purple-700 text-white mb-6 group-hover:scale-110 transition-all duration-500">
-                    <Workflow className="w-8 h-8" />
-                  </div>
-                  <h4 className="text-2xl font-bold mb-4 group-hover:text-purple-500 transition-colors">n8n Automation</h4>
-                  <p className="text-muted-foreground mb-6 leading-relaxed">
-                    Enterprise workflow automation platform for connecting apps, automating tasks, and building custom business processes.
-                  </p>
-                  <div className="space-y-3">
-                    <div className="flex items-start gap-3">
-                      <div className="w-1.5 h-1.5 rounded-full bg-purple-500 mt-2 flex-shrink-0"></div>
-                      <span className="text-sm text-muted-foreground">Custom workflow design</span>
-                    </div>
-                    <div className="flex items-start gap-3">
-                      <div className="w-1.5 h-1.5 rounded-full bg-purple-500 mt-2 flex-shrink-0"></div>
-                      <span className="text-sm text-muted-foreground">Multi-platform integrations</span>
-                    </div>
-                    <div className="flex items-start gap-3">
-                      <div className="w-1.5 h-1.5 rounded-full bg-purple-500 mt-2 flex-shrink-0"></div>
-                      <span className="text-sm text-muted-foreground">Process automation</span>
-                    </div>
-                    <div className="flex items-start gap-3">
-                      <div className="w-1.5 h-1.5 rounded-full bg-purple-500 mt-2 flex-shrink-0"></div>
-                      <span className="text-sm text-muted-foreground">Business workflow optimization</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Nano Banana Card */}
-              <div className="glass rounded-2xl p-8 hover-lift group relative overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-br from-accent/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                <div className="relative z-10">
-                  <div className="inline-flex p-4 rounded-2xl bg-gradient-to-br from-accent to-accent-glow text-white mb-6 group-hover:scale-110 transition-all duration-500">
-                    <Wand2 className="w-8 h-8" />
-                  </div>
-                  <h4 className="text-2xl font-bold mb-4 group-hover:text-accent transition-colors">Nano Banana</h4>
-                  <p className="text-muted-foreground mb-6 leading-relaxed">
-                    AI-powered image generation for unique branding, custom graphics, and visual storytelling.
-                  </p>
-                  <div className="space-y-3">
-                    <div className="flex items-start gap-3">
-                      <div className="w-1.5 h-1.5 rounded-full bg-accent mt-2 flex-shrink-0"></div>
-                      <span className="text-sm text-muted-foreground">AI-generated brand imagery</span>
-                    </div>
-                    <div className="flex items-start gap-3">
-                      <div className="w-1.5 h-1.5 rounded-full bg-accent mt-2 flex-shrink-0"></div>
-                      <span className="text-sm text-muted-foreground">Custom illustrations & graphics</span>
-                    </div>
-                    <div className="flex items-start gap-3">
-                      <div className="w-1.5 h-1.5 rounded-full bg-accent mt-2 flex-shrink-0"></div>
-                      <span className="text-sm text-muted-foreground">Visual identity & concepts</span>
-                    </div>
-                    <div className="flex items-start gap-3">
-                      <div className="w-1.5 h-1.5 rounded-full bg-accent mt-2 flex-shrink-0"></div>
-                      <span className="text-sm text-muted-foreground">Unique visual storytelling</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Value Proposition */}
-            <div className="mt-8 text-center p-6 rounded-xl glass border border-primary/20">
-              <p className="text-sm text-muted-foreground leading-relaxed">
-                <span className="text-foreground font-semibold">Why this matters for you:</span> By combining 15+ years of IT expertise with AI-powered tools, I deliver enterprise-quality websites faster and more affordably. You get premium results without the premium price tag.
-              </p>
-            </div>
-          </div>
-
           {/* Credentials & Certifications Showcase */}
           <div className="mb-20">
             <div className="text-center mb-12">
@@ -225,14 +104,11 @@ const About = () => {
             </div>
 
             {/* Certification Badges Grid */}
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-8">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
               {[
                 { name: "Cloud+", status: "Active", expires: "2025", color: "from-blue-500 to-blue-600" },
                 { name: "Security+", status: "Active", expires: "2025", color: "from-red-500 to-red-600" },
                 { name: "Network+", status: "Active", expires: "2025", color: "from-green-500 to-green-600" },
-                { name: "A+", status: "Active", expires: "2024", color: "from-purple-500 to-purple-600" },
-                { name: "Azure Architect", status: "In Progress", expires: "2025", color: "from-cyan-500 to-cyan-600" },
-                { name: "AWS Architect", status: "In Progress", expires: "2025", color: "from-orange-500 to-orange-600" },
               ].map((cert, index) => (
                 <div
                   key={index}
@@ -251,29 +127,8 @@ const About = () => {
               ))}
             </div>
 
-            {/* Experience Highlight */}
-            <div className="glass-strong rounded-2xl p-8">
-              <div className="grid md:grid-cols-3 gap-8 text-center">
-                <div>
-                  <div className="text-5xl font-bold gradient-text mb-2">10+</div>
-                  <div className="text-muted-foreground">Years Enterprise IT</div>
-                  <div className="text-xs text-primary mt-2">Windows Server, Azure, VMware</div>
-                </div>
-                <div>
-                  <div className="text-5xl font-bold gradient-accent-text mb-2">1,200+</div>
-                  <div className="text-muted-foreground">VMs Managed</div>
-                  <div className="text-xs text-accent mt-2">99.95% Uptime Achieved</div>
-                </div>
-                <div>
-                  <div className="text-5xl font-bold gradient-text mb-2">800+</div>
-                  <div className="text-muted-foreground">Users Supported</div>
-                  <div className="text-xs text-primary mt-2">Fortune 500 Experience</div>
-                </div>
-              </div>
-            </div>
-
             {/* Education */}
-            <div className="grid md:grid-cols-2 gap-6 mt-6">
+            <div className="max-w-2xl mx-auto">
               <div className="glass rounded-xl p-6 hover-lift">
                 <div className="flex items-start gap-4">
                   <div className="p-3 rounded-xl bg-gradient-to-br from-primary to-primary-glow text-white">
@@ -283,18 +138,6 @@ const About = () => {
                     <div className="font-bold text-lg mb-1">BS in Information Technology</div>
                     <div className="text-primary text-sm font-semibold mb-2">Southern New Hampshire University</div>
                     <div className="text-sm text-muted-foreground">GPA: <span className="text-accent font-bold">3.8</span> | Cloud Computing, AI/ML, Cybersecurity</div>
-                  </div>
-                </div>
-              </div>
-              <div className="glass rounded-xl p-6 hover-lift">
-                <div className="flex items-start gap-4">
-                  <div className="p-3 rounded-xl bg-gradient-to-br from-accent to-accent-glow text-white">
-                    <Award className="w-6 h-6" />
-                  </div>
-                  <div className="flex-1">
-                    <div className="font-bold text-lg mb-1">AS in Network Administration</div>
-                    <div className="text-accent text-sm font-semibold mb-2">Pittsburgh Technical Institute</div>
-                    <div className="text-sm text-muted-foreground">GPA: <span className="text-primary font-bold">3.5</span> | <span className="text-accent font-semibold">Dean's List</span></div>
                   </div>
                 </div>
               </div>

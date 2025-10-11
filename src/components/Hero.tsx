@@ -188,9 +188,6 @@ const Hero = () => {
       {/* Sophisticated Wireframe Background */}
       <WireframeBackground variant="dots" density="medium" animate={true} />
       
-      {/* Floating Geometric Shapes - reduced for performance */}
-      <FloatingShapes count={5} variant="mixed" />
-      
       <canvas ref={canvasRef} className="absolute inset-0 z-0" />
       
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/50 to-background z-10 mesh-gradient" />
@@ -279,38 +276,6 @@ const Hero = () => {
             </Button>
           </div>
 
-          {/* Value Proposition Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto text-left mb-8">
-            <motion.div 
-              className="glass-strong p-6 rounded-xl border border-primary/20 hover:border-primary/40 transition-all duration-300"
-              variants={itemVariants}
-              whileHover={{ y: -5, boxShadow: "0 20px 40px -15px rgba(1, 180, 210, 0.3)" }}
-            >
-              <div className="text-4xl mb-3">🎁</div>
-              <h3 className="text-lg font-semibold mb-2 text-primary">Free Professional Website</h3>
-              <p className="text-sm text-muted-foreground">I build your site using my tech skills. Professional design, hosting, and support included.</p>
-            </motion.div>
-
-            <motion.div 
-              className="glass-strong p-6 rounded-xl border border-bridge/20 hover:border-bridge/40 transition-all duration-300"
-              variants={itemVariants}
-              whileHover={{ y: -5, boxShadow: "0 20px 40px -15px rgba(170, 85, 247, 0.3)" }}
-            >
-              <div className="text-4xl mb-3">🎓</div>
-              <h3 className="text-lg font-semibold mb-2 text-bridge">Certified Tech Expert</h3>
-              <p className="text-sm text-muted-foreground">Advanced certifications in automation and business technology. I build what others can't.</p>
-            </motion.div>
-
-            <motion.div 
-              className="glass-strong p-6 rounded-xl border border-accent/20 hover:border-accent/40 transition-all duration-300"
-              variants={itemVariants}
-              whileHover={{ y: -5, boxShadow: "0 20px 40px -15px rgba(245, 155, 0, 0.3)" }}
-            >
-              <div className="text-4xl mb-3">⚡</div>
-              <h3 className="text-lg font-semibold mb-2 text-accent">Business Tools (When Needed)</h3>
-              <p className="text-sm text-muted-foreground">Automated booking, faxing, e-signatures, and more. Only pay when your business grows.</p>
-            </motion.div>
-          </div>
         </motion.div>
       </motion.div>
 
