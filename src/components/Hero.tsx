@@ -252,28 +252,65 @@ const Hero = () => {
             I build your website free using my tech expertise. Need business automation? Add tools to save time when you're ready to grow.
           </p>
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16">
-            <Button
-              size="lg"
-              onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
-              className="bg-gradient-to-r from-primary via-bridge to-accent hover:shadow-glow transition-all duration-500 text-lg px-8 py-6 group"
+          <div className="flex flex-col items-center gap-6 mb-12">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center w-full">
+              <Button
+                size="lg"
+                onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
+                className="bg-gradient-to-r from-primary via-bridge to-accent hover:shadow-glow transition-all duration-500 text-lg px-10 py-7 group relative overflow-hidden"
+                id="hero-primary-cta"
+              >
+                <span className="flex items-center gap-2 relative z-10">
+                  Start Your Victory
+                  <Sparkles className="w-5 h-5 group-hover:rotate-12 transition-transform" />
+                </span>
+                <motion.div
+                  className="absolute inset-0 bg-white/20"
+                  initial={{ x: "-100%" }}
+                  whileHover={{ x: "100%" }}
+                  transition={{ duration: 0.5 }}
+                />
+              </Button>
+              <Button
+                size="lg"
+                variant="outline"
+                onClick={() => document.getElementById("services")?.scrollIntoView({ behavior: "smooth" })}
+                className="glass border-primary/50 hover:bg-primary/10 hover:border-bridge/50 text-lg px-10 py-7 group"
+                id="hero-secondary-cta"
+              >
+                <span className="flex items-center gap-2">
+                  Explore AI Solutions
+                  <Zap className="w-5 h-5 group-hover:text-accent transition-colors" />
+                </span>
+              </Button>
+            </div>
+
+            {/* Trust indicators */}
+            <motion.div 
+              className="flex flex-wrap items-center justify-center gap-4 md:gap-6 text-sm text-muted-foreground"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.6 }}
             >
-              <span className="flex items-center gap-2">
-                Start Your Victory
-                <Sparkles className="w-5 h-5 group-hover:rotate-12 transition-transform" />
-              </span>
-            </Button>
-            <Button
-              size="lg"
-              variant="outline"
-              onClick={scrollToAbout}
-              className="glass border-primary/50 hover:bg-primary/10 hover:border-bridge/50 text-lg px-8 py-6 group"
-            >
-              <span className="flex items-center gap-2">
-                See How It Works
-                <Zap className="w-5 h-5 group-hover:text-accent transition-colors" />
-              </span>
-            </Button>
+              <div className="flex items-center gap-2">
+                <svg className="w-4 h-4 text-primary" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                </svg>
+                <span>100% Free</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <svg className="w-4 h-4 text-primary" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                </svg>
+                <span>No Credit Card</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <svg className="w-4 h-4 text-primary" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                </svg>
+                <span>Ready in 7 Days</span>
+              </div>
+            </motion.div>
           </div>
 
         </motion.div>

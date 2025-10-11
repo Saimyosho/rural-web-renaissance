@@ -189,6 +189,34 @@ const Services = () => {
             ))}
           </motion.div>
 
+          {/* Services CTA */}
+          <motion.div
+            className="mt-16 text-center"
+            initial={{ opacity: 0, y: 20 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.8, delay: 0.4 }}
+          >
+            <div className="glass-strong rounded-2xl p-8 md:p-12 max-w-3xl mx-auto">
+              <h3 className="text-2xl md:text-3xl font-bold mb-4">
+                Ready to Add <span className="gradient-text">Premium AI Tools</span>?
+              </h3>
+              <p className="text-muted-foreground mb-6 max-w-xl mx-auto">
+                Start with a free website, then supercharge your business with AI automation when you're ready to scale.
+              </p>
+              <button
+                onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
+                className="inline-flex items-center gap-2 px-8 py-4 rounded-lg bg-gradient-to-r from-primary to-bridge hover:shadow-glow transition-all duration-300 text-lg font-semibold group"
+                id="services-cta"
+              >
+                <span>Get Started Free</span>
+                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              </button>
+              <p className="text-sm text-muted-foreground mt-4">
+                No credit card • No commitment • Free forever
+              </p>
+            </div>
+          </motion.div>
+
         </div>
       </div>
     </motion.section>

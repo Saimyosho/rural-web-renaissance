@@ -7,6 +7,7 @@ import SocialProof from "@/components/SocialProof";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 import BackToTop from "@/components/BackToTop";
+import StickyCTA from "@/components/StickyCTA";
 
 const Index = () => {
   return (
@@ -44,6 +45,7 @@ const Index = () => {
       </section>
       <Contact />
       <Footer />
+      <StickyCTA />
       <BackToTop />
     </div>
   );
