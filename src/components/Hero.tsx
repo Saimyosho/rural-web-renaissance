@@ -3,12 +3,36 @@ import { ArrowDown, Sparkles, Zap } from "lucide-react";
 import { Button } from "./ui/button";
 import { motion } from "framer-motion";
 import WireframeBackground from "./WireframeBackground";
-import FloatingShapes from "./FloatingShapes";
+
+// TypeScript declaration for Three.js from CDN
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+declare const THREE: any;
 
 const Hero = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const mousePosRef = useRef({ x: 0, y: 0 });
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const sceneRef = useRef<any>(null);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const cameraRef = useRef<any>(null);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const rendererRef = useRef<any>(null);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const particleSystemRef = useRef<any>(null);
+  const mouseRef = useRef({ x: 0, y: 0 });
   const [scrollY, setScrollY] = useState(0);
+  const [threeLoaded, setThreeLoaded] = useState(false);
+
+  // Check if Three.js is loaded
+  useEffect(() => {
+    const checkThree = setInterval(() => {
+      if (typeof THREE !== 'undefined') {
+        setThreeLoaded(true);
+        clearInterval(checkThree);
+      }
+    }, 100);
+
+    return () => clearInterval(checkThree);
+  }, []);
 
   useEffect(() => {
     let ticking = false;
@@ -27,132 +51,178 @@ const Hero = () => {
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
-      mousePosRef.current = { x: e.clientX, y: e.clientY };
+      mouseRef.current = {
+        x: (e.clientX / window.innerWidth) * 2 - 1,
+        y: -(e.clientY / window.innerHeight) * 2 + 1
+      };
     };
     window.addEventListener("mousemove", handleMouseMove, { passive: true });
     return () => window.removeEventListener("mousemove", handleMouseMove);
   }, []);
 
+  // Three.js particle wave setup
   useEffect(() => {
+    if (!threeLoaded || !canvasRef.current || typeof THREE === 'undefined') return;
+
     const canvas = canvasRef.current;
-    if (!canvas) return;
+    
+    // Scene setup
+    const scene = new THREE.Scene();
+    sceneRef.current = scene;
 
-    const ctx = canvas.getContext("2d", { alpha: true });
-    if (!ctx) return;
+    // Camera setup
+    const camera = new THREE.PerspectiveCamera(
+      75,
+      window.innerWidth / window.innerHeight,
+      0.1,
+      1000
+    );
+    camera.position.z = 100;
+    cameraRef.current = camera;
 
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+    // Renderer setup
+    const renderer = new THREE.WebGLRenderer({
+      canvas: canvas,
+      alpha: true,
+      antialias: true
+    });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    rendererRef.current = renderer;
 
-    const particles: Array<{
-      x: number;
-      y: number;
-      vx: number;
-      vy: number;
-      size: number;
-      baseX: number;
-      baseY: number;
-      hue: number;
-    }> = [];
+    // Particle count based on screen size
+    const getParticleCount = () => {
+      const width = window.innerWidth;
+      if (width < 768) return 2500;  // Mobile
+      if (width < 1024) return 5000;  // Tablet
+      return 10000;  // Desktop
+    };
 
-    // Reduced from 80 to 40 particles for better performance
-    for (let i = 0; i < 40; i++) {
-      const x = Math.random() * canvas.width;
-      const y = Math.random() * canvas.height;
-      particles.push({
-        x,
-        y,
-        baseX: x,
-        baseY: y,
-        vx: (Math.random() - 0.5) * 0.5,
-        vy: (Math.random() - 0.5) * 0.5,
-        size: Math.random() * 3 + 1,
-        hue: 195 + Math.random() * 30,
-      });
+    const particleCount = getParticleCount();
+
+    // Brand colors - blue to purple gradient
+    const color1 = new THREE.Color('#2A8D9B'); // Vibrant Teal
+    const color2 = new THREE.Color('#8A2BE2'); // Rich Purple
+
+    // Particle geometry
+    const particles = new THREE.BufferGeometry();
+    const positions = new Float32Array(particleCount * 3);
+    const colors = new Float32Array(particleCount * 3);
+    const speeds = new Float32Array(particleCount);
+    const waveOffsets = new Float32Array(particleCount);
+
+    for (let i = 0; i < particleCount; i++) {
+      // Spread particles across viewport width
+      const xSpread = window.innerWidth * 0.015;
+      const ySpread = window.innerHeight * 0.008;
+
+      positions[i * 3] = (Math.random() - 0.5) * xSpread; // X
+      positions[i * 3 + 1] = (Math.random() - 0.5) * ySpread; // Y
+      positions[i * 3 + 2] = (Math.random() - 0.5) * 50; // Z depth
+
+      // Gradient colors based on X position
+      const xNormalized = (positions[i * 3] + xSpread / 2) / xSpread;
+      const interpolatedColor = new THREE.Color().lerpColors(
+        color1,
+        color2,
+        Math.max(0, Math.min(1, xNormalized))
+      );
+      colors[i * 3] = interpolatedColor.r;
+      colors[i * 3 + 1] = interpolatedColor.g;
+      colors[i * 3 + 2] = interpolatedColor.b;
+
+      speeds[i] = 0.3 + Math.random() * 0.3; // Slow drift speed
+      waveOffsets[i] = Math.random() * Math.PI * 2;
     }
 
+    particles.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+    particles.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+    particles.setAttribute('speed', new THREE.BufferAttribute(speeds, 1));
+    particles.setAttribute('waveOffset', new THREE.BufferAttribute(waveOffsets, 1));
+
+    // Particle material with glow
+    const particleMaterial = new THREE.PointsMaterial({
+      size: 1.5,
+      vertexColors: true,
+      transparent: true,
+      opacity: 0.8,
+      blending: THREE.AdditiveBlending,
+      sizeAttenuation: true
+    });
+
+    const particleSystem = new THREE.Points(particles, particleMaterial);
+    scene.add(particleSystem);
+    particleSystemRef.current = particleSystem;
+
+    // Animation loop
+    let animationId: number;
     const animate = () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      
-      particles.forEach((particle, i) => {
-        // Mouse interaction
-        const dx = mousePosRef.current.x - particle.x;
-        const dy = mousePosRef.current.y - particle.y;
-        const distance = Math.sqrt(dx * dx + dy * dy);
-        
-        if (distance < 150) {
-          const force = (150 - distance) / 150;
-          particle.x -= dx * force * 0.03;
-          particle.y -= dy * force * 0.03;
+      animationId = requestAnimationFrame(animate);
+
+      const positions = particleSystem.geometry.attributes.position.array;
+      const speeds = particleSystem.geometry.attributes.speed.array;
+      const waveOffsets = particleSystem.geometry.attributes.waveOffset.array;
+      const time = Date.now() * 0.0003; // Slow time progression
+
+      const xSpread = window.innerWidth * 0.015;
+
+      // Animate particles in elegant wave
+      for (let i = 0; i < particleCount; i++) {
+        const ix = i * 3;
+        const iy = i * 3 + 1;
+
+        // Slow horizontal drift
+        positions[ix] += speeds[i] * 0.03;
+
+        // Wrap around
+        if (positions[ix] > xSpread / 2) {
+          positions[ix] = -xSpread / 2;
         }
 
-        // Return to base position
-        particle.x += (particle.baseX - particle.x) * 0.05;
-        particle.y += (particle.baseY - particle.y) * 0.05;
+        // Elegant sine wave vertical motion
+        const waveAmplitude = 10;
+        const waveFrequency = 0.01;
+        positions[iy] = 
+          Math.sin(positions[ix] * waveFrequency + time + waveOffsets[i]) * 
+          waveAmplitude +
+          (mouseRef.current.y * 15); // Subtle mouse influence
+      }
 
-        particle.x += particle.vx;
-        particle.y += particle.vy;
-        particle.baseX += particle.vx;
-        particle.baseY += particle.vy;
+      particleSystem.geometry.attributes.position.needsUpdate = true;
 
-        if (particle.baseX < 0 || particle.baseX > canvas.width) {
-          particle.vx *= -1;
-          particle.baseX = Math.max(0, Math.min(canvas.width, particle.baseX));
-        }
-        if (particle.baseY < 0 || particle.baseY > canvas.height) {
-          particle.vy *= -1;
-          particle.baseY = Math.max(0, Math.min(canvas.height, particle.baseY));
-        }
+      // Smooth camera parallax based on mouse
+      camera.position.x += (mouseRef.current.x * 5 - camera.position.x) * 0.05;
+      camera.position.y += (-mouseRef.current.y * 5 - camera.position.y) * 0.05;
+      camera.lookAt(scene.position);
 
-        // Glow effect
-        const gradient = ctx.createRadialGradient(
-          particle.x, particle.y, 0,
-          particle.x, particle.y, particle.size * 4
-        );
-        gradient.addColorStop(0, `hsla(${particle.hue}, 85%, 65%, 0.8)`);
-        gradient.addColorStop(1, `hsla(${particle.hue}, 85%, 65%, 0)`);
-        
-        ctx.beginPath();
-        ctx.arc(particle.x, particle.y, particle.size * 4, 0, Math.PI * 2);
-        ctx.fillStyle = gradient;
-        ctx.fill();
-
-        ctx.beginPath();
-        ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
-        ctx.fillStyle = `hsla(${particle.hue}, 85%, 55%, 0.9)`;
-        ctx.fill();
-
-        // Optimized connections - only check forward to avoid duplicates
-        for (let j = i + 1; j < particles.length; j++) {
-          const particle2 = particles[j];
-          const dx2 = particle.x - particle2.x;
-          const dy2 = particle.y - particle2.y;
-          const distance2 = Math.sqrt(dx2 * dx2 + dy2 * dy2);
-
-          if (distance2 < 150) {  // Reduced from 200 for better performance
-            ctx.beginPath();
-            ctx.moveTo(particle.x, particle.y);
-            ctx.lineTo(particle2.x, particle2.y);
-            const opacity = (1 - distance2 / 150) * 0.1;  // Reduced opacity
-            ctx.strokeStyle = `hsla(${particle.hue}, 85%, 55%, ${opacity})`;
-            ctx.lineWidth = 0.5;  // Thinner lines
-            ctx.stroke();
-          }
-        }
-      });
-
-      requestAnimationFrame(animate);
+      renderer.render(scene, camera);
     };
 
     animate();
 
+    // Handle window resize
     const handleResize = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     };
 
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
+    window.addEventListener('resize', handleResize);
+
+    // Cleanup
+    return () => {
+      window.removeEventListener('resize', handleResize);
+      cancelAnimationFrame(animationId);
+      if (rendererRef.current) {
+        rendererRef.current.dispose();
+      }
+      if (particleSystemRef.current) {
+        particleSystemRef.current.geometry.dispose();
+        particleSystemRef.current.material.dispose();
+      }
+    };
+  }, [threeLoaded]);
 
   const scrollToAbout = () => {
     const element = document.getElementById("about");
@@ -185,10 +255,11 @@ const Hero = () => {
 
   return (
     <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden pb-20">
-      {/* Sophisticated Wireframe Background */}
+      {/* Sophisticated Wireframe Background - Behind particles */}
       <WireframeBackground variant="dots" density="medium" animate={true} />
       
-      <canvas ref={canvasRef} className="absolute inset-0 z-0" />
+      {/* Three.js Particle Wave Canvas */}
+      <canvas ref={canvasRef} className="absolute inset-0 z-[5]" />
       
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/50 to-background z-10 mesh-gradient" />
 
