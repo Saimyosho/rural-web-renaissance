@@ -8,7 +8,6 @@ import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 import BackToTop from "@/components/BackToTop";
 import StickyCTA from "@/components/StickyCTA";
-import NewsletterPopup from "@/components/NewsletterPopup";
 
 const Index = () => {
   return (
@@ -48,7 +47,6 @@ const Index = () => {
       <Footer />
       <StickyCTA />
       <BackToTop />
-      <NewsletterPopup />
     </div>
   );
 };
