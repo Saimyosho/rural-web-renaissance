@@ -4,7 +4,16 @@ import { Badge } from "./ui/badge";
 import { Activity, Zap, Globe, Shield, TrendingUp, Server, AlertCircle } from "lucide-react";
 import { Progress } from "./ui/progress";
 import { motion } from "framer-motion";
-import { onCLS, onLCP, onFCP, onTTFB, onINP, Metric } from "web-vitals";
+import { onCLS, onLCP, onFCP, onTTFB, onINP } from "web-vitals";
+
+interface Metric {
+  name: string;
+  value: number;
+  rating: "good" | "needs-improvement" | "poor";
+  delta: number;
+  id: string;
+  navigationType: string;
+}
 
 interface WebVitalMetric {
   name: string;
