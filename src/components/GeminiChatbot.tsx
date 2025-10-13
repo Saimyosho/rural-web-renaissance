@@ -26,8 +26,16 @@ const GeminiChatbot = () => {
   // Initialize Gemini AI
   useEffect(() => {
     const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
+    console.log("API Key exists:", !!apiKey);
     if (apiKey) {
-      genAI.current = new GoogleGenerativeAI(apiKey);
+      try {
+        genAI.current = new GoogleGenerativeAI(apiKey);
+        console.log("Gemini AI initialized successfully");
+      } catch (error) {
+        console.error("Error initializing Gemini:", error);
+      }
+    } else {
+      console.error("VITE_GEMINI_API_KEY not found in environment variables");
     }
   }, []);
 
@@ -45,7 +53,17 @@ const GeminiChatbot = () => {
   ];
 
   const sendMessage = async () => {
-    if (!input.trim() || !genAI.current) return;
+    if (!input.trim()) return;
+    
+    if (!genAI.current) {
+      const errorMessage: Message = {
+        role: "assistant",
+        content: "Configuration error: API key not loaded. Please refresh the page or contact support.",
+        timestamp: new Date()
+      };
+      setMessages(prev => [...prev, errorMessage]);
+      return;
+    }
 
     const userMessage: Message = {
       role: "user",
@@ -95,9 +113,22 @@ const GeminiChatbot = () => {
       setStreamingMessage("");
     } catch (error) {
       console.error("Error calling Gemini API:", error);
+      const err = error as { message?: string; status?: number };
+      console.error("Error details:", err.message, err.status);
+      
+      let errorMsg = "I apologize, but I'm having trouble connecting right now. ";
+      
+      if (err.message?.includes("API_KEY_INVALID") || err.status === 400) {
+        errorMsg += "There seems to be an API configuration issue. Please contact us directly at hello@ruralwebrenaissance.com";
+      } else if (err.status === 429) {
+        errorMsg += "We've hit our usage limit. Please try again in a few moments or contact us at hello@ruralwebrenaissance.com";
+      } else {
+        errorMsg += "Please try again or contact us directly at hello@ruralwebrenaissance.com";
+      }
+      
       const errorMessage: Message = {
         role: "assistant",
-        content: "I apologize, but I'm having trouble connecting right now. Please try again or contact us directly at hello@ruralwebrenaissance.com",
+        content: errorMsg,
         timestamp: new Date()
       };
       setMessages(prev => [...prev, errorMessage]);
