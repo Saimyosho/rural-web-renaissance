@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { BookingBotDemo, ReviewReplierDemo, SocialBotDemo, LeadCaptureDemo, MenuMasterDemo } from "@/components/ai-demos/AgentDemos";
+import PremiumAgentShowcase from "@/components/ai-demos/PremiumAgentShowcase";
 
 const AIAgents = () => {
   const agents = [
@@ -339,6 +340,9 @@ const AIAgents = () => {
           </div>
         </div>
       </section>
+
+      {/* Premium Agent Showcase */}
+      <PremiumAgentShowcase />
 
       {/* Pricing Tiers */}
       <section className="py-20 relative">
