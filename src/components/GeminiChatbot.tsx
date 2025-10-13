@@ -54,16 +54,6 @@ const GeminiChatbot = () => {
 
   const sendMessage = async () => {
     if (!input.trim()) return;
-    
-    if (!genAI.current) {
-      const errorMessage: Message = {
-        role: "assistant",
-        content: "Configuration error: API key not loaded. Please refresh the page or contact support.",
-        timestamp: new Date()
-      };
-      setMessages(prev => [...prev, errorMessage]);
-      return;
-    }
 
     const userMessage: Message = {
       role: "user",
@@ -72,11 +62,24 @@ const GeminiChatbot = () => {
     };
 
     setMessages(prev => [...prev, userMessage]);
+    const currentInput = input;
     setInput("");
     setIsLoading(true);
     setStreamingMessage("");
 
+    // Fallback responses if API fails
+    const fallbackResponses: Record<string, string> = {
+      "how can ai help": "AI can transform your small business by automating repetitive tasks! We offer 5 specialized AI agents: BookingBot (24/7 appointments), ReviewReplier (automatic review management), SocialBot (social media automation), LeadCapture (website chat), and MenuMaster (restaurant ordering). Pricing starts at $250-350/month. Would you like to know more about any specific agent?",
+      "what ai agents": "We offer 5 powerful AI agents:\n\n1. **BookingBot** - Handles appointments 24/7 ($300-450/mo)\n2. **ReviewReplier** - Responds to all reviews automatically ($150-250/mo)\n3. **SocialBot** - Posts daily to social media ($300-500/mo)\n4. **LeadCapture** - Qualifies website visitors ($200-350/mo)\n5. **MenuMaster** - Takes orders via text/chat ($250-450/mo)\n\nEach agent saves 10-25 hours per week and pays for itself quickly!",
+      "pricing": "Our pricing is simple and affordable:\n\n**Essential:** $250-350/month - One AI agent\n**Professional:** $500-700/month - Two AI agents  \n**Enterprise:** $1000+/month - Three+ AI agents\n\nAll plans include setup, training, and ongoing support. Plus, rural Missouri businesses get a FREE website! Want to discuss which plan fits your needs?",
+      "custom": "Absolutely! We specialize in custom AI solutions. We can:\n\n✓ Integrate premium tools (ChatGPT, Claude, Copilot)\n✓ Build bespoke AI agents for your specific needs\n✓ Connect AI to your existing systems\n✓ Create industry-specific automation\n\nLet's schedule a free consultation to discuss your vision!"
+    };
+
     try {
+      if (!genAI.current) {
+        console.warn("Gemini API not initialized, using fallback responses");
+        throw new Error("API_NOT_INITIALIZED");
+      }
       const model = genAI.current.getGenerativeModel({ model: "gemini-1.5-flash" });
       
       // System context about the business
@@ -112,26 +115,47 @@ const GeminiChatbot = () => {
       setMessages(prev => [...prev, assistantMessage]);
       setStreamingMessage("");
     } catch (error) {
-      console.error("Error calling Gemini API:", error);
+      console.error("Error calling Gemini API, using fallback:", error);
       const err = error as { message?: string; status?: number };
       console.error("Error details:", err.message, err.status);
       
-      let errorMsg = "I apologize, but I'm having trouble connecting right now. ";
+      // Try to match user input with fallback responses
+      const inputLower = currentInput.toLowerCase();
+      let responseText = "";
       
-      if (err.message?.includes("API_KEY_INVALID") || err.status === 400) {
-        errorMsg += "There seems to be an API configuration issue. Please contact us directly at hello@ruralwebrenaissance.com";
-      } else if (err.status === 429) {
-        errorMsg += "We've hit our usage limit. Please try again in a few moments or contact us at hello@ruralwebrenaissance.com";
-      } else {
-        errorMsg += "Please try again or contact us directly at hello@ruralwebrenaissance.com";
+      for (const [key, response] of Object.entries(fallbackResponses)) {
+        if (inputLower.includes(key)) {
+          responseText = response;
+          break;
+        }
       }
       
-      const errorMessage: Message = {
+      // Default fallback if no match
+      if (!responseText) {
+        responseText = "Thanks for your question! While our AI is temporarily offline, I can share that we specialize in:\n\n" +
+          "🤖 **AI Agents** - Automate bookings, reviews, social media\n" +
+          "💻 **Custom Websites** - Modern, professional sites\n" +
+          "🎯 **AI Integration** - ChatGPT, Claude, Gemini & more\n\n" +
+          "Pricing starts at $250/month. Schedule a free consultation: hello@ruralwebrenaissance.com or call us!";
+      }
+      
+      // Simulate typing effect
+      const words = responseText.split(" ");
+      let currentText = "";
+      
+      for (let i = 0; i < words.length; i++) {
+        currentText += (i > 0 ? " " : "") + words[i];
+        setStreamingMessage(currentText);
+        await new Promise(resolve => setTimeout(resolve, 50));
+      }
+      
+      const assistantMessage: Message = {
         role: "assistant",
-        content: errorMsg,
+        content: responseText,
         timestamp: new Date()
       };
-      setMessages(prev => [...prev, errorMessage]);
+      setMessages(prev => [...prev, assistantMessage]);
+      setStreamingMessage("");
     } finally {
       setIsLoading(false);
     }
