@@ -67,12 +67,12 @@ const GeminiChatbot = () => {
     setIsLoading(true);
     setStreamingMessage("");
 
-    // Fallback responses if API fails
+    // Fallback responses if API fails  
     const fallbackResponses: Record<string, string> = {
-      "how can ai help": "AI can transform your small business by automating repetitive tasks! We offer 5 specialized AI agents: BookingBot (24/7 appointments), ReviewReplier (automatic review management), SocialBot (social media automation), LeadCapture (website chat), and MenuMaster (restaurant ordering). Pricing starts at $250-350/month. Would you like to know more about any specific agent?",
-      "what ai agents": "We offer 5 powerful AI agents:\n\n1. **BookingBot** - Handles appointments 24/7 ($300-450/mo)\n2. **ReviewReplier** - Responds to all reviews automatically ($150-250/mo)\n3. **SocialBot** - Posts daily to social media ($300-500/mo)\n4. **LeadCapture** - Qualifies website visitors ($200-350/mo)\n5. **MenuMaster** - Takes orders via text/chat ($250-450/mo)\n\nEach agent saves 10-25 hours per week and pays for itself quickly!",
-      "pricing": "Our pricing is simple and affordable:\n\n**Essential:** $250-350/month - One AI agent\n**Professional:** $500-700/month - Two AI agents  \n**Enterprise:** $1000+/month - Three+ AI agents\n\nAll plans include setup, training, and ongoing support. Plus, rural Missouri businesses get a FREE website! Want to discuss which plan fits your needs?",
-      "custom": "Absolutely! We specialize in custom AI solutions. We can:\n\n✓ Integrate premium tools (ChatGPT, Claude, Copilot)\n✓ Build bespoke AI agents for your specific needs\n✓ Connect AI to your existing systems\n✓ Create industry-specific automation\n\nLet's schedule a free consultation to discuss your vision!"
+      "how can ai help": "Hey! So AI can honestly be a game-changer for small businesses 😊 Think about all those repetitive tasks eating up your day - answering the same questions over and over, booking appointments at weird hours, responding to reviews, keeping social media active...\n\nWe've got 5 different AI agents that handle this stuff automatically:\n- **BookingBot** (24/7 appointments)\n- **ReviewReplier** (auto-responds to reviews)\n- **SocialBot** (daily social posts)\n- **LeadCapture** (website chat)\n- **MenuMaster** (restaurant orders)\n\nMost start around $250-350/month and honestly pay for themselves pretty quick. What kind of tasks are eating up YOUR time?",
+      "what ai agents": "Great question! We've got 5 AI agents that each handle different stuff:\n\n**BookingBot** ($300-450/mo) - Takes appointments 24/7, even at 2am. Sends reminders, collects deposits, basically never sleeps 😴\n\n**ReviewReplier** ($150-250/mo) - Responds to every Google/Yelp review. Good ones get thank-yous, bad ones get handled diplomatically\n\n**SocialBot** ($300-500/mo) - Posts to Instagram/Facebook daily with your content. No more \"oh crap I forgot to post\"\n\n**LeadCapture** ($200-350/mo) - Chats with website visitors, qualifies leads, catches the hot ones immediately\n\n**MenuMaster** ($250-450/mo) - For restaurants - takes orders via text, handles dietary stuff, updates wait times\n\nEach one saves like 10-25 hours a week. Which one sounds most useful for you?",
+      "pricing": "So pricing depends on what you need, but here's the breakdown:\n\n💼 **Essential** ($250-350/mo) - Pick one AI agent, we set it up, train it, you're good to go\n\n🚀 **Professional** ($500-700/mo) - Two agents working together. Most popular option honestly\n\n⭐ **Enterprise** ($1000+/mo) - Three or more agents, full custom setup, basically we go all-in\n\nAll of 'em include setup, training, support, and tweaking things as you go. Oh and if you're a rural Missouri business, you get a FREE website too! 🎉\n\nWhat's your biggest headache right now?",
+      "custom": "Oh absolutely! We LOVE custom projects 😊\n\nWe can hook up premium AI tools (ChatGPT, Claude, Microsoft Copilot, whatever makes sense), build totally custom agents for your specific workflow, connect everything to your existing systems... basically if you can dream it up, we can probably build it.\n\nLike we've done custom stuff for contractors tracking leads, salons with complicated booking rules, restaurants with wild delivery zones... you name it.\n\nWhat kind of automation are you thinking about? Let's chat about it!"
     };
 
     try {
@@ -83,17 +83,15 @@ const GeminiChatbot = () => {
       const model = genAI.current.getGenerativeModel({ model: "gemini-1.5-flash" });
       
       // System context about the business
-      const context = `You are an AI assistant for a web development and AI integration company called Rural Web Renaissance. 
-      The company specializes in:
-      - Building modern, professional websites for small businesses
-      - Integrating AI agents for automation (bookings, reviews, social media, lead capture)
-      - Custom AI solutions using tools like OpenAI, Anthropic Claude, Microsoft Copilot, etc.
-      - Pricing starts at $250-350/month for single AI agents, with custom packages available
-      - Free website offer for rural businesses in Missouri
-      - Located in rural areas, serving small businesses everywhere
-      
-      Be helpful, friendly, and concise. Focus on how AI can solve their business problems.
-      If asked about specific capabilities, mention the AI agent categories: Productivity, Enterprise, Developer, Creative, and Vertical specialists.`;
+      const context = `You're a friendly, down-to-earth AI assistant for Rural Web Renaissance. Talk like a real person - use casual language, contractions, and be genuinely enthusiastic about helping small businesses. No corporate speak!
+
+      What we do:
+      - Build awesome websites for small businesses (especially rural Missouri ones - they get FREE sites!)
+      - Create AI agents that actually save business owners tons of time
+      - Set up automation for booking, reviews, social media, customer chat, etc.
+      - Pricing ranges from $250-$1000+/month depending on what they need
+
+      Be conversational and relatable. Share real examples, use emojis when it feels right 😊, and talk about how this genuinely helps people run their businesses better. Ask follow-up questions to understand what they actually need. Be helpful without being salesy - just a helpful neighbor who knows tech!`;
 
       const prompt = `${context}\n\nUser: ${input}\n\nAssistant:`;
       
