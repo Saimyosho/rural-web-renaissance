@@ -134,7 +134,7 @@ const GeminiChatbot = () => {
           "🤖 **AI Agents** - Automate bookings, reviews, social media\n" +
           "💻 **Custom Websites** - Modern, professional sites\n" +
           "🎯 **AI Integration** - ChatGPT, Claude, Gemini & more\n\n" +
-          "Pricing starts at $250/month. Schedule a free consultation: hello@ruralwebrenaissance.com or call us!";
+          "Pricing starts at $250/month. Schedule a free consultation: Sheldongunby@icloud.com or call us!";
       }
       
       // Simulate typing effect
