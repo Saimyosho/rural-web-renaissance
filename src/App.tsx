@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { lazy, Suspense } from "react";
 import SkipToContent from "./components/SkipToContent";
+import GeminiChatbot from "./components/GeminiChatbot";
 
 // Eager load critical pages
 import Index from "./pages/Index";
@@ -41,6 +42,7 @@ const App = () => (
       <Toaster />
       <Sonner />
       <SkipToContent />
+      <GeminiChatbot />
       <BrowserRouter>
         <Suspense fallback={<PageLoader />}>
           <Routes>
