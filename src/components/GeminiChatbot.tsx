@@ -130,11 +130,14 @@ const GeminiChatbot = () => {
       
       // Default fallback if no match
       if (!responseText) {
-        responseText = "Thanks for your question! While our AI is temporarily offline, I can share that we specialize in:\n\n" +
-          "🤖 **AI Agents** - Automate bookings, reviews, social media\n" +
-          "💻 **Custom Websites** - Modern, professional sites\n" +
-          "🎯 **AI Integration** - ChatGPT, Claude, Gemini & more\n\n" +
-          "Pricing starts at $250/month. Schedule a free consultation: Sheldongunby@icloud.com or call us!";
+        responseText = "Haha, okay so full transparency here... 😅\n\n" +
+          "This AI chatbot is still a work in progress! I'm just one guy with a dream, building this thing between client projects. Getting the AI fully trained isn't exactly at the top of my to-do list yet, but hey - thanks for giving it a shot!\n\n" +
+          "Real talk though, I DO build some pretty awesome stuff:\n" +
+          "🤖 AI agents that actually work\n" +
+          "💻 Custom websites that don't suck\n" +
+          "🎯 Automation that saves you actual time\n\n" +
+          "If you want to chat about a real project, shoot me an email: **Sheldongunby@icloud.com**\n\n" +
+          "I promise I'm way better at building things than I am at training chatbots 😂";
       }
       
       // Simulate typing effect
