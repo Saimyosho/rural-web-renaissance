@@ -1,9 +1,23 @@
-import { ExternalLink, Sparkles, Ruler, Palette } from "lucide-react";
+import { ExternalLink, Sparkles, Ruler, Palette, Ambulance } from "lucide-react";
 import { Button } from "./ui/button";
 import { Badge } from "./ui/badge";
+import { useState } from "react";
+import { Dialog, DialogContent } from "./ui/dialog";
+import TransportOptimizerDemo from "./portfolio/TransportOptimizerDemo";
 
 const Portfolio = () => {
+  const [showTransportDemo, setShowTransportDemo] = useState(false);
+
   const projects = [
+    {
+      title: "Medical Transport Optimizer",
+      category: "AI & Logistics",
+      description: "AI-powered route optimization system for medical transport. Proximity-based driver assignment with multi-factor scoring algorithm.",
+      image: "https://images.unsplash.com/photo-1587825140708-dfaf72ae4b04?w=800&auto=format&fit=crop&q=80",
+      tags: ["Python", "AI", "Real-Time GPS"],
+      isDemo: true,
+      featured: true,
+    },
     {
       title: "Horn Barbecue",
       category: "Restaurant & Catering",
@@ -72,9 +86,13 @@ const Portfolio = () => {
                     <Button
                       variant="outline"
                       className="glass-strong border-primary text-primary hover:bg-primary hover:text-primary-foreground"
-                      onClick={() => window.open(project.link, '_blank')}
+                      onClick={() => project.isDemo ? setShowTransportDemo(true) : window.open(project.link, '_blank')}
                     >
-                      View Project <ExternalLink className="w-4 h-4 ml-2" />
+                      {project.isDemo ? (
+                        <>Try Live Demo <Sparkles className="w-4 h-4 ml-2" /></>
+                      ) : (
+                        <>View Project <ExternalLink className="w-4 h-4 ml-2" /></>
+                      )}
                     </Button>
                   </div>
                 </div>
@@ -126,6 +144,13 @@ const Portfolio = () => {
           </div>
         </div>
       </div>
+
+      {/* Transport Optimizer Demo Dialog */}
+      <Dialog open={showTransportDemo} onOpenChange={setShowTransportDemo}>
+        <DialogContent className="max-w-6xl max-h-[90vh] overflow-y-auto">
+          <TransportOptimizerDemo />
+        </DialogContent>
+      </Dialog>
     </section>
   );
 };
