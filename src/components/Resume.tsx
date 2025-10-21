@@ -346,10 +346,12 @@ const Resume = () => {
             <Button
               size="lg"
               className="bg-gradient-to-r from-primary to-primary-glow hover:shadow-glow transition-all duration-500"
-              onClick={() => window.print()}
+              asChild
             >
-              <Download className="w-5 h-5 mr-2" />
-              Download Resume
+              <a href="/resume.pdf" download="Sheldon-Gunby-Resume.pdf">
+                <Download className="w-5 h-5 mr-2" />
+                Download Resume PDF
+              </a>
             </Button>
           </motion.div>
         </motion.div>
