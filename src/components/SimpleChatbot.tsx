@@ -20,7 +20,14 @@ const SimpleChatbot = () => {
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    // Only scroll within the chat container, not the whole page
+    if (messagesEndRef.current) {
+      messagesEndRef.current.scrollIntoView({ 
+        behavior: "smooth",
+        block: "nearest",  // Don't scroll the page, only the container
+        inline: "nearest"
+      });
+    }
   }, [messages]);
 
   const handleSend = async () => {
