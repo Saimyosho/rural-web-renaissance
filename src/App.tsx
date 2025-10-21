@@ -31,6 +31,7 @@ const RenovationApp = lazy(() => import("./pages/portal/apps/RenovationApp"));
 const ReviewReplierApp = lazy(() => import("./pages/portal/apps/ReviewReplierApp"));
 const ContentWriterApp = lazy(() => import("./pages/portal/apps/ContentWriterApp"));
 const Analytics = lazy(() => import("./pages/portal/Analytics"));
+const Leads = lazy(() => import("./pages/portal/Leads"));
 
 const queryClient = new QueryClient();
 
@@ -86,6 +87,7 @@ const App = () => (
             <Route path="/portal/apps/review-replier" element={<ReviewReplierApp />} />
             <Route path="/portal/apps/content-writer" element={<ContentWriterApp />} />
             <Route path="/portal/analytics" element={<Analytics />} />
+            <Route path="/portal/leads" element={<Leads />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
