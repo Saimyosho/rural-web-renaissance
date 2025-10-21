@@ -1,5 +1,41 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 
+// Simple in-memory rate limiting (resets on cold start)
+const rateLimitMap = new Map<string, { count: number; resetTime: number }>();
+
+function getRateLimitKey(req: VercelRequest): string {
+  // Get IP from various headers (Vercel provides these)
+  const forwarded = req.headers['x-forwarded-for'];
+  const ip = forwarded ? (typeof forwarded === 'string' ? forwarded.split(',')[0] : forwarded[0]) : req.socket.remoteAddress;
+  return ip || 'unknown';
+}
+
+function checkRateLimit(key: string): { allowed: boolean; remaining: number } {
+  const now = Date.now();
+  const limit = 10; // 10 requests per hour
+  const windowMs = 60 * 60 * 1000; // 1 hour
+
+  let record = rateLimitMap.get(key);
+
+  // Clean up old entries
+  if (record && now > record.resetTime) {
+    rateLimitMap.delete(key);
+    record = undefined;
+  }
+
+  if (!record) {
+    record = { count: 0, resetTime: now + windowMs };
+    rateLimitMap.set(key, record);
+  }
+
+  record.count++;
+
+  return {
+    allowed: record.count <= limit,
+    remaining: Math.max(0, limit - record.count),
+  };
+}
+
 export default async function handler(
   req: VercelRequest,
   res: VercelResponse,
@@ -22,11 +58,34 @@ export default async function handler(
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
+  // Rate limiting check
+  const rateLimitKey = getRateLimitKey(req);
+  const { allowed, remaining } = checkRateLimit(rateLimitKey);
+
+  // Add rate limit headers
+  res.setHeader('X-RateLimit-Limit', '10');
+  res.setHeader('X-RateLimit-Remaining', remaining.toString());
+
+  if (!allowed) {
+    return res.status(429).json({ 
+      error: 'Rate limit exceeded. Please try again later.',
+      success: false 
+    });
+  }
+
   try {
     const { input } = req.body;
 
     if (!input) {
       return res.status(400).json({ error: 'Missing input' });
+    }
+
+    // Input length validation (prevent abuse)
+    if (input.length > 500) {
+      return res.status(400).json({ 
+        error: 'Input too long. Please keep messages under 500 characters.',
+        success: false 
+      });
     }
 
     const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
