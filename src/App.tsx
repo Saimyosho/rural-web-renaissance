@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { lazy, Suspense } from "react";
 import SkipToContent from "./components/SkipToContent";
 import GeminiChatbot from "./components/GeminiChatbot";
+import { AuthProvider } from "./contexts/AuthContext";
 
 // Eager load critical pages
 import Index from "./pages/Index";
@@ -23,6 +24,13 @@ const PrivacyPolicy = lazy(() => import("./pages/PrivacyPolicy"));
 const ForBusinessOwners = lazy(() => import("./pages/ForBusinessOwners"));
 const Restaurants = lazy(() => import("./pages/industries/Restaurants"));
 const Salons = lazy(() => import("./pages/industries/Salons"));
+const Login = lazy(() => import("./pages/Login"));
+const Signup = lazy(() => import("./pages/Signup"));
+const Dashboard = lazy(() => import("./pages/portal/Dashboard"));
+const RenovationApp = lazy(() => import("./pages/portal/apps/RenovationApp"));
+const ReviewReplierApp = lazy(() => import("./pages/portal/apps/ReviewReplierApp"));
+const ContentWriterApp = lazy(() => import("./pages/portal/apps/ContentWriterApp"));
+const Analytics = lazy(() => import("./pages/portal/Analytics"));
 
 const queryClient = new QueryClient();
 
@@ -38,12 +46,13 @@ const PageLoader = () => (
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <SkipToContent />
-      <GeminiChatbot />
-      <BrowserRouter>
+    <AuthProvider>
+      <TooltipProvider>
+        <Toaster />
+        <Sonner />
+        <SkipToContent />
+        <GeminiChatbot />
+        <BrowserRouter>
         <Suspense fallback={<PageLoader />}>
           <Routes>
             <Route path="/" element={<Index />} />
@@ -58,12 +67,20 @@ const App = () => (
             <Route path="/for-business-owners" element={<ForBusinessOwners />} />
             <Route path="/industries/restaurants" element={<Restaurants />} />
             <Route path="/industries/salons" element={<Salons />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<Signup />} />
+            <Route path="/portal/dashboard" element={<Dashboard />} />
+            <Route path="/portal/apps/renovation" element={<RenovationApp />} />
+            <Route path="/portal/apps/review-replier" element={<ReviewReplierApp />} />
+            <Route path="/portal/apps/content-writer" element={<ContentWriterApp />} />
+            <Route path="/portal/analytics" element={<Analytics />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Suspense>
       </BrowserRouter>
-    </TooltipProvider>
+      </TooltipProvider>
+    </AuthProvider>
   </QueryClientProvider>
 );
 

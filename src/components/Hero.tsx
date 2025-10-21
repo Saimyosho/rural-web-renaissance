@@ -1,13 +1,10 @@
-import { useEffect, useRef, useState } from "react";
-import { ArrowDown, Sparkles, Zap } from "lucide-react";
+import { useState, useEffect } from "react";
+import { ArrowDown, MessageCircle, Play, Check } from "lucide-react";
 import { Button } from "./ui/button";
 import { motion } from "framer-motion";
-import WireframeBackground from "./WireframeBackground";
-import FloatingShapes from "./FloatingShapes";
+import AIToolsDemoTabs from "./AIToolsDemoTabs";
 
 const Hero = () => {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  const mousePosRef = useRef({ x: 0, y: 0 });
   const [scrollY, setScrollY] = useState(0);
 
   useEffect(() => {
@@ -25,137 +22,18 @@ const Hero = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      mousePosRef.current = { x: e.clientX, y: e.clientY };
-    };
-    window.addEventListener("mousemove", handleMouseMove, { passive: true });
-    return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, []);
-
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-
-    const ctx = canvas.getContext("2d", { alpha: true });
-    if (!ctx) return;
-
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-
-    const particles: Array<{
-      x: number;
-      y: number;
-      vx: number;
-      vy: number;
-      size: number;
-      baseX: number;
-      baseY: number;
-      hue: number;
-    }> = [];
-
-    // Reduced from 80 to 40 particles for better performance
-    for (let i = 0; i < 40; i++) {
-      const x = Math.random() * canvas.width;
-      const y = Math.random() * canvas.height;
-      particles.push({
-        x,
-        y,
-        baseX: x,
-        baseY: y,
-        vx: (Math.random() - 0.5) * 0.5,
-        vy: (Math.random() - 0.5) * 0.5,
-        size: Math.random() * 3 + 1,
-        hue: 195 + Math.random() * 30,
-      });
+  const scrollToContact = () => {
+    const element = document.getElementById("contact");
+    if (element) {
+      const offset = 80;
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - offset;
+      window.scrollTo({ top: offsetPosition, behavior: "smooth" });
     }
+  };
 
-    const animate = () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      
-      particles.forEach((particle, i) => {
-        // Mouse interaction
-        const dx = mousePosRef.current.x - particle.x;
-        const dy = mousePosRef.current.y - particle.y;
-        const distance = Math.sqrt(dx * dx + dy * dy);
-        
-        if (distance < 150) {
-          const force = (150 - distance) / 150;
-          particle.x -= dx * force * 0.03;
-          particle.y -= dy * force * 0.03;
-        }
-
-        // Return to base position
-        particle.x += (particle.baseX - particle.x) * 0.05;
-        particle.y += (particle.baseY - particle.y) * 0.05;
-
-        particle.x += particle.vx;
-        particle.y += particle.vy;
-        particle.baseX += particle.vx;
-        particle.baseY += particle.vy;
-
-        if (particle.baseX < 0 || particle.baseX > canvas.width) {
-          particle.vx *= -1;
-          particle.baseX = Math.max(0, Math.min(canvas.width, particle.baseX));
-        }
-        if (particle.baseY < 0 || particle.baseY > canvas.height) {
-          particle.vy *= -1;
-          particle.baseY = Math.max(0, Math.min(canvas.height, particle.baseY));
-        }
-
-        // Glow effect
-        const gradient = ctx.createRadialGradient(
-          particle.x, particle.y, 0,
-          particle.x, particle.y, particle.size * 4
-        );
-        gradient.addColorStop(0, `hsla(${particle.hue}, 85%, 65%, 0.8)`);
-        gradient.addColorStop(1, `hsla(${particle.hue}, 85%, 65%, 0)`);
-        
-        ctx.beginPath();
-        ctx.arc(particle.x, particle.y, particle.size * 4, 0, Math.PI * 2);
-        ctx.fillStyle = gradient;
-        ctx.fill();
-
-        ctx.beginPath();
-        ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
-        ctx.fillStyle = `hsla(${particle.hue}, 85%, 55%, 0.9)`;
-        ctx.fill();
-
-        // Optimized connections - only check forward to avoid duplicates
-        for (let j = i + 1; j < particles.length; j++) {
-          const particle2 = particles[j];
-          const dx2 = particle.x - particle2.x;
-          const dy2 = particle.y - particle2.y;
-          const distance2 = Math.sqrt(dx2 * dx2 + dy2 * dy2);
-
-          if (distance2 < 150) {  // Reduced from 200 for better performance
-            ctx.beginPath();
-            ctx.moveTo(particle.x, particle.y);
-            ctx.lineTo(particle2.x, particle2.y);
-            const opacity = (1 - distance2 / 150) * 0.1;  // Reduced opacity
-            ctx.strokeStyle = `hsla(${particle.hue}, 85%, 55%, ${opacity})`;
-            ctx.lineWidth = 0.5;  // Thinner lines
-            ctx.stroke();
-          }
-        }
-      });
-
-      requestAnimationFrame(animate);
-    };
-
-    animate();
-
-    const handleResize = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    };
-
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
-  const scrollToAbout = () => {
-    const element = document.getElementById("about");
+  const scrollToDemo = () => {
+    const element = document.getElementById("services");
     if (element) {
       const offset = 80;
       const elementPosition = element.getBoundingClientRect().top;
@@ -166,38 +44,34 @@ const Hero = () => {
 
   const parallaxOffset = scrollY * 0.5;
 
-  // Framer Motion variants
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2,
-        delayChildren: 0.3
-      }
-    }
-  };
-
-  const itemVariants = {
-    hidden: { y: 30, opacity: 0 },
-    visible: { y: 0, opacity: 1 }
-  };
-
   return (
-    <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden pb-20">
-      {/* Sophisticated Wireframe Background */}
-      <WireframeBackground variant="dots" density="medium" animate={true} />
+    <section 
+      id="home" 
+      className="relative min-h-screen flex items-center justify-center overflow-hidden"
+      style={{ paddingTop: "80px", paddingBottom: "60px" }}
+    >
+      {/* Lightweight Animated Background */}
+      <div className="absolute inset-0 bg-gradient-animated opacity-30" />
       
-      <canvas ref={canvasRef} className="absolute inset-0 z-0" />
-      
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/50 to-background z-10 mesh-gradient" />
+      {/* Subtle Grid Pattern */}
+      <div 
+        className="absolute inset-0 opacity-[0.03]"
+        style={{
+          backgroundImage: `
+            linear-gradient(90deg, rgba(99,102,241,0.3) 1px, transparent 1px),
+            linear-gradient(rgba(99,102,241,0.3) 1px, transparent 1px)
+          `,
+          backgroundSize: '50px 50px',
+          animation: 'gridShift 20s ease-in-out infinite'
+        }}
+      />
 
-      {/* Floating decorative elements */}
+      {/* Floating Gradient Orbs - Hidden on mobile for performance */}
       <motion.div 
-        className="absolute top-20 left-10 w-32 h-32 bg-primary/10 rounded-full blur-3xl"
+        className="hidden md:block absolute top-20 left-10 w-96 h-96 bg-primary/5 rounded-full blur-3xl"
         animate={{
           y: [0, -30, 0],
-          scale: [1, 1.2, 1],
+          scale: [1, 1.1, 1],
         }}
         transition={{
           duration: 8,
@@ -207,10 +81,10 @@ const Hero = () => {
         style={{ transform: `translateY(${parallaxOffset}px)` }}
       />
       <motion.div 
-        className="absolute bottom-20 right-10 w-40 h-40 bg-accent/10 rounded-full blur-3xl"
+        className="hidden md:block absolute bottom-20 right-10 w-80 h-80 bg-accent/5 rounded-full blur-3xl"
         animate={{
           y: [0, 30, 0],
-          scale: [1, 1.1, 1],
+          scale: [1, 1.15, 1],
         }}
         transition={{
           duration: 10,
@@ -221,126 +95,242 @@ const Hero = () => {
         style={{ transform: `translateY(${-parallaxOffset}px)` }}
       />
 
+      {/* Gradient Overlay */}
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/50 to-background z-10" />
+
+      {/* Main Content - Split Layout with Golden Ratio */}
       <motion.div 
-        className="relative z-20 container mx-auto px-6 text-center py-8 pt-32"
+        className="relative z-20 w-full px-4 sm:px-6 lg:px-8 py-8 md:py-12"
         style={{ transform: `translateY(${parallaxOffset * 0.3}px)` }}
-        variants={containerVariants}
-        initial="hidden"
-        animate="visible"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.6 }}
       >
-        <motion.div variants={itemVariants}>
-          <motion.div 
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass mb-8 border-animated"
-            whileHover={{ scale: 1.05 }}
-            transition={{ type: "spring", stiffness: 300 }}
-          >
-            <Sparkles className="w-4 h-4 text-primary" />
-            <span className="text-sm font-semibold">AI-Powered Automation Specialist</span>
-            <Sparkles className="w-4 h-4 text-accent" />
-          </motion.div>
-
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-8 leading-tight">
-            <span className="text-foreground block mb-2">Your Website is</span>
-            <span className="gradient-sunrise-text animate-gradient text-5xl md:text-7xl lg:text-8xl block">100% Free</span>
-          </h1>
-          
-          <p className="text-2xl md:text-3xl text-primary mb-6 max-w-3xl mx-auto font-semibold">
-            We Make Money When You Make Money
-          </p>
-          
-          <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
-            I build your website free using my tech expertise. Need business automation? Add tools to save time when you're ready to grow.
-          </p>
-
-          <div className="flex flex-col items-center gap-6 mb-12">
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center w-full">
-              <Button
-                size="lg"
-                onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
-                className="bg-gradient-to-r from-primary via-bridge to-accent hover:shadow-glow transition-all duration-500 text-lg px-10 py-7 group relative overflow-hidden"
-                id="hero-primary-cta"
-              >
-                <span className="flex items-center gap-2 relative z-10">
-                  Start Your Victory
-                  <Sparkles className="w-5 h-5 group-hover:rotate-12 transition-transform" />
-                </span>
-                <motion.div
-                  className="absolute inset-0 bg-white/20"
-                  initial={{ x: "-100%" }}
-                  whileHover={{ x: "100%" }}
-                  transition={{ duration: 0.5 }}
-                />
-              </Button>
-              <Button
-                size="lg"
-                variant="outline"
-                onClick={() => document.getElementById("services")?.scrollIntoView({ behavior: "smooth" })}
-                className="glass border-primary/50 hover:bg-primary/10 hover:border-bridge/50 text-lg px-10 py-7 group"
-                id="hero-secondary-cta"
-              >
-                <span className="flex items-center gap-2">
-                  Explore AI Solutions
-                  <Zap className="w-5 h-5 group-hover:text-accent transition-colors" />
-                </span>
-              </Button>
-            </div>
-
-            {/* Trust indicators */}
-            <motion.div 
-              className="flex flex-wrap items-center justify-center gap-4 md:gap-6 text-sm text-muted-foreground"
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.6 }}
+        <div className="max-w-7xl mx-auto">
+          <div className="grid lg:grid-cols-[38.2%_61.8%] gap-8 md:gap-12 lg:gap-16 items-center">
+            
+            {/* LEFT SIDE - 38.2% (Golden Ratio) */}
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="space-y-8"
             >
-              <div className="flex items-center gap-2">
-                <svg className="w-4 h-4 text-primary" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                </svg>
-                <span>100% Free</span>
+              {/* Profile Image */}
+              <motion.div 
+                className="flex justify-center lg:justify-start"
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+              >
+                <div className="relative group">
+                  <div className="absolute -inset-1 bg-gradient-to-r from-primary via-bridge to-accent rounded-full blur opacity-30 group-hover:opacity-50 transition duration-500"></div>
+                  <img 
+                    src="/images/headshot.png" 
+                    alt="Sheldon Gunby - Full Stack Developer"
+                    className="relative w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 rounded-full object-cover border-4 border-background shadow-2xl"
+                  />
+                </div>
+              </motion.div>
+
+              {/* Headline */}
+              <div className="space-y-4 text-center lg:text-left">
+                <motion.h1 
+                  className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.3 }}
+                >
+                  Hi, I'm{" "}
+                  <span className="gradient-sunrise-text animate-gradient">
+                    Sheldon Gunby
+                  </span>
+                </motion.h1>
+                
+                <motion.p 
+                  className="text-lg sm:text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto lg:mx-0"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.4 }}
+                >
+                  Full Stack Developer specializing in AI-powered web applications
+                </motion.p>
               </div>
-              <div className="flex items-center gap-2">
-                <svg className="w-4 h-4 text-primary" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                </svg>
-                <span>No Credit Card</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <svg className="w-4 h-4 text-primary" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                </svg>
-                <span>Ready in 7 Days</span>
+
+              {/* Skills/Expertise */}
+              <motion.div 
+                className="flex flex-col gap-3 max-w-md mx-auto lg:mx-0"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.5 }}
+              >
+                <div className="flex items-center gap-3 text-sm sm:text-base justify-center lg:justify-start">
+                  <div className="flex items-center justify-center w-6 h-6 rounded-full bg-primary/10 flex-shrink-0">
+                    <Check className="w-4 h-4 text-primary" />
+                  </div>
+                  <span className="font-medium">React, TypeScript & Node.js</span>
+                </div>
+                <div className="flex items-center gap-3 text-sm sm:text-base justify-center lg:justify-start">
+                  <div className="flex items-center justify-center w-6 h-6 rounded-full bg-primary/10 flex-shrink-0">
+                    <Check className="w-4 h-4 text-primary" />
+                  </div>
+                  <span className="font-medium">AI/ML Integration (HuggingFace)</span>
+                </div>
+                <div className="flex items-center gap-3 text-sm sm:text-base justify-center lg:justify-start">
+                  <div className="flex items-center justify-center w-6 h-6 rounded-full bg-primary/10 flex-shrink-0">
+                    <Check className="w-4 h-4 text-primary" />
+                  </div>
+                  <span className="font-medium">Modern UX/UI Design</span>
+                </div>
+              </motion.div>
+
+              {/* CTAs */}
+              <motion.div 
+                className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto lg:mx-0 justify-center lg:justify-start"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.6 }}
+              >
+                <Button
+                  size="lg"
+                  onClick={() => {
+                    const element = document.getElementById("portfolio");
+                    element?.scrollIntoView({ behavior: "smooth" });
+                  }}
+                  className="w-full sm:w-auto bg-gradient-to-r from-primary via-bridge to-accent hover:shadow-glow transition-all duration-500 text-base sm:text-lg px-6 sm:px-8 py-5 sm:py-6 group relative overflow-hidden"
+                  id="hero-primary-cta"
+                >
+                  <span className="flex items-center gap-2 relative z-10 justify-center">
+                    View Portfolio →
+                  </span>
+                  <motion.div
+                    className="absolute inset-0 bg-white/20"
+                    initial={{ x: "-100%" }}
+                    whileHover={{ x: "100%" }}
+                    transition={{ duration: 0.5 }}
+                  />
+                </Button>
+                
+                <Button
+                  size="lg"
+                  variant="outline"
+                  onClick={scrollToContact}
+                  className="w-full sm:w-auto glass border-primary/50 hover:bg-primary/10 hover:border-bridge/50 text-base sm:text-lg px-6 sm:px-8 py-5 sm:py-6 group"
+                  id="hero-secondary-cta"
+                >
+                  <span className="flex items-center gap-2 justify-center">
+                    <MessageCircle className="w-5 h-5" />
+                    Contact Me
+                  </span>
+                </Button>
+              </motion.div>
+
+              {/* Quick Stats */}
+              <motion.div
+                className="pt-4 border-t border-border/50 max-w-md mx-auto lg:mx-0"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.6, delay: 0.7 }}
+              >
+                <div className="grid grid-cols-3 gap-4 text-center lg:text-left">
+                  <div>
+                    <p className="text-2xl font-bold text-primary">5+</p>
+                    <p className="text-xs text-muted-foreground">Years Exp</p>
+                  </div>
+                  <div>
+                    <p className="text-2xl font-bold text-primary">20+</p>
+                    <p className="text-xs text-muted-foreground">Projects</p>
+                  </div>
+                  <div>
+                    <p className="text-2xl font-bold text-primary">100%</p>
+                    <p className="text-xs text-muted-foreground">Satisfied</p>
+                  </div>
+                </div>
+              </motion.div>
+            </motion.div>
+
+            {/* RIGHT SIDE - 61.8% (Golden Ratio) - Featured Projects */}
+            <motion.div
+              initial={{ opacity: 0, x: 30 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+              className="relative mt-12 lg:mt-0"
+            >
+              <div className="glass-strong rounded-2xl p-4 sm:p-6 lg:p-8 border border-primary/20 relative overflow-hidden">
+                {/* Decorative elements */}
+                <div className="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full blur-3xl -z-10" />
+                <div className="absolute bottom-0 left-0 w-64 h-64 bg-accent/5 rounded-full blur-3xl -z-10" />
+                
+                {/* Portfolio Header */}
+                <div className="mb-6">
+                  <h3 className="text-xl sm:text-2xl font-bold mb-2">
+                    Featured Projects
+                  </h3>
+                  <p className="text-sm sm:text-base text-muted-foreground">
+                    Recent work showcasing AI integration & modern development
+                  </p>
+                </div>
+
+                {/* Project Grid */}
+                <div className="grid gap-4 mb-6">
+                  {[
+                    { title: "AI Portal Platform", tech: "React • Supabase • HuggingFace", desc: "Multi-tenant SaaS with AI-powered tools" },
+                    { title: "Review Response Agent", tech: "Python • FastAPI • NLP", desc: "Automated review management system" },
+                    { title: "Content Generation Tool", tech: "TypeScript • Edge Functions", desc: "AI-driven content creation platform" }
+                  ].map((project, i) => (
+                    <motion.div
+                      key={i}
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.6 + i * 0.1 }}
+                      className="glass rounded-lg p-4 hover:bg-primary/5 transition-colors group cursor-pointer"
+                    >
+                      <h4 className="font-semibold text-sm sm:text-base mb-1 group-hover:text-primary transition-colors">
+                        {project.title}
+                      </h4>
+                      <p className="text-xs text-muted-foreground mb-2">{project.tech}</p>
+                      <p className="text-xs sm:text-sm text-muted-foreground">{project.desc}</p>
+                    </motion.div>
+                  ))}
+                </div>
+
+                <Button 
+                  variant="outline" 
+                  className="w-full group"
+                  onClick={() => {
+                    const element = document.getElementById("portfolio");
+                    element?.scrollIntoView({ behavior: "smooth" });
+                  }}
+                >
+                  View All Projects
+                  <ArrowDown className="w-4 h-4 ml-2 group-hover:translate-y-1 transition-transform rotate-[-90deg]" />
+                </Button>
               </div>
             </motion.div>
-          </div>
 
-        </motion.div>
+          </div>
+        </div>
       </motion.div>
 
+      {/* Scroll Indicator */}
       <motion.button
-        onClick={scrollToAbout}
-        className="absolute bottom-4 md:bottom-12 left-1/2 -translate-x-1/2 z-20 text-primary hover:scale-110 transition-transform p-3 rounded-full glass hover:bg-primary/20"
+        onClick={() => {
+          const element = document.getElementById("about");
+          if (element) {
+            const offset = 80;
+            const elementPosition = element.getBoundingClientRect().top;
+            const offsetPosition = elementPosition + window.pageYOffset - offset;
+            window.scrollTo({ top: offsetPosition, behavior: "smooth" });
+          }
+        }}
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 text-primary hover:scale-110 transition-transform p-3 rounded-full glass hover:bg-primary/20"
         animate={{ y: [0, -10, 0] }}
         transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
         whileHover={{ scale: 1.2 }}
+        aria-label="Scroll to next section"
       >
-        <ArrowDown size={32} />
+        <ArrowDown size={28} />
       </motion.button>
-
-      {/* Scroll progress indicator */}
-      <motion.div 
-        className="absolute bottom-0 left-0 right-0 h-1 bg-primary/20 z-20"
-        initial={{ scaleX: 0 }}
-        animate={{ scaleX: 1 }}
-        transition={{ duration: 0.5 }}
-      >
-        <motion.div 
-          className="h-full bg-gradient-to-r from-primary to-accent"
-          style={{ 
-            width: `${Math.min((scrollY / window.innerHeight) * 100, 100)}%`,
-            transition: 'width 0.3s ease-out'
-          }}
-        />
-      </motion.div>
     </section>
   );
 };

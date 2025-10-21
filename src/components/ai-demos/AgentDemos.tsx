@@ -1,54 +1,19 @@
 import { useState } from "react";
 import ChatDemo, { Message } from "./ChatDemo";
+import EnhancedChatDemo from "./EnhancedChatDemo";
 import { Button } from "@/components/ui/button";
 import { Play } from "lucide-react";
 
-// BookingBot Demo
+// BookingBot Demo - REAL AI POWERED
 export const BookingBotDemo = () => {
-  const [started, setStarted] = useState(false);
-
-  const messages: Message[] = [
-    { role: "bot", content: "👋 Hi! I'm BookingBot for Main Street Barbershop in downtown Johnstown. I can help you book an appointment. What service are you interested in?" },
-    { role: "user", content: "I need a haircut" },
-    { role: "bot", content: "Great choice! 💇‍♂️ What day works best for you? We're on Main Street, right across from the Johnstown Galleria." },
-    { role: "user", content: "Tomorrow at 2pm" },
-    { role: "bot", content: "Perfect! I have 2:00 PM available tomorrow with Tony. May I have your name?" },
-    { role: "user", content: "Mike from Westmont" },
-    { role: "bot", content: "Thanks, Mike! And what's the best phone number to reach you?" },
-    { role: "user", content: "814-555-0123" },
-    { role: "bot", content: "✅ All set! Your haircut appointment is booked for tomorrow at 2:00 PM.\n\n📍 Main Street Barbershop, 123 Main St, Johnstown PA\n💳 I'll collect a $10 deposit to secure your spot\n📱 Confirmation text sent to 814-555-0123\n🅿️ Free parking behind the shop!\n\nSee you tomorrow, Mike! 👋" },
-  ];
-
   return (
-    <div className="h-full flex flex-col">
-      {!started ? (
-        <div className="flex-1 flex items-center justify-center p-8 text-center">
-          <div>
-            <div className="text-6xl mb-4">🗓️</div>
-            <h3 className="text-xl font-bold mb-2">BookingBot Demo</h3>
-            <p className="text-sm text-muted-foreground mb-6 max-w-sm">
-              Watch how BookingBot handles appointment scheduling, collects deposits, and confirms bookings automatically.
-            </p>
-            <Button
-              onClick={() => setStarted(true)}
-              className="bg-gradient-to-r from-blue-500 to-cyan-500"
-            >
-              <Play className="w-4 h-4 mr-2" />
-              Start Demo
-            </Button>
-          </div>
-        </div>
-      ) : (
-        <ChatDemo
-          messages={messages}
-          agentName="BookingBot"
-          agentColor="from-blue-500 to-cyan-500"
-          autoPlay={true}
-          autoPlayDelay={1500}
-          onReset={() => setStarted(false)}
-        />
-      )}
-    </div>
+    <EnhancedChatDemo
+      agentName="BookingBot"
+      agentColor="from-blue-500 to-cyan-500"
+      apiEndpoint="/api/ai-agents/booking"
+      initialMessage="👋 Hi! I'm BookingBot for Main Street Barbershop in downtown Johnstown. I can help you book an appointment. What service are you interested in?"
+      placeholder="Try: 'I need a haircut'"
+    />
   );
 };
 
