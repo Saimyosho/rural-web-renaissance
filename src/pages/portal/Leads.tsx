@@ -13,7 +13,10 @@ import {
   MessageSquare,
   ExternalLink,
   Search,
-  Filter
+  Filter,
+  TrendingUp,
+  Award,
+  Star
 } from 'lucide-react';
 
 interface Lead {
@@ -34,6 +37,7 @@ interface Lead {
   status: string;
   priority: string;
   extraction_confidence: number;
+  lead_score: number;
   full_conversation: Array<{ role: string; content: string }>;
 }
 
@@ -53,6 +57,7 @@ export default function Leads() {
       const { data, error } = await supabase
         .from('chat_leads')
         .select('*')
+        .order('lead_score', { ascending: false, nullsFirst: false })
         .order('created_at', { ascending: false });
 
       if (error) throw error;
@@ -177,8 +182,30 @@ export default function Leads() {
             <CardHeader>
               <div className="flex items-start justify-between">
                 <div className="space-y-1">
-                  <CardTitle className="flex items-center gap-2">
+                  <CardTitle className="flex items-center gap-2 flex-wrap">
                     {lead.name || lead.email || 'Anonymous Lead'}
+                    
+                    {/* Lead Score Badge */}
+                    {lead.lead_score !== undefined && lead.lead_score !== null && (
+                      <Badge 
+                        variant={
+                          lead.lead_score >= 80 ? 'default' : 
+                          lead.lead_score >= 60 ? 'secondary' : 
+                          'outline'
+                        }
+                        className={`flex items-center gap-1 ${
+                          lead.lead_score >= 80 ? 'bg-gradient-to-r from-amber-500 to-orange-500 text-white' :
+                          lead.lead_score >= 60 ? 'bg-gradient-to-r from-blue-500 to-cyan-500 text-white' :
+                          ''
+                        }`}
+                      >
+                        {lead.lead_score >= 80 ? <Award className="w-3 h-3" /> : 
+                         lead.lead_score >= 60 ? <TrendingUp className="w-3 h-3" /> : 
+                         <Star className="w-3 h-3" />}
+                        Score: {lead.lead_score}/100
+                      </Badge>
+                    )}
+                    
                     <Badge variant={getPriorityColor(lead.priority)}>
                       {lead.priority}
                     </Badge>
@@ -194,7 +221,7 @@ export default function Leads() {
                   </CardDescription>
                 </div>
                 <div className="text-right text-sm text-muted-foreground">
-                  {Math.round(lead.extraction_confidence * 100)}% confidence
+                  {Math.round(lead.extraction_confidence * 100)}% AI confidence
                 </div>
               </div>
             </CardHeader>
