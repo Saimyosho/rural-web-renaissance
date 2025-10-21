@@ -254,7 +254,7 @@ const Hero = () => {
               initial={{ opacity: 0, x: 30 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6, delay: 0.4 }}
-              className="relative mt-12 lg:mt-0"
+              className="relative mt-12 lg:mt-0 z-30"
             >
               <HeroChatbot />
             </motion.div>

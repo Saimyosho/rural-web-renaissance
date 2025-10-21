@@ -118,7 +118,7 @@ const HeroChatbot = () => {
   );
 
   const ChatInterface = () => (
-    <div className="relative rounded-3xl overflow-hidden h-full flex flex-col">
+    <div className="relative rounded-3xl overflow-hidden h-full flex flex-col z-30">
       {/* Animated gradient background */}
       <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-bridge/5 to-accent/10 animate-gradient-shift" />
       <div className="absolute top-0 right-0 w-64 h-64 bg-primary/20 rounded-full blur-3xl animate-pulse-slow" />
