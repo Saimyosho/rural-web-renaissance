@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { ArrowDown, MessageCircle, Check } from "lucide-react";
 import { Button } from "./ui/button";
 import { motion } from "framer-motion";
-import HeroChatbot from "./HeroChatbot";
+import SimpleChatbot from "./SimpleChatbot";
 
 const Hero = () => {
   const [scrollY, setScrollY] = useState(0);
@@ -254,9 +254,9 @@ const Hero = () => {
               initial={{ opacity: 0, x: 30 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6, delay: 0.4 }}
-              className="relative mt-12 lg:mt-0 z-30"
+              className="relative mt-12 lg:mt-0 h-[600px]"
             >
-              <HeroChatbot />
+              <SimpleChatbot />
             </motion.div>
 
           </div>
