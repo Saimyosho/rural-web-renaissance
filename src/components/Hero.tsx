@@ -47,8 +47,8 @@ const Hero = () => {
   return (
     <section 
       id="home" 
-      className="relative min-h-screen flex items-center justify-center overflow-hidden"
-      style={{ paddingTop: "80px", paddingBottom: "60px" }}
+      className="relative min-h-screen flex items-center justify-center overflow-hidden scroll-mt-20"
+      style={{ paddingBottom: "60px" }}
     >
       {/* Lightweight Animated Background */}
       <div className="absolute inset-0 bg-gradient-animated opacity-30" />
@@ -254,7 +254,7 @@ const Hero = () => {
               initial={{ opacity: 0, x: 30 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6, delay: 0.4 }}
-              className="relative mt-12 lg:mt-0 h-[600px]"
+              className="relative mt-8 lg:mt-0 h-[450px] sm:h-[500px] md:h-[550px] lg:h-[600px]"
             >
               <SimpleChatbot />
             </motion.div>
