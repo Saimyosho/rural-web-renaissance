@@ -1,7 +1,32 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
+import { createClient } from '@supabase/supabase-js';
+
+// Initialize Supabase client
+const supabaseUrl = process.env.VITE_SUPABASE_URL || process.env.SUPABASE_URL || '';
+const supabaseKey = process.env.VITE_SUPABASE_ANON_KEY || process.env.SUPABASE_ANON_KEY || '';
+const supabase = supabaseUrl && supabaseKey ? createClient(supabaseUrl, supabaseKey) : null;
 
 // Simple in-memory rate limiting (resets on cold start)
 const rateLimitMap = new Map<string, { count: number; resetTime: number }>();
+
+// Types for lead extraction
+interface ExtractedLead {
+  name: string | null;
+  email: string | null;
+  phone: string | null;
+  businessName: string | null;
+  website: string | null;
+  projectType: string | null;
+  budgetRange: string | null;
+  timeline: string | null;
+  requirements: string | null;
+  confidence: number;
+}
+
+interface Message {
+  role: string;
+  content: string;
+}
 
 function getRateLimitKey(req: VercelRequest): string {
   // Get IP from various headers (Vercel provides these)
@@ -34,6 +59,177 @@ function checkRateLimit(key: string): { allowed: boolean; remaining: number } {
     allowed: record.count <= limit,
     remaining: Math.max(0, limit - record.count),
   };
+}
+
+// Extract lead information using GPT
+async function extractAndSaveLead(
+  conversation: Message[],
+  metadata: { ip: string; userAgent: string; referrer: string; sessionId: string },
+  apiKey: string
+): Promise<void> {
+  if (!supabase) {
+    console.log('Supabase not configured, skipping lead extraction');
+    return;
+  }
+
+  // Build extraction prompt
+  const conversationText = conversation
+    .map(m => `${m.role}: ${m.content}`)
+    .join('\n');
+
+  const extractionPrompt = `Analyze this conversation and extract ANY contact information, business details, or project requirements.
+
+Conversation:
+${conversationText}
+
+Extract and return ONLY valid JSON (no markdown, no explanation):
+{
+  "name": "full name if mentioned, otherwise null",
+  "email": "email address if mentioned, otherwise null",
+  "phone": "phone number if mentioned (any format), otherwise null",
+  "businessName": "business or company name if mentioned, otherwise null",
+  "website": "website URL if mentioned, otherwise null",
+  "projectType": "type of project needed (website, chatbot, automation, etc) or null",
+  "budgetRange": "budget mentioned (e.g., '$5k-10k', 'under $5000') or null",
+  "timeline": "timeline mentioned (e.g., 'urgent', '1-2 months', 'ASAP') or null",
+  "requirements": "brief summary of what they need or null",
+  "confidence": 0.0-1.0 score
+}
+
+Return null for any field not found. Be conservative - only extract explicitly mentioned information.`;
+
+  try {
+    // Call GPT for extraction
+    const response = await fetch('https://api.openai.com/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${apiKey}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        model: 'gpt-3.5-turbo',
+        messages: [
+          { role: 'system', content: 'You are a data extraction assistant. Extract contact information from conversations and return valid JSON only.' },
+          { role: 'user', content: extractionPrompt }
+        ],
+        temperature: 0.1, // Low temperature for consistent extraction
+        max_tokens: 300,
+      }),
+    });
+
+    if (!response.ok) {
+      console.error('GPT extraction failed:', await response.text());
+      return;
+    }
+
+    const data = await response.json();
+    const extractedText = data.choices[0]?.message?.content || '{}';
+    
+    // Parse JSON (handle markdown wrapping)
+    let extracted: ExtractedLead;
+    try {
+      const jsonMatch = extractedText.match(/\{[\s\S]*\}/);
+      extracted = JSON.parse(jsonMatch ? jsonMatch[0] : extractedText);
+    } catch (e) {
+      console.error('Failed to parse extracted JSON:', extractedText);
+      return;
+    }
+
+    // Only save if we have at least some contact info
+    const hasContactInfo = extracted.email || extracted.phone || extracted.name;
+    if (!hasContactInfo) {
+      return; // No lead to save
+    }
+
+    // Calculate priority
+    let priority = 'low';
+    if (extracted.email && extracted.budgetRange && extracted.timeline) {
+      priority = 'high';
+    } else if (extracted.email && (extracted.budgetRange || extracted.requirements)) {
+      priority = 'medium';
+    }
+
+    // Check if lead already exists (by email or session)
+    let existingLead = null;
+    if (extracted.email) {
+      const { data: existing } = await supabase
+        .from('chat_leads')
+        .select('id, full_conversation')
+        .eq('email', extracted.email)
+        .order('created_at', { ascending: false })
+        .limit(1)
+        .single();
+      
+      existingLead = existing;
+    } else if (metadata.sessionId) {
+      const { data: existing } = await supabase
+        .from('chat_leads')
+        .select('id, full_conversation')
+        .eq('session_id', metadata.sessionId)
+        .order('created_at', { ascending: false })
+        .limit(1)
+        .single();
+      
+      existingLead = existing;
+    }
+
+    if (existingLead) {
+      // Update existing lead with new info
+      await supabase
+        .from('chat_leads')
+        .update({
+          name: extracted.name || undefined,
+          email: extracted.email || undefined,
+          phone: extracted.phone || undefined,
+          business_name: extracted.businessName || undefined,
+          website: extracted.website || undefined,
+          project_type: extracted.projectType || undefined,
+          budget_range: extracted.budgetRange || undefined,
+          timeline: extracted.timeline || undefined,
+          requirements: extracted.requirements || undefined,
+          full_conversation: conversation,
+          extraction_confidence: extracted.confidence,
+          priority,
+          updated_at: new Date().toISOString(),
+        })
+        .eq('id', existingLead.id);
+      
+      console.log('Updated existing lead:', existingLead.id);
+    } else {
+      // Insert new lead
+      const { data, error } = await supabase
+        .from('chat_leads')
+        .insert({
+          name: extracted.name,
+          email: extracted.email,
+          phone: extracted.phone,
+          business_name: extracted.businessName,
+          website: extracted.website,
+          project_type: extracted.projectType,
+          budget_range: extracted.budgetRange,
+          timeline: extracted.timeline,
+          requirements: extracted.requirements,
+          full_conversation: conversation,
+          extraction_confidence: extracted.confidence,
+          ip_address: metadata.ip,
+          user_agent: metadata.userAgent,
+          referrer: metadata.referrer,
+          session_id: metadata.sessionId,
+          priority,
+          status: 'new',
+        })
+        .select()
+        .single();
+
+      if (error) {
+        console.error('Failed to save lead:', error);
+      } else {
+        console.log('Saved new lead:', data.id);
+      }
+    }
+  } catch (error) {
+    console.error('Lead extraction error:', error);
+  }
 }
 
 export default async function handler(
@@ -270,6 +466,28 @@ Remember: You're representing Sheldon, so be competent, friendly, and solution-f
         error: 'No response from AI',
         success: false 
       });
+    }
+
+    // Extract lead information from the conversation
+    const conversationHistory = req.body.conversationHistory || [];
+    const fullConversation = [
+      ...conversationHistory,
+      { role: 'user', content: input },
+      { role: 'assistant', content: aiResponse }
+    ];
+
+    // Try to extract lead info (run in background, don't block response)
+    if (supabase) {
+      extractAndSaveLead(
+        fullConversation,
+        {
+          ip: getRateLimitKey(req),
+          userAgent: req.headers['user-agent'] as string || '',
+          referrer: req.headers['referer'] as string || req.headers['referrer'] as string || '',
+          sessionId: req.body.sessionId || '',
+        },
+        OPENAI_API_KEY
+      ).catch(err => console.error('Lead extraction error:', err));
     }
 
     return res.status(200).json({

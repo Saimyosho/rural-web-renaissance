@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useMemo } from "react";
 import { Send, Sparkles, Loader2 } from "lucide-react";
 
 interface Message {
@@ -8,6 +8,9 @@ interface Message {
 }
 
 const SimpleChatbot = () => {
+  // Generate a unique session ID for this chat session
+  const sessionId = useMemo(() => `session_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`, []);
+  
   const [messages, setMessages] = useState<Message[]>([
     {
       id: '1',
@@ -45,11 +48,19 @@ const SimpleChatbot = () => {
     setIsLoading(true);
 
     try {
+      // Build conversation history for context
+      const conversationHistory = messages.map(msg => ({
+        role: msg.isUser ? 'user' : 'assistant',
+        content: msg.text
+      }));
+
       const response = await fetch('/api/openai-chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           input: messageText,
+          conversationHistory,
+          sessionId,
         }),
       });
 
