@@ -20,6 +20,9 @@ interface ExtractedLead {
   budgetRange: string | null;
   timeline: string | null;
   requirements: string | null;
+  inspirationSites: string[] | null;
+  preferredColors: string | null;
+  designStyle: string | null;
   confidence: number;
 }
 
@@ -93,6 +96,9 @@ Extract and return ONLY valid JSON (no markdown, no explanation):
   "budgetRange": "budget mentioned (e.g., '$5k-10k', 'under $5000') or null",
   "timeline": "timeline mentioned (e.g., 'urgent', '1-2 months', 'ASAP') or null",
   "requirements": "brief summary of what they need or null",
+  "inspirationSites": ["array", "of", "website", "URLs", "they", "like"] or null,
+  "preferredColors": "color preferences or brand colors (e.g., 'blue and white', '#FF0000') or null",
+  "designStyle": "design style preference (e.g., 'modern', 'minimal', 'bold', 'elegant') or null",
   "confidence": 0.0-1.0 score
 }
 
@@ -187,6 +193,9 @@ Return null for any field not found. Be conservative - only extract explicitly m
           budget_range: extracted.budgetRange || undefined,
           timeline: extracted.timeline || undefined,
           requirements: extracted.requirements || undefined,
+          inspiration_sites: extracted.inspirationSites || undefined,
+          preferred_colors: extracted.preferredColors || undefined,
+          design_style: extracted.designStyle || undefined,
           full_conversation: conversation,
           extraction_confidence: extracted.confidence,
           priority,
@@ -209,6 +218,9 @@ Return null for any field not found. Be conservative - only extract explicitly m
           budget_range: extracted.budgetRange,
           timeline: extracted.timeline,
           requirements: extracted.requirements,
+          inspiration_sites: extracted.inspirationSites,
+          preferred_colors: extracted.preferredColors,
+          design_style: extracted.designStyle,
           full_conversation: conversation,
           extraction_confidence: extracted.confidence,
           ip_address: metadata.ip,
@@ -417,20 +429,26 @@ YOUR ROLE AS AI ASSISTANT:
 When someone expresses interest in a project, YOU MUST ask these questions naturally throughout the conversation:
 
 **Essential Information:**
-1. **Contact Info:** "What's the best email to send you a detailed quote?"
+1. **Contact Info:** "What's your email so I can send you a detailed quote?"
 2. **Business Name:** "What's your business called?"
 3. **Current Website:** "Do you have an existing website? If so, what's the URL?"
 4. **Project Type:** Confirm what they need (website, AI chatbot, automation, etc.)
-5. **Key Features:** "What are the 3 most important features you need?"
-6. **Design Preferences:** "Do you have any design preferences or competitor sites you like?"
-7. **Target Audience:** "Who are your main customers?"
-8. **Timeline:** "When do you need this completed?"
-9. **Budget:** "What budget range are you working with?"
-10. **Content Ready:** "Do you have content (text, images, logo) or need help creating it?"
-11. **Domain:** "Do you own a domain name already?"
-12. **Hosting:** "Do you have hosting set up or need that included?"
-13. **Integrations:** "Any specific tools you need integrated?" (payments, booking, CRM, etc.)
-14. **Maintenance:** "Will you need ongoing maintenance after launch?"
+5. **Key Features:** "What are your must-have features?"
+6. **Design Inspiration:** "Can you share 2-3 websites you love the design of? This really helps me nail the look you want."
+7. **Colors & Vibe:** "Any specific colors or overall vibe? (modern, elegant, bold, minimal, etc.)"
+8. **Target Audience:** "Who are your main customers?"
+9. **Timeline:** "When do you need this completed?"
+10. **Budget:** "What budget range works for you? (Projects typically run $3k-15k)"
+11. **Content Ready:** "Do you have content (text, images, logo) ready or need help creating it?"
+12. **Domain & Hosting:** "Do you own a domain? Have hosting set up?"
+13. **Integrations:** "Need any specific integrations?" (payments, booking, CRM, etc.)
+14. **Maintenance:** "Want ongoing maintenance after launch?"
+
+**IMPORTANT NOTES:**
+- Always mention that additional features beyond the basics come at a cost
+- Example: "Want online ordering too? That adds $1-2k to the project"
+- Be transparent about pricing for add-ons
+- Make it clear custom features = custom pricing
 
 **How to Ask (Natural Examples):**
 - After initial interest: "Great! To give you an accurate quote, what's your email?"

@@ -17,6 +17,11 @@ CREATE TABLE IF NOT EXISTS chat_leads (
   timeline TEXT, -- "urgent", "1-3 months", "flexible", etc.
   requirements TEXT, -- Full description of what they want
   
+  -- Design Preferences
+  inspiration_sites TEXT[], -- Array of website URLs they like
+  preferred_colors TEXT, -- Color preferences or brand colors
+  design_style TEXT, -- "modern", "minimal", "bold", "elegant", etc.
+  
   -- Metadata
   full_conversation JSONB DEFAULT '[]'::jsonb, -- Complete chat history
   extraction_confidence FLOAT DEFAULT 0.0, -- AI confidence score (0-1)
