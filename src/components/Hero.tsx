@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
-import { ArrowDown, MessageCircle, Play, Check } from "lucide-react";
+import { ArrowDown, MessageCircle, Check } from "lucide-react";
 import { Button } from "./ui/button";
 import { motion } from "framer-motion";
-import AIToolsDemoTabs from "./AIToolsDemoTabs";
+import HeroChatbot from "./HeroChatbot";
 
 const Hero = () => {
   const [scrollY, setScrollY] = useState(0);
@@ -249,63 +249,14 @@ const Hero = () => {
               </motion.div>
             </motion.div>
 
-            {/* RIGHT SIDE - 61.8% (Golden Ratio) - Featured Projects */}
+            {/* RIGHT SIDE - 61.8% (Golden Ratio) - AI Chatbot */}
             <motion.div
               initial={{ opacity: 0, x: 30 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6, delay: 0.4 }}
               className="relative mt-12 lg:mt-0"
             >
-              <div className="glass-strong rounded-2xl p-4 sm:p-6 lg:p-8 border border-primary/20 relative overflow-hidden">
-                {/* Decorative elements */}
-                <div className="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full blur-3xl -z-10" />
-                <div className="absolute bottom-0 left-0 w-64 h-64 bg-accent/5 rounded-full blur-3xl -z-10" />
-                
-                {/* Portfolio Header */}
-                <div className="mb-6">
-                  <h3 className="text-xl sm:text-2xl font-bold mb-2">
-                    Featured Projects
-                  </h3>
-                  <p className="text-sm sm:text-base text-muted-foreground">
-                    Recent work showcasing AI integration & modern development
-                  </p>
-                </div>
-
-                {/* Project Grid */}
-                <div className="grid gap-4 mb-6">
-                  {[
-                    { title: "AI Portal Platform", tech: "React • Supabase • HuggingFace", desc: "Multi-tenant SaaS with AI-powered tools" },
-                    { title: "Review Response Agent", tech: "Python • FastAPI • NLP", desc: "Automated review management system" },
-                    { title: "Content Generation Tool", tech: "TypeScript • Edge Functions", desc: "AI-driven content creation platform" }
-                  ].map((project, i) => (
-                    <motion.div
-                      key={i}
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.6 + i * 0.1 }}
-                      className="glass rounded-lg p-4 hover:bg-primary/5 transition-colors group cursor-pointer"
-                    >
-                      <h4 className="font-semibold text-sm sm:text-base mb-1 group-hover:text-primary transition-colors">
-                        {project.title}
-                      </h4>
-                      <p className="text-xs text-muted-foreground mb-2">{project.tech}</p>
-                      <p className="text-xs sm:text-sm text-muted-foreground">{project.desc}</p>
-                    </motion.div>
-                  ))}
-                </div>
-
-                <Button 
-                  variant="outline" 
-                  className="w-full group"
-                  onClick={() => {
-                    const element = document.getElementById("portfolio");
-                    element?.scrollIntoView({ behavior: "smooth" });
-                  }}
-                >
-                  View All Projects
-                  <ArrowDown className="w-4 h-4 ml-2 group-hover:translate-y-1 transition-transform rotate-[-90deg]" />
-                </Button>
-              </div>
+              <HeroChatbot />
             </motion.div>
 
           </div>
