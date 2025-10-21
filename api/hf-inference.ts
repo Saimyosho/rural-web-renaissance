@@ -59,7 +59,7 @@ Response:`,
       case 'content-generation':
         // Generate marketing content
         result = await hf.textGeneration({
-          model: 'mistralai/Mistral-7B-Instruct-v0.1',
+          model: 'google/gemma-2-9b-it',
           inputs: `Write a ${input.format} about "${input.topic}". Make it professional, engaging, and concise (under 100 words).
 
 ${input.format}:`,
@@ -75,7 +75,7 @@ ${input.format}:`,
       case 'hero-chat':
         // Hero chatbot - Natural language conversation
         result = await hf.textGeneration({
-          model: 'mistralai/Mistral-7B-Instruct-v0.1',
+          model: 'google/gemma-2-9b-it',
           inputs: `You are Sheldon Gunby's professional AI assistant. Answer questions naturally and professionally about his services, expertise, and how he can help businesses.
 
 ABOUT SHELDON:

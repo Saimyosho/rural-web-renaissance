@@ -142,7 +142,7 @@ const HeroChatbot = () => {
               <h3 className="text-lg sm:text-xl font-bold bg-gradient-to-r from-primary via-bridge to-accent bg-clip-text text-transparent">
                 AI Assistant
               </h3>
-              <p className="text-xs text-muted-foreground">Powered by Mistral-7B</p>
+              <p className="text-xs text-muted-foreground">Powered by Google Gemma-2</p>
             </div>
           </div>
           <Badge variant="outline" className="text-xs border-primary/50 bg-primary/5 backdrop-blur">
