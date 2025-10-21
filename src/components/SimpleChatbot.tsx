@@ -38,11 +38,10 @@ const SimpleChatbot = () => {
     setIsLoading(true);
 
     try {
-      const response = await fetch('/api/hf-inference', {
+      const response = await fetch('/api/openai-chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          task: 'hero-chat',
           input: messageText,
         }),
       });
@@ -96,7 +95,7 @@ const SimpleChatbot = () => {
           </div>
           <div>
             <h3 className="font-bold text-lg">AI Assistant</h3>
-            <p className="text-xs text-muted-foreground">Powered by Google Gemma-2 • Always online</p>
+            <p className="text-xs text-muted-foreground">Powered by ChatGPT • Always online</p>
           </div>
         </div>
       </div>
