@@ -452,32 +452,25 @@ All colors MUST be HSL.
 
 /* Hero Background Animations */
 @keyframes gridShift {
-  0%, 100% {
-    transform: translate(0, 0);
-  }
-  50% {
-    transform: translate(10px, 10px);
-  }
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(5px, 5px); }
 }
 
-.bg-gradient-animated {
-  background: linear-gradient(
-    45deg,
-    hsl(var(--background)) 0%,
-    hsl(243 42% 18%) 25%,
-    hsl(var(--background)) 50%,
-    hsl(243 42% 18%) 75%,
-    hsl(var(--background)) 100%
-  );
-  background-size: 400% 400%;
-  animation: gradientFlow 15s ease infinite;
+@keyframes gradient-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
 }
 
-@keyframes gradientFlow {
-  0%, 100% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
+@keyframes pulse-slow {
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.05); }
+}
+
+.animate-gradient-shift {
+  background-size: 200% 200%;
+  animation: gradient-shift 8s ease infinite;
+}
+
+.animate-pulse-slow {
+  animation: pulse-slow 4s ease-in-out infinite;
 }

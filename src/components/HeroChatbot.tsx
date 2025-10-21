@@ -118,22 +118,38 @@ const HeroChatbot = () => {
   );
 
   const ChatInterface = () => (
-    <div className="glass-strong rounded-2xl p-6 border border-primary/20 relative overflow-hidden h-full flex flex-col">
-      {/* Decorative gradient */}
-      <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-full blur-2xl -z-10" />
-      <div className="absolute bottom-0 left-0 w-32 h-32 bg-accent/5 rounded-full blur-2xl -z-10" />
-
-      {/* Header */}
-      <div className="flex items-center justify-between mb-4">
-        <h3 className="text-lg sm:text-xl font-bold flex items-center gap-2">
-          <MessageSquare className="w-5 h-5 text-primary" />
-          Ask Me Anything
-        </h3>
-        <Badge variant="outline" className="text-xs">
-          <Sparkles className="w-3 h-3 mr-1" />
-          AI Powered
-        </Badge>
-      </div>
+    <div className="relative rounded-3xl overflow-hidden h-full flex flex-col">
+      {/* Animated gradient background */}
+      <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-bridge/5 to-accent/10 animate-gradient-shift" />
+      <div className="absolute top-0 right-0 w-64 h-64 bg-primary/20 rounded-full blur-3xl animate-pulse-slow" />
+      <div className="absolute bottom-0 left-0 w-64 h-64 bg-accent/20 rounded-full blur-3xl animate-pulse-slow" style={{ animationDelay: '1s' }} />
+      
+      {/* Glass container */}
+      <div className="relative glass-strong rounded-3xl p-6 border border-primary/30 backdrop-blur-xl shadow-2xl h-full flex flex-col">
+        {/* Animated border glow */}
+        <div className="absolute -inset-0.5 bg-gradient-to-r from-primary via-bridge to-accent rounded-3xl opacity-20 blur animate-pulse-slow" />
+        
+        {/* Header with gradient */}
+        <div className="relative flex items-center justify-between mb-6">
+          <div className="flex items-center gap-3">
+            <div className="relative">
+              <div className="absolute inset-0 bg-gradient-to-r from-primary to-accent rounded-xl blur opacity-50 animate-pulse-slow" />
+              <div className="relative bg-gradient-to-br from-primary to-accent p-2.5 rounded-xl">
+                <MessageSquare className="w-5 h-5 text-white" />
+              </div>
+            </div>
+            <div>
+              <h3 className="text-lg sm:text-xl font-bold bg-gradient-to-r from-primary via-bridge to-accent bg-clip-text text-transparent">
+                AI Assistant
+              </h3>
+              <p className="text-xs text-muted-foreground">Powered by Mistral-7B</p>
+            </div>
+          </div>
+          <Badge variant="outline" className="text-xs border-primary/50 bg-primary/5 backdrop-blur">
+            <Sparkles className="w-3 h-3 mr-1 animate-pulse" />
+            Live
+          </Badge>
+        </div>
 
       {/* Chat messages */}
       <ScrollArea className="flex-1 mb-4 pr-4 h-64" ref={scrollRef}>
@@ -225,6 +241,7 @@ const HeroChatbot = () => {
       <p className="text-xs text-muted-foreground mt-2 text-center">
         Natural language supported • Ask anything about AI, SaaS, or web development
       </p>
+      </div>
     </div>
   );
 
